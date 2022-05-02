@@ -6,15 +6,15 @@ const Schema = mongoose.Schema
 const movieSchema = new Schema( {
     name:{
         type:String,
-        require: true
+        required: true
     },
     director:{
         type: String,
-        require: true
+        required: true
     },
     character:{
         type: String,
-        require: true
+        required: true
     },
     national: String,
     producer: {
@@ -22,20 +22,20 @@ const movieSchema = new Schema( {
     },
     description:{
         type:String,
-        require: true
+        required: true
     },
     imageUrl:{
         type: String,
-        require: true
+        required: true
     },
     typeFilm: {
         type:String
-    },
-    userId:{
-        type: Schema.Types.ObjectId,
-        ref:'User',
-        require: true
     }
+    // userId:{
+    //     type: Schema.Types.ObjectId,
+    //     ref:'User',
+    //     required: true
+    // }
 } )
 
 

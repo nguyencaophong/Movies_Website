@@ -1,5 +1,5 @@
-const homeRouter = require( '/home' );
-const authRouter = require( '/auth' );
+const homeRouter = require( './home' );
+// const authRouter = require( './auth' );
 const adminRouter = require( './admin' );
 
 function route( app ) {

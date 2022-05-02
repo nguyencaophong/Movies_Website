@@ -1,0 +1,334 @@
+<%- include('../includes/header.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+<%- include('../includes/navigation.ejs') %>
+    
+      <div class="container container-body">
+          <div class="row">
+              <div class="container-header-slider-list">
+                  <div class="col-md-6">
+                      <div class="container-header-slider-item">
+                        
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-9" >
+                <div class="container-home-list">
+                    <div id="IDPHIMBO" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <h1>PHIM BỘ MỚI CẬP NHẬT</h1>
+                          <div class="carousel-item active">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                      <% for (let i=0; i < 8; i++) { %>
+                                              <div class="col-md-3">
+                                                <div class="container-movie-item">
+                                                    <a href="/film/<%= listPhimBo[i].name %>" class="container-movie-item-link">
+          
+                                                        <img class="container-movie-img" src="/<%= listPhimBo[i].imageUrl %>" alt="fasdf">
+                                                    </a>
+          
+                                                    <a href="/film/<%= listPhimBo[i].name %>" class="container-movie-item-link">
+          
+                                                        <div class="container-movie-name">
+                                                          <%= listPhimBo[i].name %>
+                                                        </div>  
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                        <% for (let i=8; i < 16; i++) { %>
+                                                <div class="col-md-3">
+                                                  <div class="container-movie-item">
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <img class="container-movie-img" src="/<%= listChieuRap[i].imageUrl %>" alt="fasdf">
+                                                      </a>
+            
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <div class="container-movie-name">
+                                                            <%= listChieuRap[i].name %>
+                                                          </div>  
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          <% } %>
+                                      </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#IDPHIMBO" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#IDPHIMBO" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+                </div>
+
+
+                <div class="container-home-list">
+                    <div id="IDPHIMLE" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <h1>PHIM LẺ MỚI CẬP NHẬT</h1>
+                          <div class="carousel-item active">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                      <% for (let i=0; i < 8; i++) { %>
+                                              <div class="col-md-3">
+                                                <div class="container-movie-item">
+                                                    <a href="/film/<%= listPhimLe[i].name %>" class="container-movie-item-link">
+          
+                                                        <img class="container-movie-img" src="/<%= listPhimLe[i].imageUrl %>" alt="fasdf">
+                                                    </a>
+          
+                                                    <a href="/film/<%= listPhimLe[i].name %>" class="container-movie-item-link">
+          
+                                                        <div class="container-movie-name">
+                                                          <%= listPhimLe[i].name %>
+                                                        </div>  
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                        <% for (let i=8; i < 16; i++) { %>
+                                                <div class="col-md-3">
+                                                  <div class="container-movie-item">
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <img class="container-movie-img" src="/<%= listChieuRap[i].imageUrl %>" alt="fasdf">
+                                                      </a>
+            
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <div class="container-movie-name">
+                                                            <%= listChieuRap[i].name %>
+                                                          </div>  
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          <% } %>
+                                      </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#IDPHIMLE" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#IDPHIMLE" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+                </div>
+
+                <div class="container-home-list">
+                    <div id="IDPHIMCHIEURAP" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <h1>PHIM CHIẾU RẠP MỚI CẬP NHẬT</h1>
+                          <div class="carousel-item active">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                      <% for (let i=0; i < 8; i++) { %>
+                                              <div class="col-md-3">
+                                                <div class="container-movie-item">
+                                                    <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+          
+                                                        <img class="container-movie-img" src="/<%= listChieuRap[i].imageUrl %>" alt="fasdf">
+                                                    </a>
+          
+                                                    <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+          
+                                                        <div class="container-movie-name">
+                                                          <%= listChieuRap[i].name %>
+                                                        </div>  
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                        <% for (let i=8; i < 16; i++) { %>
+                                                <div class="col-md-3">
+                                                  <div class="container-movie-item">
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <img class="container-movie-img" src="/<%= listChieuRap[i].imageUrl %>" alt="fasdf">
+                                                      </a>
+            
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <div class="container-movie-name">
+                                                            <%= listChieuRap[i].name %>
+                                                          </div>  
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          <% } %>
+                                      </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#IDPHIMCHIEURAP" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#IDPHIMCHIEURAP" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+                </div>
+
+                <div class="container-home-list">
+                    <div id="IDHOATHINH" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <h1>HOẠT HÌNH</h1>
+                          <div class="carousel-item active">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                      <% for (let i=0; i < 8; i++) { %>
+                                              <div class="col-md-3">
+                                                <div class="container-movie-item">
+                                                    <a href="/film/<%= HoatHinh[i].name %>" class="container-movie-item-link">
+          
+                                                        <img class="container-movie-img" src="/<%= HoatHinh[i].imageUrl %>" alt="fasdf">
+                                                    </a>
+          
+                                                    <a href="/film/<%= HoatHinh[i].name %>" class="container-movie-item-link">
+          
+                                                        <div class="container-movie-name">
+                                                          <%= HoatHinh[i].name %>
+                                                        </div>  
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container-home-list">
+                                <div class="container">
+                                    <div class="row">
+                                        <% for (let i=8; i < 16; i++) { %>
+                                                <div class="col-md-3">
+                                                  <div class="container-movie-item">
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <img class="container-movie-img" src="/<%= listChieuRap[i].imageUrl %>" alt="fasdf">
+                                                      </a>
+            
+                                                      <a href="/film/<%= listChieuRap[i].name %>" class="container-movie-item-link">
+            
+                                                          <div class="container-movie-name">
+                                                            <%= listChieuRap[i].name %>
+                                                          </div>  
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          <% } %>
+                                      </div>
+                                </div>
+          
+                            </div> 
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#IDHOATHINH" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#IDHOATHINH" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+                </div>
+
+              </div>
+              <div class="col-md-3" >
+                <div class="container-home-sidebar">
+
+                    <span>PHIM SẮP CHIẾU</span>
+                    <div class="sidebar-movie-new-list">
+                        <% for (let movies of listPhimSapChieu) { %>
+                        <div class="sidebar-movie-new-item">
+                            <img class="sidebar-item-img" src="<%= movies.imageUrl %>" alt="fasdfasd">
+                            <div class="sidebar-item-content">            
+                                <span class="sidebar-item-episode">
+                                    1/1 Tập
+                                </span>
+                                <span class="sidebar-item-producer">
+                                    <%= movies.producer %>
+                                </span>
+                                <p class="sidebar-item-name">
+                                    <%= movies.name %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <% } %>
+                    </div>
+
+                    <div class="sidebar-movie-chaton">
+                        <h1>CHAT ON</h1>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>      
+
+
+<%- include('../includes/footer.ejs') %>
