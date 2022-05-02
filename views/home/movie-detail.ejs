@@ -126,12 +126,30 @@
             <div class="col-md-3">
                 <div class="container-detail-sidebar">
                     <div class="sidebar-movie-new">
-                        <span class="sidbar-movie-new-name">
-                            Hello
-                        </span>
-                        <span class="sidebar-movie-new-episode">
-                            1/1 Tập
-                        </span>
+                        <span>PHIM SẮP CHIẾU</span>
+                        <div class="sidebar-movie-new-list">
+                            <% for (let movies of listPhimSapChieu) { %>
+                            <div class="sidebar-movie-new-item">
+                                <img class="sidebar-item-img" src="/<%= movies.imageUrl %>" alt="fasdfasd">
+                                <div class="sidebar-item-content">            
+                                    <span class="sidebar-item-episode">
+                                        1/1 Tập
+                                    </span>
+                                    <span class="sidebar-item-producer">
+                                        <%= movies.producer %>
+                                    </span>
+                                    <p class="sidebar-item-name">
+                                        <%= movies.name %>
+                                    </p>
+                                </div>
+                            </div>
+    
+                            <% } %>
+                        </div>
+    
+                        <div class="sidebar-movie-chaton">
+                            <h1>CHAT ON</h1>
+                        </div>
                     </div>
                 </div>
             </div>

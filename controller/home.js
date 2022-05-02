@@ -41,10 +41,14 @@ exports.getMovieDetail = async( req,res,next ) =>{
 
         const listPhimChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} )
             .limit( 18 );
+
+        const listPhimSapChieu = await Movie.find( {typeFilm: 'Phim-Sắp-Chiếu'} )
+            .limit( 6 );
+
         res.render( 'home/movie-detail',{
             movie: movieDetail,
             listPhimChieuRap: listPhimChieuRap,
-            argvList: listPhimChieuRap/3,
+            listPhimSapChieu: listPhimSapChieu,
             national: movie.national
         } )
     } catch ( error ) {

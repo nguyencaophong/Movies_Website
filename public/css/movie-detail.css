@@ -22,7 +22,7 @@
 }
 
 .container-detail-sidebar{
-    height: 200px;
+    height: auto;
     background-color: rgb(115, 70, 11);
 
 }
