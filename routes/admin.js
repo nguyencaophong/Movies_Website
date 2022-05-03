@@ -12,7 +12,8 @@ router.post( '/add-movie',
     [
         check( 'name','This username must me 3+ characters long' )
             .exists()
-            .isLength( {min:3} ),
+            .isLength( {min:3} )
+            .trim(),
         check( 'description','This description must me 3+ characters long' )
             .exists()
             .isLength( {min:5,max:500} )

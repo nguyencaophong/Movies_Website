@@ -10,8 +10,8 @@ exports.getAddMovies = async ( req,res ) =>{
         path:'/admin/edit-movie',
         editing:false,
         hasError: false,
-        errorMeassage: null,
-        validationErroe:[]
+        errorMessage: null,
+        validationErrors:[]
     } );
 }
 
@@ -26,13 +26,60 @@ exports.postAddMovies =async ( req,res ) =>{
     const producer = req.body.producer;
     const typeFilm = req.body.typeFilm;
     
+    const typeFilmArray = ['Phim-Bộ','Phim-Thuyết-Minh','Phim-Sắp-Chiếu','Hoạt-Hình','Phim-Lẻ','Cổ Trang - Thần Thoại']
+
+    const checkTypeFilm = typeFilmArray.includes( typeFilm );
+
     const errors = validationResult( req )
+
+
     if( !errors.isEmpty() ) {
-        res.render( 'admin/edit-movie',{
+        return res.status( 422 ).render( 'admin/edit-movie',{
             pageTitle: 'Add Movie',
-            path: 'admin/add-product',
+            path: 'admin/add-movie',
             editing: false,
             hasError: true,
+            errorMessage: errors.array()[0].msg,
+            movie: {
+                name:name,
+                description: description,
+                director: director,
+                character: character,
+                national: national,
+                producer: producer,
+                typeFilm: typeFilm
+            },
+            validationErrors: errors.array()
+        } )
+    }
+
+    if( checkTypeFilm === false ) {
+        return res.status( 422 ).render( 'admin/edit-movie',{
+            pageTitle: 'Add Movie',
+            path: 'admin/add-movie',
+            editing: false,
+            hasError: true,
+            errorMessage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
+            movie: {
+                name:name,
+                description: description,
+                director: director,
+                character: character,
+                national: national,
+                producer: producer,
+                typeFilm: typeFilm
+            },
+            validationErrors: errors.array()
+        } )
+    }
+
+    if( !images ) {
+        return res.status( 422 ).render( 'admin/edit-movie',{
+            pageTitle: 'Add Movie',
+            path: 'admin/add-movie',
+            editing: false,
+            hasError: true,
+            errorMessage: 'Attached file is not an image.',
             movie: {
                 name:name,
                 description: description,
@@ -60,7 +107,7 @@ exports.postAddMovies =async ( req,res ) =>{
                 typeFilm: typeFilm
         
             } )
-            const saveMovie =await movie.save();
+            await movie.save();
             res.redirect( '/admin/add-movie' )
             console.log( 'Created Movie success' );
         }
