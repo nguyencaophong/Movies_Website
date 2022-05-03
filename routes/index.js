@@ -1,10 +1,11 @@
 const homeRouter = require( './home' );
-// const authRouter = require( './auth' );
+const authRouter = require( './auth' );
 const adminRouter = require( './admin' );
 
 function route( app ) {
     app.use( '/admin',adminRouter );
 
+    app.use( '/auth',authRouter );
     
     app.use( '/',homeRouter );
 }

@@ -1,3 +1,4 @@
 *.env
 node_modules
 images/
+public/fontawesome-free-6.1.1-web

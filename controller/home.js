@@ -1,5 +1,5 @@
 const path = require( 'path' );
-const movie = require( '../models/movie' );
+
 const Movie = require( '../models/movie' )
 
 const ITEMS_PER_CONTAINER_LIST = 5;
@@ -49,7 +49,7 @@ exports.getMovieDetail = async( req,res,next ) =>{
             movie: movieDetail,
             listPhimChieuRap: listPhimChieuRap,
             listPhimSapChieu: listPhimSapChieu,
-            national: movie.national
+            national: movieDetail.national
         } )
     } catch ( error ) {
         console.log( error )
