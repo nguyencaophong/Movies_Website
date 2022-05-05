@@ -169,7 +169,7 @@ h1 {
 .container-movie-name {
     text-align: center;
     color: #fff;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .container-movie-item:hover .container-movie-item-link .fa-solid.fa-circle-play {
@@ -200,11 +200,6 @@ h1 {
 
 .container-movie-item:hover .container-movie-img {
     transform: scale(1.2);
-}
-
-.container-home-sidebar {
-    height: auto;
-    background-color: chocolate;
 }
 
 .pagination {
@@ -238,9 +233,53 @@ h1 {
 
 /* START HOME SIDEBAR */
 
+/*Phim sắp chiếu - contain home sidebar */
+
+.container-home-sidebar {
+    height: auto;
+    background-color: #dd8e61;
+    margin-top: 16px;
+}
+
+.container-home-sidebar .caption {
+    margin: 0 0 10px 0;
+    padding: 0 0 5px 0;
+    border-bottom: 2px dashed #5d5d5d;
+    font-size: 20px;
+    font-family: 'roboto';
+    font-weight: 300;
+    text-transform: uppercase;
+
+}
+
+.caption span {
+    margin-left: 8px;
+}
+
+.sidebar-movie-new-list .sidebar-movie-new-item {
+    margin: 8px 0;
+}
+
+.sidebar-movie-new-list .sidebar-movie-new-item:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.sidebar-movie-new-item .sidebar-item-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4px;
+}
+
+.sidebar-movie-new-item .sidebar-item-name {
+    font-weight: 600;
+}
+
+
 
 .sidebar-movie-new-list {
     margin-top: 20px;
+    margin-left: 8px;
 
 }
 
@@ -248,19 +287,24 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    display: flex;
+
 }
 
 .sidebar-movie-new-name {}
 
-.sidebar-item-img {
+.sidebar-movie-new-item .sidebar-item-img {
     width: 60px;
     height: 80px;
     border-radius: 4px;
+    flex: 1;
+    margin-right: 4px;
+    border: solid #e9ecef 2px;
 }
 
-.sidebar-item-content {
+.sidebar-movie-new-item .sidebar-item-content {
     display: column;
-
+    flex: 3;
 }
 
 .sidebar-item-name {}
