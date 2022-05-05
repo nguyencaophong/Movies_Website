@@ -16,24 +16,34 @@
     
         <form action="/admin/<% if (editing) { %>edit-movie<% } else { %>add-movie<% } %>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-              <label for="name">name</label>
+              <label for="name">Name Film</label>
               <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="name" 
                 id="name" 
                 value="<% if (editing || hasError) { %><%= movie.name %><% } %>">
             </div>
+
+            <div class="form-group">
+                <label for="movieurl">Movie URL</label>
+                <input 
+                  class="form-control form-edit-movie-item"
+                  type="text" 
+                  name="movieurl" 
+                  id="movieurl" 
+                  value="<% if (editing || hasError) { %><%= movie.movieurl %><% } %>">
+              </div>
     
             <div class="form-group">
               <label for="image">Image</label>
-              <input type="file" class="form-control" name="image" id="image" value="<% if (editing || hasError) { %><%= movie.image %><% } %>">
+              <input type="file" class="form-control form-edit-movie-item" name="image" id="image" value="<% if (editing || hasError) { %><%= movie.image %><% } %>">
             </div>
     
             <div class="form-group">
                 <label for="description">Description</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="description" 
                 id="description" 
@@ -44,7 +54,7 @@
             <div class="form-group">
                 <label for="director">Director</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="director" 
                 id="director" 
@@ -54,7 +64,7 @@
             <div class="form-group">
                 <label for="character">Character</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="character" 
                 id="character" 
@@ -64,7 +74,7 @@
             <div class="form-group">
                 <label for="national">National</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="national" 
                 id="national" 
@@ -74,7 +84,7 @@
             <div class="form-group">
                 <label for="producer">Producer</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="producer" 
                 id="producer" 
@@ -84,7 +94,7 @@
             <div class="form-group">
                 <label for="typeFilm">Typefilm</label>
                 <input 
-                class="form-control"
+                class="form-control form-edit-movie-item"
                 type="text" 
                 name="typeFilm" 
                 id="typeFilm" 

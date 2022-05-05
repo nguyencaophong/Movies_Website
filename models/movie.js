@@ -8,6 +8,10 @@ const movieSchema = new Schema( {
         type:String,
         required: true
     },
+    movieUrl:{
+        type: String,
+        required: true
+    },
     director:{
         type: String,
         required: true
@@ -30,12 +34,12 @@ const movieSchema = new Schema( {
     },
     typeFilm: {
         type:String
+    },
+    userId:{
+        type: Schema.Types.ObjectId,
+        ref:'User',
+        required: true
     }
-    // userId:{
-    //     type: Schema.Types.ObjectId,
-    //     ref:'User',
-    //     required: true
-    // }
 } )
 
 

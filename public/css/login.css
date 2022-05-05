@@ -12,7 +12,7 @@
 
     .box input[type = "email"],
     .box input[type = "password"],
-    .box input[type = "retypepassword"]
+    .box input[type = "confirmpassword"]
     {
         border:0;
         background: none;
@@ -29,7 +29,7 @@
       }
       .box input[type = "email"]:focus,
       .box input[type = "password"]:focus,
-      .box input[type = "retypepassword"]:focus
+      .box input[type = "confirmpassword"]:focus
       {
         width: 280px;
         border-color: #2ecc71;

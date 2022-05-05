@@ -14,7 +14,7 @@ const userSchema = new Schema( {
     },
     role: String,
     resetToken: String,
-    resetTOkenExpiration: Date,
+    resetTokenExpiration: Date,
     cart:{
         items:[
             {
@@ -34,8 +34,8 @@ userSchema.methods.addToCart = function ( movie ) {
     let quantity =0
     quantity = quantity + 1;
     updateCartItems.push( {
-        quantity:quantity,
-        movieId: movie._id
+        movieId: movie._id,
+        quantity:quantity
     } )
 
     const updateCart = {
@@ -59,6 +59,7 @@ userSchema.methods.removeFromCart = function ( movieId ) {
 userSchema.methods.clearCart = function () {
     this.cart = { items: [] }
     return this.save()
+
 }
 
 module.exports = mongoose.model( 'User',userSchema );

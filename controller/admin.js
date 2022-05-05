@@ -5,6 +5,7 @@ const path = require( 'path' );
 const Movie = require( '../models/movie' )
 
 exports.getAddMovies = async ( req,res ) =>{
+    console.log( req.user )
     res.render( 'admin/edit-movie',{
         pageTitle: 'Add Product',
         path:'/admin/edit-movie',
@@ -18,6 +19,7 @@ exports.getAddMovies = async ( req,res ) =>{
 exports.postAddMovies =async ( req,res ) =>{
 
     const name = req.body.name;
+    const movieurl = req.body.movieurl;
     const images = req.file;
     const description = req.body.description;
     const character = req.body.character;
@@ -42,6 +44,7 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMessage: errors.array()[0].msg,
             movie: {
                 name:name,
+                movieurl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -62,6 +65,7 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMessage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
             movie: {
                 name:name,
+                movieurl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -82,6 +86,7 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMessage: 'Attached file is not an image.',
             movie: {
                 name:name,
+                movieurl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -98,14 +103,15 @@ exports.postAddMovies =async ( req,res ) =>{
             const imageUrl = images.path;
             const movie =await new Movie( {
                 name: name,
+                movieUrl: movieurl,
                 description: description,
                 director: director,
                 character: character,
                 national: national,
                 producer: producer,
                 imageUrl:imageUrl,
-                typeFilm: typeFilm
-        
+                typeFilm: typeFilm,
+                userId: req.user
             } )
             await movie.save();
             res.redirect( '/admin/add-movie' )

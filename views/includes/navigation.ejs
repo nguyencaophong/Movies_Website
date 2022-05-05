@@ -38,6 +38,7 @@
         </ul>
     </nav>
     <nav class="main-header-auth">
+        <% if (!isAuthenticated) { %>
         <li class="main-header-auth-item">
             <a href="/auth/login" class="main-header__login-link">Login</a>
         </li>
@@ -45,5 +46,11 @@
         <li class="main-header-auth-item">
             <a href="/auth/register" class="main-header__signin-link">Sign in</a>
         </li>
+
+        <% } else { %>
+            <li class="main-header-auth-item">
+                <a href="/auth/logout" class="main-header__signin-link">Log out</a>
+            </li>
+        <% } %>
     </nav>
 </header>

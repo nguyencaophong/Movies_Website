@@ -18,13 +18,17 @@
     
                   <h2 class="fw-bold mb-2 text-uppercase">FORGOT PASSWORD</h2>
                   <p class="text-white-50 mb-5">Please enter email to reset!</p>
-                  <form action="/auth/login" method="POST">
+                  <form action="/auth/reset" method="POST">
                     <div class="form-outline form-white mb-4">
-                      <label class="form-label" for="typeEmailX">Email</label>
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Enter your email" />
+                      <label class="form-label" for="email">E-Mail</label>
+                      <input type="email" 
+                      id="email" 
+                      name="email"
+                      class="form-control form-control-lg" placeholder="Enter your email" />
                     </div>
-      
-                    <button class="btn btn-primary px-5" type="submit" >Login</button>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    
+                    <button class="btn btn-primary px-5" type="submit" >Send</button>
                   </form>
     
     
