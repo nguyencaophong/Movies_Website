@@ -1,0 +1,41 @@
+<h1>COMMENT</h1>
+
+<form id='form-comment'>
+    <input type='text' id="comment" />
+    <button> send </button>
+</form>
+<ul id='list-comment'>
+
+</ul>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    const FormComment = document.querySelector('#form-comment');
+    const Comment = document.querySelector('#comment');
+    const room = '<%= movie.name %>';
+    socket.emit('join-room', room);
+    /*  
+        gui 1 submit cho server
+    */
+    FormComment.addEventListener('submit',
+        (e) => {
+            e.preventDefault();
+            const comment = Comment.value;
+            socket.emit('comment', room, {
+                comment: comment,
+                user: null
+            });
+            Comment.value = '';
+        }
+    )
+    /*
+        xu li lay tin nhan tu phia server
+    */
+    const comments = document.querySelector('#list-comment');
+    socket.on('user-comment', (comment) => {
+        console.log(comment);
+        const commentItem = document.createElement('li');
+        commentItem.textContent = comment.comment;
+        comments.prepend(commentItem);
+    })
+</script>
