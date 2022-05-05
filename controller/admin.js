@@ -5,7 +5,6 @@ const path = require( 'path' );
 const Movie = require( '../models/movie' )
 
 exports.getAddMovies = async ( req,res ) =>{
-    console.log( req.user )
     res.render( 'admin/edit-movie',{
         pageTitle: 'Add Product',
         path:'/admin/edit-movie',

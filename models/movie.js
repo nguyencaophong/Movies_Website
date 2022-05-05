@@ -39,7 +39,25 @@ const movieSchema = new Schema( {
         type: Schema.Types.ObjectId,
         ref:'User',
         required: true
-    }
+    },
+    comment:[
+        {
+            userId:{
+                type:Schema.Types.ObjectId,
+                ref:'User',
+                required: true
+            },
+            content:{
+                type:String,
+                required: true
+            },
+            location:{
+                type: Number,
+                required: true
+            }
+        }
+    ]
+
 } )
 
 

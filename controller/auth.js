@@ -1,11 +1,12 @@
 const path = require( 'path' )
 const crypto = require( 'crypto' )
 const bcrypt = require( 'bcryptjs' );
-const User = require( '../models/user' );
 const nodemailer = require( 'nodemailer' );
 const sendgridTransport = require( 'nodemailer-sendgrid-transport' )
 const { validationResult } = require( 'express-validator' );
 const flash = require( 'express-flash' );
+const User = require( '../models/user' );
+const Movie = require( '../models/movie' );
 
 const transporter = nodemailer.createTransport(
     sendgridTransport( {
@@ -171,7 +172,7 @@ exports.postReset = async( req,res ) =>{
     let token = ''
     const hashResetToken = crypto.randomBytes( 32, ( err, buffer ) => {
         if ( err ) {
-            console.log( err )
+            console.log( err ,'check error' )
             res.redirect( '/auth/reset' )
         }
         token = buffer.toString( 'hex' )
@@ -238,7 +239,7 @@ exports.postNewPassword = async ( req, res, next ) => {
     const newPassword = req.body.password;
     const userId = req.body.userId;
     const passwordToken = req.body.passwordToken;
-    console.log( userId,passwordToken )
+
     let resetUser;
 
     try {
@@ -271,9 +272,27 @@ exports.logOut = ( req,res ) =>{
 }
 
 exports.getCart = async( req,res ) =>{
-    res.send( 'get cart' );
+    const movieId = req.user._id
+    
+    try {
+        const userDetail =await User.findById( movieId );
+
+        
+    } catch ( error ) {
+        
+    }
 }
 
 exports.postCart = async( req,res ) =>{
-    res.send( 'post cart' );
+    const movieId = req.body.movieId;
+
+    try {
+        const movieDetail = await Movie.findById( movieId );
+        const addMovietoCart = await req.user.addToCart( movieDetail );
+        const nameMovie = movieDetail.name;
+        res.redirect( `/film/${movieDetail.name}` )
+        
+    } catch ( error ) {
+        console.log( error )
+    }
 }

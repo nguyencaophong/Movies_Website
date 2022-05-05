@@ -2,6 +2,7 @@
 <header class="main-header">
     <nav class="main-header-nav">
         <ul class="main-header-nav-list">
+
             <li class="main-header__item">
                 <a href="/" class="main-header__item-link">TRANG CHỦ</a>
             </li>
@@ -29,12 +30,14 @@
             <li class="main-header__item">
                 <a href="" class="main-header__item-link">PHIM BỘ</a>
             </li>
+            <% if (isAuthenticated && roleUser==='admin') { %>
             <li class="main-header__item">
                 <a href="/admin/add-movie" class="main-header__item-link">Add Movies</a>
             </li>
             <li class="main-header__item">
                 <a href="" class="main-header__item-link">Admin</a>
             </li>
+            <% } %>
         </ul>
     </nav>
     <nav class="main-header-auth">
