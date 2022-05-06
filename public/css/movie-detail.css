@@ -1,58 +1,84 @@
-.container-detail-header{
+.container-detail-header {
+    color: #fff;
     width: 100%;
-    height: 70px;
+    height: 40px;
+    padding: 5px 10px;
     background-color: rgb(17, 103, 103);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
 }
 
-.container-detail-body{
+
+.container-detail-body {
     height: auto;
-    background-color: antiquewhite;
+    background-color: #353535;
+    margin-bottom: 16px;
 }
 
-.container-detail-body-title{
+.container-detail-body-title {}
 
-}
-
-.container-detail-body-content{
+.container-detail-body-content {
     display: column;
 }
 
-.container-detail-body-footer{
+.container-detail-body-footer {}
+
+.container-detail-body-description {
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 14px;
+    background-color: #524e4e;
+    padding: 16px;
+}
+
+.container-detail-body-description p {
+    margin-top: 8px;
+    margin-bottom: 1rem;
+    text-align: justify;
+    color: #dcdcdc;
 
 }
 
-.container-detail-sidebar{
+.container-detail-body-description span {
+    color: #ccc;
+    font-weight: 700;
+}
+
+
+.container-detail-sidebar {
     height: auto;
     background-color: rgb(115, 70, 11);
 
 }
 
-.container-detail-body-img{
+.container-detail-body-img {
     height: auto;
     background-color: brown;
 }
 
-.btn-detail-body-watch{
+.btn-detail-body-watch {
     position: absolute;
-     bottom: 32px;
+    bottom: 32px;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 4px;
     background-color: brown;
 }
 
-.container-detail-body-detail{
+.container-detail-body-detail {
     height: auto;
     background-color: cadetblue;
 }
 
-.container-detail-body-img-detail{
-   width: 400px;
-   height: 100%;
+.container-detail-body-img-detail {
+    width: 400px;
+    height: 100%;
 
 }
 
-.container-detail-body-img-content{
+.container-detail-body-img-content {
     text-align: center;
     position: relative;
     background-color: black;
@@ -60,11 +86,8 @@
     height: 400px;
 }
 
-.contain-detail-body-chaton{
+.contain-detail-body-chaton {
     width: 100%;
     height: 400px;
     background-color: brown;
 }
-
-
-

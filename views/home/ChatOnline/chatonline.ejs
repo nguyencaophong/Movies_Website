@@ -12,6 +12,7 @@
     const socket = io();
     const FormComment = document.querySelector('#form-comment');
     const Comment = document.querySelector('#comment');
+    // 
     const room = '<%= movie.name %>';
     socket.emit('join-room', room);
     /*  

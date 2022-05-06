@@ -88,6 +88,8 @@ mongoose
     .then(result => {
         console.log(`http://localhost:${PORT}`)
         const server = app.listen(8000);
+
+        // su dung socket 
         const io = socket(server);
         io.on("connection",
             (socket) => {
@@ -97,7 +99,9 @@ mongoose
                     }
                 );
                 socket.on('comment',
-                    (room, data) => {
+                    (room, data) => 
+                    // tra lai cho client đã tham gia vào romom
+                    {
                         io.to(room).emit('user-comment', {
                             comment: data.comment,
                             room: room
