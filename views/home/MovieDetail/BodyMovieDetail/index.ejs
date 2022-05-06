@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="container-detail-header">
+        
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <%- include('./InforMovieDetail/informoviedetail.ejs',{
+                movie: movie,
+            }) %>
+
+            <%- include('./DescriptionMovieDetail/descriptionmoviedetail.ejs',{movie: movie}) %>
+
+            <%- include('../../ChatOnline/chatonline.ejs') %>
+
+            <%- include('./NominateMovie/index.ejs',{listPhimChieuRap: listPhimChieuRap}) %>
+
+        </div>
+        <div class="col-md-3">
+            <%- include('../../SideBar/index.ejs',{movies: listPhimSapChieu}) %>
+        </div>
+    </div>
+</div>

@@ -19,7 +19,7 @@ exports.getIndex = async( req,res,next ) =>{
         const listPhimSapChieu = await Movie.find( {typeFilm: 'Phim-Sắp-Chiếu'} )
             .limit( 6 );
         
-        res.render( 'home/index',{
+        res.render( 'home/HomePage/index.ejs',{
             listPhimBo: listPhimBo,
             listPhimLe:listPhimLe,
             listChieuRap:listChieuRap,
@@ -34,22 +34,24 @@ exports.getIndex = async( req,res,next ) =>{
     }
 }
 
-exports.getMovieDetail = async( req,res,next ) =>{
-    
+exports.getMovieDetail = async( req,res ) =>{
+    let movieDetail;
     try {
-        const movieDetail = await Movie.findOne( {name: req.params.name} );     
-
+        
         const listPhimChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} )
             .limit( 18 );
-
+        
         const listPhimSapChieu = await Movie.find( {typeFilm: 'Phim-Sắp-Chiếu'} )
             .limit( 6 );
-
-        res.render( 'home/movie-detail',{
-            movie: movieDetail,
+        
+        movieDetail = await Movie.findOne( {name: req.params.name} );  
+        if( movieDetail === null ) {
+            movieDetail= 'Undified';
+        }  
+        res.render( 'home/MovieDetail/index.ejs',{
             listPhimChieuRap: listPhimChieuRap,
-            listPhimSapChieu: listPhimSapChieu,
-            national: movieDetail.national
+            movie: movieDetail,
+            listPhimSapChieu: listPhimSapChieu
         } )
     } catch ( error ) {
         console.log( error )
@@ -59,11 +61,13 @@ exports.getMovieDetail = async( req,res,next ) =>{
 exports.getWatchMovie = async( req,res,next ) =>{
     try {
 
-        const listPhimChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} );
-        res.render( 'home/movie-watch',{
-            listPhimChieuRap: listPhimChieuRap
+        const movieId = req.params.name;
+        const movieDetail = await Movie.findById( movieId );
+               
+        res.render( 'home/VideoMovie/index.ejs',{
+            movie: movieDetail
         } )
     } catch ( error ) {
-        
+        console.log( error )
     }
 }
