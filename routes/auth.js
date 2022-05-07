@@ -5,6 +5,7 @@ const {check } = require( 'express-validator' );
 const authController = require( '../controller/auth' );
 const User = require( '../models/user' )
 const route = express.Router()
+const isLogin = require( '../middleware/is-auth' );
 
 route.get( '/login',authController.getLogin );
 
@@ -67,8 +68,9 @@ route.post( '/new-password',authController.postNewPassword );
 
 route.get( '/logout',authController.logOut );
 
-route.get( '/cart',authController.getCart );
+route.get( '/cart',isLogin,authController.getCart );
 
-route.post( '/cart',authController.postCart );
+route.post( '/cart',isLogin,authController.postCart );
 
+route.post( '/cart-delete',isLogin,authController.postDeleteMovieCart )
 module.exports = route;

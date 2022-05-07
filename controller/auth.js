@@ -275,11 +275,20 @@ exports.getCart = async( req,res ) =>{
     const movieId = req.user._id
     
     try {
-        const userDetail =await User.findById( movieId );
+        const getAllCart =await req.user
+            .populate( 'cart.items.movieId' )
+
+        const movies = getAllCart.cart.items
+
+        res.render( 'home/CartUser/index.ejs',{
+            path:'/auth/cart',
+            pageTitle:'Cart',
+            movies: movies
+        } )
 
         
     } catch ( error ) {
-        
+        console.log( error )
     }
 }
 
@@ -291,8 +300,20 @@ exports.postCart = async( req,res ) =>{
         const addMovietoCart = await req.user.addToCart( movieDetail );
         const nameMovie = movieDetail.name;
         res.redirect( `/film/${movieDetail.name}` )
-        
     } catch ( error ) {
         console.log( error )
+    }
+}
+
+exports.postDeleteMovieCart = async( req,res,next ) =>{
+    const movieId = req.body.movieId;
+
+    try {
+        await req.user.removeFromCart( movieId );
+
+        res.redirect( '/auth/cart' );
+        console.log( 'Deleted movie in Cart' )
+    } catch ( error ) {
+        console.log( error )    
     }
 }
