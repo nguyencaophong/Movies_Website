@@ -1,0 +1,98 @@
+<div class="body-container-admin">
+    <div class="body-admin-header">
+        <p class="body-admin-header-title"><%= pageTitle %></p>
+    </div>
+
+    <div class="body-admin-content">
+        <div class="body-admin-content-header">
+            <div class="container">
+                <div class="row">
+                    <div class="body-admin-content-item body-admin-content-item-header">
+                        <div class="col-md-2 item-header">
+                            <span>| ID</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| User</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Email</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Status</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Action</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="body-admin-content-list">
+            <% users.forEach((user,index) => { %>
+            <div class="container">
+                <div class="row">
+                    <div class="body-admin-content-item">
+                        <div class="col-md-2">
+                            <span><%= index %></span>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <a class="body-item-user text-decoration-none" href="#">
+                                <span>User <%= index %></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <span><%= user.email %></span>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <span style="color: rgb(12, 160, 71);">Active</span>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="body-admin-content-item-action">
+                                <a href="/admin/get-all-user/<%=user._id%>?edit=true" class="btn-body-admin-item text-decoration-none btn-primary">Edit</a>
+                                <a href="">
+                                    <i class="fa-solid fa-trash body-admin-item-icon"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Form hidden edit user -->
+<form name="edit-form-userId" method="POST">
+    <input id="hidden-userId" type="hidden"  name="userId">
+    <input id="hidden-csrf" type="hidden" name="_csrf" >
+</form>
+
+<script>
+    const btnEdit_User = document.getElementById('.editUser');
+    const btnForm_Edit_User = document.forms['edit-form-userId'];
+
+    let userId;
+    let csrf;
+
+    btnEdit_User.onclick = () =>{
+
+    }
+</script>

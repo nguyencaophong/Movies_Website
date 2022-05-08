@@ -1,8 +1,10 @@
 const mongoose = require( 'mongoose' )
 
 const { validationResult } = require( 'express-validator' )
+const bcrypt = require( 'bcryptjs' );
 const path = require( 'path' );
 const Movie = require( '../models/movie' )
+const User = require( '../models/user' )
 
 exports.getAddMovies = async ( req,res ) =>{
     res.render( 'admin/edit-movie',{
@@ -129,4 +131,113 @@ exports.getEditMovie = async ( req,res,next ) =>{
 
 exports.postEditMovie = async( req,res,next ) =>{
     res.send( 'edit movie' )
+}
+
+exports.getIndex = async( req,res ) =>{
+    try {
+        res.render( 'admin/AdminHome/index.ejs' )
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.getAllUser = async( req,res ) =>{
+    try {
+        const getAllUser = await User.find();
+        res.render( 'admin/AdminHome/index.ejs',{
+            path:'/admin/get-all-user',
+            pageTitle:'U S E R',
+            users: getAllUser,
+            id: 0
+        } )
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.getEditUser = async( req,res ) =>{
+    try {
+        const editMode = req.query.edit;
+        if( !editMode ) {
+            res.redirect( '/' );
+        }
+
+        const userId = req.params.id;
+        const userDetail =await User.findById( userId );
+        
+        if( !userDetail ) {
+            res.redirect( '/' );
+        }
+
+        res.render( 'admin/EditUserHome/index.ejs',{
+            pageTitle:`U S E R : ${userDetail.email}`,
+            path:'/admin/get-all-user',
+            user: userDetail,
+            editing: editMode,
+            hashError: false,
+            errorMeassage:null,
+            oldInput: {
+                email: userDetail.email,
+                password: ''
+            },
+            validationErrors: []
+        } )
+        
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.postEditUser = async( req,res ) =>{
+    const email = req.body.email;
+    const password = req.body.password;
+    const userId = req.body.userId;
+
+    const error = validationResult( req );
+
+    const userDetail =await User.findById( userId );
+    if( !userDetail ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs', {
+            path: `/get-all-user/${userId}/edit`,
+            pageTitle: `U S E R : ${userDetail.email}`,
+            errorMeassage: 'Can not find User.',
+            editing: true,
+            hashError: true,
+            oldInput: {
+                email: email,
+                password: password
+            },
+            validationErrors: [ ]
+        } )
+    }
+    
+    if( !error.isEmpty() ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs' ,{
+            user: userDetail,
+            path: `/get-all-user/${userId}/edit`,
+            pageTitle:`U S E R : ${userDetail.email}`,
+            errorMeassage: error.array()[0].msg,
+            editing: true,
+            hashError: true,
+            oldInput:{
+                email:email,
+                password:password
+            },
+            validationErrors: error.array()
+        } )
+    }
+
+    try {
+        const bcryptPassword = await bcrypt.hash( password, 12 );
+        userDetail.email = email;
+        userDetail.password= bcryptPassword;
+
+        await userDetail.save();
+        console.log( 'UPDATED USER' );
+        res.redirect( '/admin/get-all-user' )
+    } catch ( error ) {
+        console.log( error );
+    }
+
+
 }

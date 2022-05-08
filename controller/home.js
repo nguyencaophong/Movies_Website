@@ -35,7 +35,6 @@ exports.getIndex = async( req,res,next ) =>{
 }
 
 exports.getMovieDetail = async( req,res,next ) =>{
-    
     try {
         const movieDetail = await Movie.findOne( {name: req.params.name} );     
 

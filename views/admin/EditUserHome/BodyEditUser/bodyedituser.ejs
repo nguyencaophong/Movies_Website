@@ -1,0 +1,48 @@
+<div class="body-container-admin">
+    <div class="body-admin-header">
+        <p class="body-admin-header-title"><%= pageTitle %></p>
+    </div>
+
+    <div class="body-edit-user">
+        <div class="body-edit-user-form">
+            <% if (errorMeassage) { %>
+                <div class="alert alert-danger user-edit-message-error" role="alert"><%= errorMeassage %></div>
+            <% } %>
+            <div class="container">
+            <form action="/admin/get-all-user" method="POST" enctype="multipart/form-data">
+                <div class="edit-user-form ">
+                    <div class="form-group edit-user-item">
+                      <label for="email">Email</label>
+                      <input 
+                       class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %> form-control edit-user-item-input"
+                        type="text" 
+                        name="email" 
+                        id="email" 
+                        value="<% if (editing || hasError) { %><%= user.email %><% } %>">
+                    </div>
+        
+                    <div class="form-group edit-user-item">
+                        <label for="password">Password</label>
+                        <input 
+                         class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %> form-control edit-user-item-input"
+                          type="password" 
+                          name="password" 
+                          id="password"
+                          value="<% if (editing || hasError) { %><%= user.password %><% } %>"
+                          placeholder="Enter Your password" >
+                      </div>
+
+                </div>
+    
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    
+                <% if (editing) { %>
+                    <input type="hidden" value="<%= user._id %>" name="userId">
+                <% } %>
+                
+                <button type="submit" class="btn btn-primary btn-edit-user-submit">Update</button>
+              </form>
+        </div>
+    </div>
+</div>
+

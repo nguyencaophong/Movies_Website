@@ -1,0 +1,28 @@
+.sidebar-admin-list span,
+.sidebar-admin-list i
+{
+    font-size: 16px;
+    color: rgb(179, 173, 173);
+
+}
+
+.sidebar-admin-list li a{
+    font-size: 16px;
+    color: orange;
+}
+
+.sidebar-nav-item{
+    margin-top: 20px;
+}
+
+.sidebar-title{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 800;
+    color: rgb(3, 55, 62);
+}
+
+.sidebar-container{
+    background-color: #263238;
+}
+

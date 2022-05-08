@@ -7,6 +7,25 @@ const checkRole = require( '../middleware/check-Role' )
 
 const router = express.Router();
 
+router.get( '/',adminController.getIndex );
+
+router.get( '/get-all-user/:id',adminController.getEditUser );
+
+router.post( '/get-all-user',
+    [
+        check( 'email' )
+            .isEmail()
+            .withMessage( 'Please enter a valid email address.' )
+            .normalizeEmail(),
+        check( 'password' )
+            .exists()
+            .isLength( { min: 5 } )
+            .isAlphanumeric()
+            .trim()
+    ]
+    ,adminController.postEditUser );
+
+router.get( '/get-all-user',adminController.getAllUser );
 
 router.get( '/add-movie',adminController.getAddMovies );
 
@@ -53,5 +72,6 @@ router.post( '/add-movie',
 );
 
 router.post( '/edit-movie', adminController.postEditMovie );
+
 
 module.exports = router;
