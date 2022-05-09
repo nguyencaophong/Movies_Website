@@ -17,7 +17,7 @@ router.post( '/get-all-user',
             .isEmail()
             .withMessage( 'Please enter a valid email address.' )
             .normalizeEmail(),
-        check( 'password' )
+        check( 'password','Please enter your password' )
             .exists()
             .isLength( { min: 5 } )
             .isAlphanumeric()
@@ -73,5 +73,6 @@ router.post( '/add-movie',
 
 router.post( '/edit-movie', adminController.postEditMovie );
 
+router.post( '/delete-user',adminController.deleteUser );
 
 module.exports = router;

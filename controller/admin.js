@@ -241,3 +241,15 @@ exports.postEditUser = async( req,res ) =>{
 
 
 }
+
+exports.deleteUser = async( req,res ) =>{
+    try {
+        const userId = req.body.userId;
+        console.log( userId )
+        await User.deleteOne( {_id: userId} );
+        console.log( 'DELETED USER SUCCESS !' )
+        res.redirect( '/admin/get-all-user' );
+    } catch ( error ) {
+        console.log( error );
+    }
+}
