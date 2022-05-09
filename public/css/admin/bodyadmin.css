@@ -104,6 +104,7 @@
     width: 300px;
     height: 35px;
     border-radius: 4px;
+    font-size: 12px;
 }
 
 .body-admin-search-icon{
@@ -119,7 +120,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:#333 ;
     width: 48px;
     height: 32px;
     text-align: center;
@@ -128,10 +128,13 @@
 
 .body-admin-search-add-user-icon{
     font-size: 20px;
-    color: white;
+    color: black;
+    padding: 4px 6px;
 }
 
 .body-admin-search-add-user:hover{
     cursor: pointer;
-    background-color: #666;
+}
+.body-admin-search-add-user-icon:hover{
+    color: darkgoldenrod;
 }

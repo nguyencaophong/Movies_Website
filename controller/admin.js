@@ -148,8 +148,7 @@ exports.getAllUser = async( req,res ) =>{
         res.render( 'admin/AdminHome/index.ejs',{
             path:'/admin/get-all-user',
             pageTitle:'U S E R',
-            users: getAllUser,
-            id: 0
+            users: getAllUser
         } )
     } catch ( error ) {
         console.log( error );
@@ -354,4 +353,23 @@ exports.postAddUser = async( req,res ) =>{
         console.log( error )
     }
 
+}
+
+exports.searchUser = async( req,res ) =>{
+    try {
+        const keywordSearch = req.body.keywordSearch;
+        const listUser = await User.find();
+        
+        const listUserDetail = listUser.filter( value =>{
+            return value.email.toUpperCase().includes( keywordSearch.toUpperCase() )
+        } )
+
+        res.render( 'admin/AdminHome/index.ejs',{
+            path:'/admin/search-user',
+            pageTitle:'SEARCH U S E R',
+            users: listUserDetail
+        } )
+    } catch ( error ) {
+        console.log( error )
+    }
 }

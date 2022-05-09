@@ -101,5 +101,6 @@ router.post( '/add-user',
     ]
     ,adminController.postAddUser );
 
+router.post( '/search-user' ,adminController.searchUser ); 
 
 module.exports = router;

@@ -7,13 +7,15 @@
         <a href="/admin/add-user" class="text-decoration-none">
             <div class="body-admin-search-add-user">
                 <i class="fa-solid fa-user-plus body-admin-search-add-user-icon">
-                    <title>Add User</title>
                 </i>
             </div>
         </a>
         <div class="body-admin-search">
-            <input type="text" class="body-admin-search-input" placeholder="Enter your keyword">
-            <i class="fa-solid fa-magnifying-glass body-admin-search-icon"></i>
+            <form  method="POST" action="/admin/search-user" >
+                <input  class="form-control body-admin-search-input" type="search" placeholder="Please enter email!" name="keywordSearch">     
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <i class="fa-solid fa-magnifying-glass body-admin-search-icon"></i>
+            </form>
         </div>
     </div>
     <div class="body-admin-content">
@@ -121,6 +123,13 @@
     <input id="hidden-csrf" type="hidden" name="_csrf" >
 </form>
 
+<!-- Form hidden Search user -->
+<!-- <form name="search-form-userId" method="POST">
+    <input id="keyword-search" type="hidden" name="keywordSearch" >
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+</form> -->
+
+
 <script>
               // Exec form Delete 
                 const btnDeleteProductId = document.getElementById('deletemovieId')
@@ -147,6 +156,19 @@
                     hidden_csrf.value = csrf;
                     deleteForm.submit();
                 }
+
+
+                // exec form Search User
+                // const inputKeyword = document.getElementById('admin-search-input');
+                // const searchForm = document.forms['search-form-userId'];
+                // const keywordSearch = document.getElementById('keyword-search');
+
+                // inputKeyword.addEventListener('input',() =>{
+                //     searchForm.action='/admin/search-user';
+                //     keywordSearch.value=inputKeyword.value;
+                //     searchForm.submit();
+                // });
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
