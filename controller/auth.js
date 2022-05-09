@@ -11,20 +11,19 @@ const Movie = require( '../models/movie' );
 const transporter = nodemailer.createTransport(
     sendgridTransport( {
         auth: {
-            api_key: process.env.API_KEY_SENDGRID
+            api_key: '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'
         }
     } )
 )
 
 exports.getLogin = async( req,res ) =>{
-    let message = validationResult( req );
+    let message = flash( 'error' );
     if( message.length >0 ) {
         message = message[0]
     }
     else{
         message = null
     }
-
     res.render( 'auth/login',{
         path:'/login',
         pageTitle: 'Login',

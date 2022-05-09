@@ -8,17 +8,20 @@
             <% if (errorMeassage) { %>
                 <div class="alert alert-danger user-edit-message-error" role="alert"><%= errorMeassage %></div>
             <% } %>
+
             <div class="container">
-            <form action="/admin/get-all-user" method="POST" enctype="multipart/form-data">
+            <form action="/admin/<% if (editing) { %>get-all-user<% } else { %>add-user<% } %>" method="POST" enctype="multipart/form-data">
                 <div class="edit-user-form ">
                     <div class="form-group edit-user-item">
                       <label for="email">Email</label>
                       <input 
                        class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %> form-control edit-user-item-input"
-                        type="text" 
+                        type="email" 
                         name="email" 
                         id="email" 
-                        value="<% if (editing || hasError) { %><%= user.email %><% } %>">
+                        value="<%= oldInput.email %>"
+                        placeholder="Enter your email"
+                        >
                     </div>
         
                     <div class="form-group edit-user-item">
@@ -28,19 +31,31 @@
                           type="password" 
                           name="password" 
                           id="password"
-                          value="<% oldInput.password %>"
+                          value="<%= oldInput.password %>"
                           placeholder="Enter Your password" >
                       </div>
+                    <% if(!editing) { %>
+                    <div class="form-group edit-user-item">
+                            <label for="confirmPassword">Retype Password</label>
+                            <input 
+                             class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %> form-control edit-user-item-input"
+                              type="password" 
+                              name="confirmPassword" 
+                              id="confirmPassword"
+                              value="<%= oldInput.confirmPassword %>"
+                              placeholder="Enter Your Retype password" >
+                          </div>  
+                    <% } %>  
 
                 </div>
     
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     
                 <% if (editing) { %>
-                    <input type="hidden" value="<%= user._id %>" name="userId">
+                    <input type="hidden" value="<%= userId %>" name="userId">
                 <% } %>
                 
-                <button type="submit" class="btn btn-primary btn-edit-user-submit">Update</button>
+                <button type="submit" class="btn btn-primary btn-edit-user-submit"><% if (editing) { %>Update<% } else { %>Add User<% } %></button>
               </form>
         </div>
     </div>

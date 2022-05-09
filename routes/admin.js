@@ -75,4 +75,31 @@ router.post( '/edit-movie', adminController.postEditMovie );
 
 router.post( '/delete-user',adminController.deleteUser );
 
+router.get( '/add-user',adminController.getAddUser );
+
+router.post( '/add-user',
+    [
+        check( 'email' )
+            .isEmail()
+            .withMessage( 'Please enter a valid email.' )
+            .normalizeEmail(),
+        check( 'password','Please enter your password' )
+            .exists()
+            .isLength( { min: 5 } )
+            .isAlphanumeric()
+            .trim(),
+        check( 'confirmPassword','Please enter a confirm password  .' )
+            .exists()
+            .isLength( { min: 5 } )
+            .custom( ( value, { req } ) => {
+                if ( value !== req.body.password ) {
+                    throw new Error( 'Passwords have to match!' );
+                }
+                return true;
+            } )
+            .trim()
+    ]
+    ,adminController.postAddUser );
+
+
 module.exports = router;

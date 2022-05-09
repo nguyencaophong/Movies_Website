@@ -15,7 +15,7 @@ route.post( '/login',
             .isEmail()
             .withMessage( 'Please enter a valid email address.' )
             .normalizeEmail(),
-        check( 'password' )
+        check( 'password' , 'Please enter your password.' )
             .exists()
             .isLength( { min: 5 } )
             .isAlphanumeric()

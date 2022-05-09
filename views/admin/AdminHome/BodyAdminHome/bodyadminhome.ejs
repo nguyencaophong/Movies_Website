@@ -3,6 +3,19 @@
         <p class="body-admin-header-title"><%= pageTitle %></p>
     </div>
 
+    <div class="body-admin-search-header">
+        <a href="/admin/add-user" class="text-decoration-none">
+            <div class="body-admin-search-add-user">
+                <i class="fa-solid fa-user-plus body-admin-search-add-user-icon">
+                    <title>Add User</title>
+                </i>
+            </div>
+        </a>
+        <div class="body-admin-search">
+            <input type="text" class="body-admin-search-input" placeholder="Enter your keyword">
+            <i class="fa-solid fa-magnifying-glass body-admin-search-icon"></i>
+        </div>
+    </div>
     <div class="body-admin-content">
         <div class="body-admin-content-header">
             <div class="container">
@@ -86,13 +99,13 @@
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title">Modal title</h5>
+                              <h5 class="modal-title">Delete User</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
                             <div class="modal-body">
-                              <p>Modal body text goes here.</p>
+                              <p>Are you sure you want to delete ?</p>
                             </div>
                             <div class="modal-footer">
                               <button id="deletemovieId" type="button" class="btn btn-danger">Delete</button>

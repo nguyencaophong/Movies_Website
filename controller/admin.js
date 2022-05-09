@@ -5,6 +5,7 @@ const bcrypt = require( 'bcryptjs' );
 const path = require( 'path' );
 const Movie = require( '../models/movie' )
 const User = require( '../models/user' )
+const User1 = require( '../models/user' )
 
 exports.getAddMovies = async ( req,res ) =>{
     res.render( 'admin/edit-movie',{
@@ -168,11 +169,11 @@ exports.getEditUser = async( req,res ) =>{
         if( !userDetail ) {
             res.redirect( '/' );
         }
-
         res.render( 'admin/EditUserHome/index.ejs',{
             pageTitle:`U S E R : ${userDetail.email}`,
             path:'/admin/get-all-user',
             user: userDetail,
+            userId: userDetail._id,
             editing: editMode,
             hashError: false,
             errorMeassage:null,
@@ -191,31 +192,18 @@ exports.getEditUser = async( req,res ) =>{
 exports.postEditUser = async( req,res ) =>{
     const email = req.body.email;
     const password = req.body.password;
-    const userId = req.body.userId;
-
+    const userId =req.body.userId;
     const error = validationResult( req );
 
-    const userDetail =await User.findById( userId );
-    if( !userDetail ) {
-        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs', {
-            path: `/get-all-user/${userId}/edit`,
-            pageTitle: `U S E R : ${userDetail.email}`,
-            errorMeassage: 'Can not find User.',
-            editing: true,
-            hashError: true,
-            oldInput: {
-                email: email,
-                password: password
-            },
-            validationErrors: [ ]
-        } )
-    }
-    
+    const userReal = await User.findById( userId );
+    const userDetail =await User.findOne( {email: email} );
+
     if( !error.isEmpty() ) {
         return res.status( 422 ).render( 'admin/EditUserHome/index.ejs' ,{
             user: userDetail,
-            path: `/get-all-user/${userId}/edit`,
-            pageTitle:`U S E R : ${userDetail.email}`,
+            userId: userId,
+            path: '',
+            pageTitle:`U S E R : ${userReal.email}`,
             errorMeassage: error.array()[0].msg,
             editing: true,
             hashError: true,
@@ -227,11 +215,45 @@ exports.postEditUser = async( req,res ) =>{
         } )
     }
 
+    
+    if( !userDetail ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs', {
+            userId: userId,
+            path: '',
+            pageTitle: `U S E R : ${userReal.email}`,
+            errorMeassage: 'Can not find User.',
+            editing: true,
+            hashError: true,
+            oldInput: {
+                email: '',
+                password: password
+            },
+            validationErrors: [ ]
+        } )
+    }
+
+    if( userDetail.email !== userReal.email ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs', {
+            userId: userId,
+            path: '',
+            pageTitle: `U S E R : ${userReal.email}`,
+            errorMeassage: 'E-mail input not match email of this User!',
+            editing: true,
+            hashError: true,
+            oldInput: {
+                email: email,
+                password: password
+            },
+            validationErrors: [ ]
+        } )
+    }
+
+
     try {
         const bcryptPassword = await bcrypt.hash( password, 12 );
+
         userDetail.email = email;
         userDetail.password= bcryptPassword;
-
         await userDetail.save();
         console.log( 'UPDATED USER' );
         res.redirect( '/admin/get-all-user' )
@@ -245,11 +267,91 @@ exports.postEditUser = async( req,res ) =>{
 exports.deleteUser = async( req,res ) =>{
     try {
         const userId = req.body.userId;
-        console.log( userId )
+
         await User.deleteOne( {_id: userId} );
         console.log( 'DELETED USER SUCCESS !' )
         res.redirect( '/admin/get-all-user' );
     } catch ( error ) {
         console.log( error );
     }
+}
+
+
+exports.getAddUser = async( req,res ) =>{
+
+
+    try {
+        res.render( 'admin/EditUserHome/index.ejs' ,{
+            pageTitle:'ADD U S E R',
+            path:'/add-user',
+            errorMeassage:null,
+            editing:false,
+            hasError: false,
+            oldInput:{
+                email:'',
+                password:'',
+                retypepassword: ''
+            },
+            validationErrors:[]
+        } )
+    } catch ( error ) {
+        console.log( error )
+    }
+}
+
+exports.postAddUser = async( req,res ) =>{
+    const email = req.body.email;
+    const password =req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+    const error = validationResult( req );
+
+    const userDetail = await User.findOne( {email: email} );
+    if( !error.isEmpty() ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs',{
+            pageTitle:'ADD U S E R',
+            path: '/add-user',
+            editing: false,
+            hasError: false,
+            errorMeassage:error.array()[0].msg,
+            oldInput:{
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            },
+            validationErrors: error.array()
+        } )
+    }  
+
+    if( userDetail ) {
+        return res.status( 422 ).render( 'admin/EditUserHome/index.ejs',{
+            pageTitle:'ADD U S E R',
+            path: '/add-user',
+            editing: false,
+            hasError: false,
+            errorMeassage:'E-Mail exists already, please pick a different one.',
+            oldInput:{
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            },
+            validationErrors: error.array()
+        } )
+    }
+
+
+    try {
+        const bcryptPassword = await bcrypt.hash( password,12 );
+        const user = new User( {
+            email: email,
+            password: bcryptPassword
+        } )
+        await user.save();
+
+        res.redirect( '/admin/get-all-user' );
+        console.log( 'CREATED USER SUCCESS !' );
+        
+    } catch ( error ) {
+        console.log( error )
+    }
+
 }

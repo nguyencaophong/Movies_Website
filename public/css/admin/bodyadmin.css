@@ -85,3 +85,53 @@
 .body-admin-item-icon:hover{
     color: rgb(198, 160, 160);
 }
+
+
+
+.body-admin-search-header{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.body-admin-search{
+    position: relative;
+}
+
+.body-admin-search-input{
+    border: 1px solid #333;
+    width: 300px;
+    height: 35px;
+    border-radius: 4px;
+}
+
+.body-admin-search-icon{
+    position: absolute;
+    right: 32px;
+    top: 10px;
+    font-size: 12px;
+    color: #333;
+
+}
+
+.body-admin-search-add-user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#333 ;
+    width: 48px;
+    height: 32px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.body-admin-search-add-user-icon{
+    font-size: 20px;
+    color: white;
+}
+
+.body-admin-search-add-user:hover{
+    cursor: pointer;
+    background-color: #666;
+}
