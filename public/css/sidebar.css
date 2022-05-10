@@ -4,11 +4,13 @@
 
 .container-home-sidebar {
     height: auto;
-    background-color: #dd8e61;
+    background-color: #1a2023;
     margin-top: 16px;
+    margin-right: 8px;
 }
 
 .container-home-sidebar .caption {
+    color: #d7946d;
     margin: 0 0 10px 0;
     padding: 0 0 5px 0;
     border-bottom: 2px dashed #5d5d5d;
@@ -70,6 +72,8 @@
 }
 
 .sidebar-movie-new-item .sidebar-item-content {
+    color: #fff;
+    font-size: 11px;
     display: column;
     flex: 3;
 }
@@ -81,3 +85,6 @@
 
 
 /* END HOME SIDEBAR */
+
+
+/* #1a2023 */

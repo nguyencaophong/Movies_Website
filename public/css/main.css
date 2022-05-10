@@ -1,5 +1,6 @@
 a {
     color: #d7946d !important;
+    text-decoration: none !important;
 }
 
 h1 {
@@ -52,4 +53,9 @@ h1 {
 
 .main-header__signin-link {
     text-decoration: none;
+}
+
+.container-detail-chatonline {
+    height: 300px;
+    background-color: orchid;
 }
