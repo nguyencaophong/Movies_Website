@@ -9,9 +9,10 @@ const router = express.Router();
 
 router.get( '/',adminController.getIndex );
 
+// CRUD USER
 router.get( '/get-all-user/:id',adminController.getEditUser );
 
-router.post( '/get-all-user',
+router.post( '/edit-user',
     [
         check( 'email' )
             .isEmail()
@@ -26,54 +27,6 @@ router.post( '/get-all-user',
     ,adminController.postEditUser );
 
 router.get( '/get-all-user',adminController.getAllUser );
-
-router.get( '/add-movie',adminController.getAddMovies );
-
-router.post( '/add-movie',
-    [
-        check( 'name','This username must me 3+ characters long' )
-            .exists()
-            .isLength( {min:3} )
-            .trim(),
-        check( 'movieurl','This Movie Url must me 3+ characters long' )
-            .exists()
-            .isLength( {min:5,max:500} )
-            .trim(),
-        check( 'description','This description must me 3+ characters long' )
-            .exists()
-            .isLength( {min:5,max:500} )
-            .trim(),
-        check( 'director','This director must me 3+ characters long'  )
-            .exists()
-            .isString().isLength( {min:3} )
-            .trim(),
-        check( 'character','This character must me 3+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:3} )
-            .trim(),
-        check( 'national','This national must me 3+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:3} )
-            .trim(),
-        check( 'producer','This producer must me 3+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:3} )
-            .trim(),
-        check( 'typeFilm','This typefilm must me 3+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:3} )
-            .trim()
-    ],
-    adminController.postAddMovies 
-);
-
-router.post( '/edit-movie', adminController.postEditMovie );
-
-router.post( '/delete-user',adminController.deleteUser );
 
 router.get( '/add-user',adminController.getAddUser );
 
@@ -101,6 +54,102 @@ router.post( '/add-user',
     ]
     ,adminController.postAddUser );
 
+router.post( '/delete-user',adminController.deleteUser );
+
 router.post( '/search-user' ,adminController.searchUser ); 
+
+
+// CRUD MOVIE
+router.get( '/get-all-movie',adminController.getAllMovie );
+
+router.get( '/get-all-movie/:id',adminController.getEditMovie );
+
+router.post( '/edit-movie',
+    [
+        check( 'name','This username must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'movieurl','This Movie Url must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5,max:500} )
+            .trim(),
+        check( 'description','This description must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5,max:500} )
+            .trim(),
+        check( 'director','This director must me 5+ characters long'  )
+            .exists()
+            .isString().isLength( {min:5} )
+            .trim(),
+        check( 'character','This character must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'national','This national must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'producer','This producer must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'typeFilm','This typefilm must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim()
+    ],
+    adminController.postEditMovie )
+
+
+router.get( '/add-movie',adminController.getAddMovies );
+
+router.post( '/add-movie',
+    [
+        check( 'name','This username must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'movieurl','This Movie Url must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5,max:500} )
+            .trim(),
+        check( 'description','This description must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5,max:500} )
+            .trim(),
+        check( 'director','This director must me 5+ characters long'  )
+            .exists()
+            .isString().isLength( {min:5} )
+            .trim(),
+        check( 'character','This character must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'national','This national must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'producer','This producer must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'typeFilm','This typefilm must me 5+ characters long'  )
+            .exists()
+            .isString()
+            .isLength( {min:5} )
+            .trim()
+    ],
+    adminController.postAddMovies 
+);
+
+router.post( '/search-movie',adminController.searchMovie );
 
 module.exports = router;

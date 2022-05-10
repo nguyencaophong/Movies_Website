@@ -4,14 +4,34 @@
     </div>
 
     <div class="body-admin-search-header">
-        <a href="/admin/add-user" class="text-decoration-none">
+        <a href="/admin/<% if (!isMoviePage) { %>add-user<% } else { %>add-movie<% } %>" class="text-decoration-none">
             <div class="body-admin-search-add-user">
+                <% if(!isMoviePage) { %>
                 <i class="fa-solid fa-user-plus body-admin-search-add-user-icon">
+                <% } else { %>
+                    <i class="fa-solid fa-file-circle-plus body-admin-search-add-user-icon"></i>
+
+                <% } %>
                 </i>
             </div>
         </a>
+        <% if (isMoviePage) { %>
+            <div class="btn-group btn-group-sort-typeFilm">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Action
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                </ul>
+              </div>
+        <% } %>
+
         <div class="body-admin-search">
-            <form  method="POST" action="/admin/search-user" >
+            <form  method="POST" action="/admin/<% if (!isMoviePage) { %>search-user<% } else { %>search-movie<% } %>" >
                 <input  class="form-control body-admin-search-input" type="search" placeholder="Please enter email!" name="keywordSearch">     
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <i class="fa-solid fa-magnifying-glass body-admin-search-icon"></i>
@@ -23,6 +43,7 @@
             <div class="container">
                 <div class="row">
                     <div class="body-admin-content-item body-admin-content-item-header">
+                        <% if(!isMoviePage) { %>
                         <div class="col-md-2 item-header">
                             <span>| ID</span>
 
@@ -43,52 +64,114 @@
                             <span>| Action</span>
 
                         </div>
+                    <% } else { %>
+                        <div class="col-md-2 item-header">
+                            <span>| ID</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Movie</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| TypeFilm</span>
+
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Status</span>
+                        </div>
+                        <div class="col-md-2 item-header">
+                            <span>| Action</span>
+                        </div>
+
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="body-admin-content-list">
-            <% users.forEach((user,index) => { %>
-            <div class="container">
-                <div class="row">
-                    <div class="body-admin-content-item">
-                        <div class="col-md-2">
-                            <span><%= index %></span>
-
-                        </div>
-
-                        <div class="col-md-2">
-                            <a class="body-item-user text-decoration-none" href="#">
-                                <span>User <%= index %></span>
-                            </a>
-                        </div>
-
-                        <div class="col-md-2">
-                            <span><%= user.email %></span>
-
-                        </div>
-
-                        <div class="col-md-2">
-                            <span style="color: rgb(12, 160, 71);">Active</span>
-
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="body-admin-content-item-action">
-                                <a href="/admin/get-all-user/<%=user._id%>?edit=true" class="btn-body-admin-item text-decoration-none btn-primary">Edit</a>
-                                <a href="" class="btn danger" danger data-toggle="modal" data-target="#delete-user" data-id="<%= user._id %>" data-csrf="<%= csrfToken %>">
-                                    <i class="fa-solid fa-trash body-admin-item-icon"></i>
-                                </a>
+        <div class="body-admin-content">
+            <div class="body-admin-content-list">
+                <% if(!isMoviePage) { %>
+                    <% users.forEach((user,index) => { %>
+                    <div class="container">
+                        <div class="row">
+                            <div class="body-admin-content-item">
+                                <div class="col-md-2">
+                                    <span><%= user._id %></span>
+    
+                                </div>
+    
+                                <div class="col-md-2">
+                                    <a class="body-item-user text-decoration-none" href="#">
+                                        <span>User <%= index %></span>
+                                    </a>
+                                </div>
+    
+                                <div class="col-md-2">
+                                    <span><%= user.email %></span>
+    
+                                </div>
+    
+                                <div class="col-md-2">
+                                    <span style="color: rgb(12, 160, 71);">Active</span>
+    
+                                </div>
+    
+                                <div class="col-md-2">
+                                    <div class="body-admin-content-item-action">
+                                        <a href="/admin/get-all-user/<%=user._id%>?edit=true" class="btn-body-admin-item text-decoration-none btn-primary">Edit</a>
+                                        <a href="" class="btn danger" danger data-toggle="modal" data-target="#delete-user" data-id="<%= user._id %>" data-csrf="<%= csrfToken %>">
+                                            <i class="fa-solid fa-trash body-admin-item-icon"></i>
+                                        </a>
+                                    </div>
+    
+                                </div>
                             </div>
-
                         </div>
+    
                     </div>
-                </div>
-
+                    <% }) %>
+                <% } else { %>
+                    <% movies.forEach((movie,index) => { %>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="body-admin-content-item">
+                                        <div class="col-md-2">
+                                            <span><%= movie._id %></span>
+                
+                                        </div>
+                
+                                        <div class="col-md-2">
+                                            <a class="body-item-user text-decoration-none" href="#">
+                                                <span> <%= movie.name %></span>
+                                            </a>
+                                        </div>
+                
+                                        <div class="col-md-2">
+                                            <span><%= movie.typeFilm %></span>
+                
+                                        </div>
+                
+                                        <div class="col-md-2">
+                                            <span style="color: rgb(12, 160, 71);">Active</span>
+                                        </div>
+                
+                                        <div class="col-md-2">
+                                            <div class="body-admin-content-item-action">
+                                                <a href="/admin/get-all-movie/<%=movie._id%>?edit=true" class="btn-body-admin-item text-decoration-none btn-primary">Edit</a>
+                                                <a href="" class="btn danger" danger data-toggle="modal" data-target="#delete-user" data-id="<%= movie._id %>" data-csrf="<%= csrfToken %>">
+                                                    <i class="fa-solid fa-trash body-admin-item-icon"></i>
+                                                </a>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                    <% }) %>
+                 <% } %>
             </div>
-
-            <% }) %>
 
         </div>
 

@@ -1,0 +1,76 @@
+.form-edit-movie-item-name{
+    width: 400px;
+    height: 50px;
+    margin-bottom: 12px;
+}
+
+.form-edit-movie-item-movieUrl{
+
+    width: 400px;
+    height: 50px;
+}
+
+.form-edit-movie-item-image{
+
+}
+
+.form-edit-movie-item-description{
+    margin-left: 12px;
+    width: 400px;
+    height: 150px;
+}
+
+.form-edit-movie-item-director{
+
+}
+
+.form-edit-movie-item-character{
+
+}
+
+.form-edit-movie-item-national{
+
+}
+
+.form-edit-movie-item-producer{
+
+}
+
+.form-edit-movie-item-typefilm{
+
+}
+
+
+.form-group-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-group-container-item input{
+    width: 400px;
+    height: 50px;
+    margin: 4px 8px;
+    font-size: 12px;
+}
+
+.form-group label{
+    margin-top: 8px;
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-form-group-submit{
+    max-width: 935px;
+    text-align: right;
+}
+
+
+.btn-edit-movie{
+    padding: 8px 48px;
+}
+
+.container-body-editmovie{
+    /* margin-top: 6px; */
+}

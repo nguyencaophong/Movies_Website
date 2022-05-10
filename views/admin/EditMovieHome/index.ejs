@@ -1,7 +1,7 @@
 <%- include('../../includes/header.ejs') %>
 <link rel="stylesheet" href="/css/admin/sidebar.css">
 <link rel="stylesheet" href="/css/admin/bodyadmin.css">
-<link rel="stylesheet" href="/css/admin/edituser.css">
+<link rel="stylesheet" href="/css/admin/editmovie.css">
 </header>
 
 <body>
@@ -13,10 +13,10 @@
 </a>
   <div class="row flex-nowrap">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-      <%- include('../SideBarAdmin/index.ejs',{user: user}) %>
+      <%- include('../SideBarAdmin/index.ejs') %>
     </div>
     <div class="col py-3">
-      <%- include('./BodyEditUser/bodyedituser.ejs') %>
+      <%- include('./BodyEditMovie/bodyeditmovie.ejs') %>
       
     </div>
 </div>
