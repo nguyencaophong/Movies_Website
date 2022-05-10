@@ -1,0 +1,49 @@
+@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+    #IDSLIDER .container .col-md-2 {
+        width: 23%;
+    }
+
+    .col-md-2 .container-movie-item {
+        width: 100%;
+
+    }
+
+    .col-md-2 .container-movie-item .container-movie-img {
+        /* width: 100%; */
+    }
+
+    #IDSLIDER .container {
+        /* width: auto; */
+        height: 300px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .row .col-md-9 {
+        width: 100% !important;
+    }
+
+    .row .col-md-3 {
+        width: 30%;
+    }
+
+    .row .col-md-3 .container-movie-item {
+        /* width: 100%; */
+    }
+
+    .row .col-md-3 .container-movie-img {
+        width: 100%;
+
+    }
+
+    .container .row {
+        display: flex;
+        justify-content: space-around;
+        height: 300px;
+        background-color: #181818;
+    }
+
+    .container-home-sidebar {
+        display: none;
+    }
+}
