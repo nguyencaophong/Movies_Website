@@ -44,9 +44,10 @@
                               id="confirmPassword"
                               value="<%= oldInput.confirmPassword %>"
                               placeholder="Enter Your Retype password" >
-                          </div>  
+                    </div>  
                     <% } %>  
 
+                    <button type="submit" class="btn btn-primary btn-edit-user-submit"><% if (editing) { %>Update<% } else { %>Add User<% } %></button>
                 </div>
     
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -55,7 +56,6 @@
                     <input type="hidden" value="<%= userId %>" name="userId">
                 <% } %>
                 
-                <button type="submit" class="btn btn-primary btn-edit-user-submit"><% if (editing) { %>Update<% } else { %>Add User<% } %></button>
               </form>
         </div>
     </div>

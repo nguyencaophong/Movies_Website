@@ -6,7 +6,7 @@ const path = require( 'path' );
 const Movie = require( '../models/movie' )
 const User = require( '../models/user' )
 
-
+// USER
 exports.getIndex = async( req,res ) =>{
     try {
         res.render( 'admin/AdminHome/index.ejs' )
@@ -24,6 +24,7 @@ exports.getAllUser = async( req,res ) =>{
             isMoviePage: false,
             users: getAllUser
         } )
+
     } catch ( error ) {
         console.log( error );
     }
@@ -139,11 +140,12 @@ exports.postEditUser = async( req,res ) =>{
 
 exports.deleteUser = async( req,res ) =>{
     try {
-        const userId = req.body.userId;
+        const userId = req.body.objectId;
 
         await User.deleteOne( {_id: userId} );
-        console.log( 'DELETED USER SUCCESS !' )
         res.redirect( '/admin/get-all-user' );
+
+        console.log( 'DELETED USER SUCCESS !' )
     } catch ( error ) {
         console.log( error );
     }
@@ -249,6 +251,8 @@ exports.searchUser = async( req,res ) =>{
     }
 }
 
+
+// MOVIE 
 
 exports.getAllMovie = async( req,res ) =>{
     try {
@@ -550,6 +554,19 @@ exports.postEditMovie = async( req,res,next ) =>{
             console.log( error );
         }
         
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.deleteMovie = async( req,res,next ) =>{
+    try {
+        const movieId = req.body.objectId;
+
+        await Movie.deleteOne( {_id: movieId} );
+        res.redirect( '/admin/get-all-movie' );
+
+        console.log( 'DELETED MOIVE SUCCESS !' )
     } catch ( error ) {
         console.log( error );
     }

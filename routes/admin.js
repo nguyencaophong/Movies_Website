@@ -12,6 +12,9 @@ router.get( '/',adminController.getIndex );
 // CRUD USER
 router.get( '/get-all-user/:id',adminController.getEditUser );
 
+
+router.get( '/get-all-user',adminController.getAllUser );
+
 router.post( '/edit-user',
     [
         check( 'email' )
@@ -25,8 +28,6 @@ router.post( '/edit-user',
             .trim()
     ]
     ,adminController.postEditUser );
-
-router.get( '/get-all-user',adminController.getAllUser );
 
 router.get( '/add-user',adminController.getAddUser );
 
@@ -149,6 +150,8 @@ router.post( '/add-movie',
     ],
     adminController.postAddMovies 
 );
+
+router.post( '/delete-movie',adminController.deleteMovie );
 
 router.post( '/search-movie',adminController.searchMovie );
 
