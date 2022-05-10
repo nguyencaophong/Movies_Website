@@ -11,11 +11,11 @@
 
 
 .container-detail-body {
-    height: auto;
-    background-color: #302e2e;
-    margin-bottom: 16px;
-    margin-top: 16px;
-    padding-right: 8px;
+    /* height: auto;
+    background-color: #302e2e; */
+    margin-bottom: 8px;
+    margin-top: 8px;
+    /* padding-right: 8px; */
 }
 
 .col-md-9.container-body-movie-detail {
@@ -77,7 +77,8 @@
     /* background-color: cadetblue; */
     background-color: #302e2e;
     color: #dcdcdc;
-    padding: 8px 12px 8px;
+    padding: 8px 5px 8px 12px;
+
     font-size: 12px;
 }
 
