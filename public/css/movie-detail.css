@@ -94,6 +94,11 @@
     text-transform: uppercase;
 }
 
+.detail-body-title-name .title-name-text {
+    position: relative;
+    width: calc(100% - 27px);
+}
+
 .detail-body-title-name .fa-regular.fa-heart {
     color: #d7946d;
     float: right;
@@ -171,6 +176,7 @@
     font-size: 14px;
     background-color: #353535;
     padding: 16px;
+    margin-top: 16px;
 }
 
 .container-detail-body-description span {

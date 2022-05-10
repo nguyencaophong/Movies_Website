@@ -1,28 +1,78 @@
+/* PC: width >= 1024px */
+@media only screen and (min-width: 63.9375em) {
+    .container .container-detail-body .row {
+        max-height: 415px;
+        overflow: hidden;
+    }
+
+    .container-detail-body-img {
+        height: 415px;
+    }
+
+    .container-detail-body-img-content {
+        height: 100% !important;
+    }
+
+    .container-detail-body-img-detail {
+        width: 100% !important;
+    }
+}
+
 /* Mobile: width < 740px */
 @media only screen and (max-width: 46.1875em) {}
-
-@media only screen and (min-width: 63.9375em) {
-    .container.container-body-video-detail {}
-}
 
 /* Tablet: width >= 740px and width < 1024px */
 @media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
 
+    /* HOME */
+    .container.container-body .container-home-list .container .row {
+        display: flex;
+        justify-content: space-around;
+        height: 300px;
+        background-color: #181818;
+        overflow: hidden;
+    }
 
+    #IDSLIDER .container .col-md-2 {
+        width: 23%;
+    }
 
-    /* movie detail */
+    .col-md-2 .container-movie-item,
+    .row .col-md-3 .container-movie-img {
+        width: 100%;
+
+    }
+
+    .container.container-body .row .col-md-9 {
+        width: 100% !important;
+    }
+
+    .container-home-list .col-md-3 {
+        width: 30%;
+    }
+
+    .container-home-sidebar {
+        display: none;
+    }
+
+    /* MOVIE DETAIL */
     body {
         background-color: #181818 !important;
     }
 
-    .row {
-        margin-right: 0;
-        margin-left: 0;
+    .container-detail-header {
+        min-width: 720px !important;
+        margin-left: -7px
     }
 
     .container .container-detail-body {
         padding: 0 12px;
         margin-bottom: 24px;
+    }
+
+    .container .container-detail-body .row {
+        max-height: 408px;
+        overflow: hidden;
     }
 
     .col-md-9.container-body-movie-detail {
@@ -32,16 +82,14 @@
         padding-right: 0;
     }
 
-    .container-detail-body-img-detail {
+    .container-detail-body-img-detail,
+    .container-detail-body-img-content {
         width: 100%;
     }
 
     .col-md-6.container-detail-body-img {
         width: 40%;
-    }
-
-    .container-detail-body-img-content {
-        height: 100%
+        height: 408px;
     }
 
     .container-detail-body-detail {
@@ -58,11 +106,16 @@
         margin-right: 12px;
     }
 
-    .row .col-md-3 {
+    .row .col-md-3 .container-home-sidebar {
         display: none;
     }
 
-    /* watch movie */
+    .container-body-movie-detail #carouselExampleControls .container-movie-img,
+    .container-body-movie-detail #carouselExampleControls .container-movie-item {
+        width: 140px;
+    }
+
+    /* WHAT MOVIE */
     .container.container-body-video-detail {
         max-width: 700px !important;
     }
@@ -71,18 +124,22 @@
         margin: 0;
     }
 
-    #carouselExampleControls .carousel-inner {
-        width: 684px;
-        margin: 8px 8px 24px 8px;
+    .container-body-video-detail #carouselExampleControls .carousel-inner {
+        width: 700px;
+        margin: 8px 0 24px 0;
+        background-color: #302e2e;
     }
 
     #carouselExampleControls .container .col-md-2 {
         width: 30%;
-
     }
 
     #carouselExampleControls .container {
         height: 250px;
+    }
+
+    .container-body-movie-detail #carouselExampleControls .container .row {
+        background-color: #302e2e;
     }
 
 }
