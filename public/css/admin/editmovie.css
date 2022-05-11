@@ -69,8 +69,16 @@
 
 .btn-edit-movie{
     padding: 8px 48px;
+    margin-bottom: 32px;
 }
 
 .container-body-editmovie{
-    /* margin-top: 6px; */
+    margin-top: 8px;
+
+    box-shadow: 3px 0px 5px 2px rgb(188, 188, 203);
 }
+
+
+
+
+

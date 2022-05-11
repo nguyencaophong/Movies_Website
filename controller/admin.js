@@ -9,7 +9,22 @@ const User = require( '../models/user' )
 // USER
 exports.getIndex = async( req,res ) =>{
     try {
-        res.render( 'admin/AdminHome/index.ejs' )
+        const listUser = await ( await User.find() ).length;
+        
+        const listMovie = await ( await Movie.find() ).length;
+        
+        const listCart = await User.find();
+        
+        let quantityCart =0;
+        for ( let cart of listCart ) {
+            quantityCart = quantityCart + cart.cart.items.length;
+        }
+
+        res.render( 'admin/AdminHome/DashBoardHome/dashboardhome.ejs' ,{
+            quantityUser: listUser,
+            quantityMovie: listMovie,
+            quantityCart: quantityCart
+        } )
     } catch ( error ) {
         console.log( error );
     }
