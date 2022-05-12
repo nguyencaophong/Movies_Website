@@ -1,0 +1,27 @@
+      
+      <div class="body-admin-header">
+        <p class="body-admin-header-title"><%= pageTitle %></p>
+      </div>
+        <div class="row">
+          <div class="container-body-edit-episode">
+            
+            <div class="container-body-edit-episode-item">
+              <img class="container-body-edit-episode-item-img" src="/<%= movie.imageUrl %>" alt="">
+            </div>
+
+            <div class="container-body-edit-episode-item-link">
+              <% for (let e of listEpisode) { %>
+              <a href="/admin/<%= movie._id %>/edit-episode?edit=<%= e._id %>" class="episode-item text-decoration-none">
+                <span ><%= e.episode %> </span>
+              </a>
+              <% } %>
+
+              <a href="/admin/<%= movie._id %>/add-episode" class="episode-item-add">
+                <i class="fa-solid fa-plus"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+

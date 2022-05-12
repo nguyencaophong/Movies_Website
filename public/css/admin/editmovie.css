@@ -80,5 +80,76 @@
 
 
 
+/* START EPISODE OF MOVIE  */
+
+.container-body-edit-episode{
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-body-edit-episode-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+    /* background-color: rgb(32, 30, 30); */
+    box-shadow: 3px 0px 5px 2px rgb(188, 188, 203);
+   
+}
+
+.container-body-edit-episode-item-img{
+    margin: 48px 48px;
+    max-width: 300px;
+    height: 400px;
+    border-radius: 4px;
+
+}
+
+.container-body-edit-episode-item-link{
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-top: 48px;
+    width: 100%;
+}
+
+.episode-item{
+    margin: 12px 8px;
+    padding: 8px 32px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid #999;
+}
+
+.episode-item span{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(17, 23, 27);
+}
+.episode-item:hover,
+.episode-item span:hover
+{
+    background-color: rgb(224, 167, 167);
+
+    font-weight: 600;
+}
+
+.episode-item-add{
+    margin: 12px 8px;
+    padding: 10px 32px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid #999;
+}
+
+/* END EPISODE OF MOVIE */
+
+
+
 
 

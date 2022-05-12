@@ -136,6 +136,7 @@
                                         <a href="" class="btn danger" danger data-toggle="modal" data-target="#delete-user" data-id="<%= user._id %>" data-csrf="<%= csrfToken %>">
                                             <i class="fa-solid fa-trash body-admin-item-icon"></i>
                                         </a>
+
                                     </div>
     
                                 </div>
@@ -175,6 +176,9 @@
                                                 <a href="" class="btn danger" danger data-toggle="modal" data-target="#delete-user" data-id="<%= movie._id %>" data-csrf="<%= csrfToken %>">
                                                     <i class="fa-solid fa-trash body-admin-item-icon"></i>
                                                 </a>
+                                                <a href="/admin/<%=movie._id%>/get-all-episode?edit=true">
+                                                    <i class="fa-solid fa-circle-plus body-admin-item-icon"></i>
+                                                </a>
                                             </div>
                 
                                         </div>
@@ -197,7 +201,7 @@
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title">Delete User</h5>
+                              <h5 class="modal-title">Delete</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>

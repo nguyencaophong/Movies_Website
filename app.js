@@ -11,7 +11,7 @@ const dotenv = require( 'dotenv' );
 const route = require( './routes/index' );
 const bodyParser = require( 'body-parser' );
 const User = require( './models/user' );
-
+const methodOverride = require( 'method-override' )
 
 const PORT = 8000
 const MONGOGDB_URL = 'mongodb://localhost:27017/Movies_Website';
@@ -22,6 +22,7 @@ const store = new MongoDBStore( {
     collection: 'sessions'
 } );
 
+app.use( methodOverride( '_method' ) );
 const csrfProtection = csrf();
 dotenv.config();
 
@@ -110,7 +111,7 @@ route( app );
 mongoose
     .connect( MONGOGDB_URL, { useNewUrlParser: true, useUnifiedTopology: true  } )
     .then( result => {                     
-        console.log( `Server running on PORT ${PORT}` )
+        console.log( `Server running on PORT: http://localhost:${PORT}` )
         app.listen( PORT );
     } )
     .catch( err => {                

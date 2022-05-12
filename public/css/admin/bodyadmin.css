@@ -230,6 +230,11 @@
     font-size: 12px;
 }
 
+.container-dashboard-item-link-item:hover{
+    color: #31e181;
+    text-decoration: underline;
+}
+
 .container-dashboard-item-link span{
     color: #666;
 }

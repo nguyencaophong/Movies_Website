@@ -65,7 +65,7 @@ router.get( '/get-all-movie',adminController.getAllMovie );
 
 router.get( '/get-all-movie/:id',adminController.getEditMovie );
 
-router.post( '/edit-movie',
+router.put( '/edit-movie',
     [
         check( 'name','This username must me 5+ characters long' )
             .exists()
@@ -105,7 +105,6 @@ router.post( '/edit-movie',
             .trim()
     ],
     adminController.postEditMovie )
-
 
 router.get( '/add-movie',adminController.getAddMovies );
 
@@ -154,5 +153,31 @@ router.post( '/add-movie',
 router.post( '/delete-movie',adminController.deleteMovie );
 
 router.post( '/search-movie',adminController.searchMovie );
+
+router.get( '/:id/get-all-episode',adminController.editEpisode );
+
+router.get( '/:id/add-episode',adminController.getAddEpisode );
+
+router.post( '/:id/add-episode',[
+    check( 'movieurl','This Movie Url must me 10+ characters long' )
+        .exists()
+        .isLength( {min:10,max:500} )
+        .trim()
+]
+,adminController.postAddEpisode );
+
+router.get( '/:idmovie/edit-episode', adminController.getEditEpisode );
+
+router.post( '/:idmovie/edit-episode',[
+    check( 'episode','This Episode must is Number' )
+        .exists()
+        .isNumeric()
+        .trim(),
+    check( 'movieurl','This Movie Url must me 10+ characters long' )
+        .exists()
+        .isLength( {min:10,max:500} )
+        .trim()
+]
+,adminController.postEditEpisode );
 
 module.exports = router;

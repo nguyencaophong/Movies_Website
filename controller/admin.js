@@ -285,13 +285,6 @@ exports.getAllMovie = async( req,res ) =>{
     }
 }
 
-exports.postEditMovie = async( req,res ) =>{
-    try {
-        res.send( 'POST USER' )
-    } catch ( error ) {
-        console.log( error );
-    }
-}
 
 exports.searchMovie = async( req,res ) =>{
     
@@ -325,6 +318,7 @@ exports.getAddMovies = async ( req,res ) =>{
         path:'/admin/edit-movie',
         editing:false,
         hasError: false,
+        isEpisodeHome: false,
         oldInput: {
             name:'',
             movieurl: '',
@@ -365,6 +359,7 @@ exports.postAddMovies =async ( req,res ) =>{
             path: 'admin/add-movie',
             editing: false,
             hasError: true,
+            isEpisodeHome: false,
             errorMeassage: errors.array()[0].msg,
             oldInput: {
                 name:name,
@@ -386,6 +381,7 @@ exports.postAddMovies =async ( req,res ) =>{
             path: 'admin/add-movie',
             editing: false,
             hasError: true,
+            isEpisodeHome: false,
             errorMeassage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
             oldInput: {
                 name:name,
@@ -407,6 +403,7 @@ exports.postAddMovies =async ( req,res ) =>{
             path: 'admin/add-movie',
             editing: false,
             hasError: true,
+            isEpisodeHome: false,
             errorMeassage: 'Attached file is not an image.',
             oldInput: {
                 name:name,
@@ -467,6 +464,7 @@ exports.getEditMovie = async ( req,res ) =>{
             movieId: movieDetail._id,
             editing: modeEdit,
             hashError: false,
+            isEpisodeHome: false,
             errorMeassage: null,
             oldInput:{
                 name:  movieDetail.name,
@@ -509,6 +507,7 @@ exports.postEditMovie = async( req,res,next ) =>{
                 errorMeassage: error.array()[0].msg,
                 editing: true,
                 hashError: true,
+                isEpisodeHome: false,
                 oldInput:{
                     name:  name,
                     movieUrl:  movieUrl,
@@ -532,6 +531,7 @@ exports.postEditMovie = async( req,res,next ) =>{
                 errorMeassage: 'Attached file is not an image.',
                 editing: true,
                 hashError: true,
+                isEpisodeHome: false,
                 oldInput:{
                     name:  name,
                     movieUrl:  movieUrl,
@@ -550,7 +550,7 @@ exports.postEditMovie = async( req,res,next ) =>{
         try {
 
             const newMovie =await new Movie( {
-                movieId:movieId,
+                id: movieId,
                 name: name,
                 movieUrl: movieUrl,
                 imageUrl:imageUrl.path,
@@ -562,7 +562,9 @@ exports.postEditMovie = async( req,res,next ) =>{
                 typeFilm: typeFilm,
                 userId: req.user
             } )
-            await newMovie.save();
+
+            await Movie.updateOne( { _id: movieId } ,req.body );
+
             res.redirect( '/admin/get-all-movie' );
             console.log( 'EDIT MOVIE SUCCESS !' );
         } catch ( error ) {
@@ -582,6 +584,172 @@ exports.deleteMovie = async( req,res,next ) =>{
         res.redirect( '/admin/get-all-movie' );
 
         console.log( 'DELETED MOIVE SUCCESS !' )
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.editEpisode = async( req,res,next ) =>{
+    try {
+        const editMode = req.query.edit;
+        const movieId = req.params.id;
+        const movieDetail = await Movie.findById( movieId );
+
+        const listEpisode = movieDetail.listEpisode.sort( ( a,b ) =>{
+            return a.episode - b.episode;
+        } )
+
+        res.render( 'admin/EditMovieHome/index.ejs' ,{
+            pageTitle: `MOVIE ${movieDetail.name}`,
+            path:'/admin/editEpisode',
+            editing: true,
+            isEpisodeHome: true,
+            listEpisode: listEpisode,
+            movie: movieDetail,
+            movieId: movieDetail._id
+        } );
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.getAddEpisode = async( req,res,nex ) =>{
+    try {
+        const movieUrl = req.body.movieUrl;
+        
+        const movieId = req.params.id;
+        const movieDetail = await Movie.findById( movieId );
+            
+        res.render( 'admin/EditMovieHome/EpisodeHome/EditEpisode/editepisode.ejs',{
+            pageTitle:`ADD EPISODE OF MOVIE: ${movieDetail.name}`,
+            path:'',
+            movie: movieDetail,
+            addEpisodeMode: true,
+            editing: false,
+            errorMeassage:null,
+            oldInput:{
+                movieUrl: movieDetail.listEpisode.movieUrl
+            },
+            validationErrors:[]
+        } )
+        
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.postAddEpisode =async ( req,res, next ) =>{
+    
+    
+    try {
+        const movieUrl = req.body.movieurl;
+        const movieId = req.params.id;
+        const movieDetail =await Movie.findById( movieId );
+    
+        const error = validationResult( req );
+        if( !error.isEmpty() ) {
+            return res.status( 422 ).render( 'admin/EditMovieHome/EpisodeHome/EditEpisode/editepisode.ejs',{
+                pageTitle:`ADD EPISODE OF MOVIE: ${movieDetail.name}`,
+                path:'',
+                movie: movieDetail,
+                addEpisodeMode: true,
+                editing: false,
+                errorMeassage: error.array()[0].msg,
+                oldInput:{
+                    movieUrl: movieUrl
+                },
+                validationErrors:error.array()
+            } )
+        }
+
+        await movieDetail.addEpisode( movieUrl );
+
+        res.redirect( `/admin/${movieDetail._id}/get-all-episode?edit=true` );
+        console.log( 'ADD EPISODE SUCCESS !' );
+
+    } catch ( error ) {
+        console.log( error );
+        
+    }
+}
+
+exports.getEditEpisode = async( req,res ) =>{
+    try {
+        const episodeId = req.query.edit;
+        const movieId = req.params.idmovie;
+        const listMovie = await Movie.find();
+        
+        const movieDetail = await Movie.findById( movieId );
+        const listEpisode = movieDetail.listEpisode;
+        
+        const episodeDetail = listEpisode.filter( ( valude,index ) =>{
+            return valude._id.toString() === episodeId.toString()
+        } )[0];
+
+        
+        res.render( 'admin/EditMovieHome/EpisodeHome/EditEpisode/editepisode.ejs',{
+            pageTitle:`MOVIE ${movieDetail.name} - EPISODE ${episodeDetail.episode}`,
+            path:'',
+            episodeId: episodeId,
+            movie: movieDetail,
+            editing: true,
+            addEpisodeMode: false,
+            errorMeassage:null,
+            oldInput:{
+                episode: episodeDetail.episode,
+                movieUrl: episodeDetail.movieUrl
+            },
+            validationErrors:[]
+        } );
+    } catch ( error ) {
+        console.log( error );
+    }
+}
+
+exports.postEditEpisode = async( req,res,next ) =>{
+    try {
+        const episode =req.body.episode;
+        const movieUrl = req.body.movieurl;
+
+        const episodeId = req.body.episodeId;
+        const movieId = req.params.idmovie;
+
+        const movieDetail = await Movie.findById( movieId );
+        const listEpisode = movieDetail.listEpisode;
+
+        const error = validationResult( req );
+        console.log( listEpisode[0] );
+
+        const episodeDetail = listEpisode.filter( ( valude,index ) =>{
+            return {
+                value: valude._id.toString() === episodeId.toString()
+            }
+        } )[0];
+
+
+        if( !error.isEmpty() ) {
+            res.status( 422 ).render( 'admin/EditMovieHome/EpisodeHome/EditEpisode/editepisode.ejs',{
+                pageTitle:'EDIT EPISODE TAP',
+                path:'',
+                episodeId: episodeId,
+                movie: movieDetail,
+                editing: true,
+                addEpisodeMode: false,
+                errorMeassage: error.array()[0].msg,
+                oldInput:{
+                    episode: episode,
+                    movieUrl: movieUrl
+                },
+                validationErrors: error.array()
+            } )
+        }
+
+
+        await movieDetail.editEpisode( episode,movieUrl,episodeId );
+
+        console.log( `UPDATE EPISODE ${episode} SUCCESS!` );
+        res.redirect( `/admin/${movieDetail._id}/get-all-episode` );
+
     } catch ( error ) {
         console.log( error );
     }

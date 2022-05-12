@@ -16,8 +16,15 @@
       <%- include('../SideBarAdmin/index.ejs') %>
     </div>
     <div class="col py-3">
-      <%- include('./BodyEditMovie/bodyeditmovie.ejs') %>
-      
+      <% if (!isEpisodeHome) { %>
+
+        <%- include('./BodyEditMovie/bodyeditmovie.ejs') %>
+
+      <% } else { %>
+
+        <%- include('./EpisodeHome/index.ejs') %>
+
+      <% } %>
     </div>
 </div>
 </div>
