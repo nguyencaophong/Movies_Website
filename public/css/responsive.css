@@ -19,7 +19,104 @@
 }
 
 /* Mobile: width < 740px */
-@media only screen and (max-width: 46.1875em) {}
+@media only screen and (max-width: 46.1875em) {
+
+    /* HOME */
+
+    .container-home-sidebar,
+    .carousel-control-prev,
+    .carousel-control-next,
+    .main-header-nav-list {
+        display: none !important;
+        /* appearance: none;
+        -webkit-appearance: none; */
+    }
+
+
+    .container-header-slider-list {
+        overflow: hidden;
+    }
+
+    .container-detail-body-img-detail {
+        width: 100%;
+        height: 100%;
+    }
+
+    .container.container-body .container-home-list .container .row {
+        display: flex;
+        justify-content: space-around;
+        height: 300px;
+        background-color: #181818;
+        overflow: hidden;
+    }
+
+    #IDSLIDER .container .col-md-2 {
+        width: 50%;
+    }
+
+    #IDSLIDER .container .col-md-2 .container-movie-name,
+    #IDSLIDER .container .col-md-2 .container-movie-img {
+        width: 100% !important;
+    }
+
+    .col-md-2 .container-movie-item,
+    .row .col-md-3 .container-movie-img {
+        width: 100%;
+
+    }
+
+    .container.container-body .row .col-md-9 {
+        width: 100% !important;
+    }
+
+    .container-home-list .col-md-3 {
+        width: 50%;
+    }
+
+    .container-home-sidebar {
+        display: none;
+    }
+
+    /* MOVIE DETAIL */
+    .col-md-9.container-body-movie-detail {
+        background-color: #302e2e;
+        margin: 16px 0 0;
+    }
+
+    .col-md-9.container-body-movie-detail .container-home-list {
+        max-height: 255px;
+        overflow: hidden;
+    }
+
+    .row .col-md-9.container-body-movie-detail {
+        padding: 0 !important;
+        background: #181818;
+    }
+
+    #carouselExampleControls .container .col-md-2 {
+        width: 50%;
+    }
+
+    /* WATCH FILM */
+
+    .container.container-body-video-detail .container-body-video {
+        height: 320px !important;
+    }
+
+    .container.container-body-video-detail .container-body-video iframe {
+        height: 320px !important;
+    }
+
+    .container.container-body-video-detail #carouselExampleControls .container-home-list {
+        max-height: 255px;
+        overflow: hidden;
+
+    }
+
+    .container.container-body-video-detail #carouselExampleControls .container .col-md-2 {
+        width: 45%;
+    }
+}
 
 /* Tablet: width >= 740px and width < 1024px */
 @media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
@@ -115,7 +212,7 @@
         width: 140px;
     }
 
-    /* WHAT MOVIE */
+    /* WATCH MOVIE */
     .container.container-body-video-detail {
         max-width: 700px !important;
     }
@@ -140,6 +237,14 @@
 
     .container-body-movie-detail #carouselExampleControls .container .row {
         background-color: #302e2e;
+    }
+
+    .container.container-body-video-detail .container-body-video {
+        height: 320px !important;
+    }
+
+    .container.container-body-video-detail .container-body-video iframe {
+        height: 320px !important;
     }
 
 }
