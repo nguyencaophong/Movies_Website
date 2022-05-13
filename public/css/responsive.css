@@ -1,5 +1,5 @@
 /* PC: width >= 1024px */
-@media only screen and (min-width: 63.9375em) {
+@media only screen and (min-width: 1024px) {
     .container .container-detail-body .row {
         max-height: 415px;
         overflow: hidden;
@@ -19,7 +19,7 @@
 }
 
 /* Mobile: width < 740px */
-@media only screen and (max-width: 46.1875em) {
+@media only screen and (max-width: 739px) {
 
     /* HOME */
 
@@ -28,8 +28,6 @@
     .carousel-control-next,
     .main-header-nav-list {
         display: none !important;
-        /* appearance: none;
-        -webkit-appearance: none; */
     }
 
 
@@ -67,6 +65,7 @@
 
     .container.container-body .row .col-md-9 {
         width: 100% !important;
+        padding-left: calc(var(--bs-gutter-x) * .5);
     }
 
     .container-home-list .col-md-3 {
@@ -99,6 +98,31 @@
 
     /* WATCH FILM */
 
+
+    .padding-right-0 {
+        padding: 0 !important;
+
+    }
+
+    .container-body-episode {
+        padding: 0 !important;
+        padding-top: 20px !important;
+    }
+
+    .container-body-episode-list {
+        height: 90px !important;
+        overflow-y: scroll !important;
+    }
+
+    .container-body-video-title span {
+        padding-left: 8px;
+    }
+
+    .container-body-video-detail .row {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
     .container.container-body-video-detail .container-body-video {
         height: 320px !important;
     }
@@ -110,7 +134,6 @@
     .container.container-body-video-detail #carouselExampleControls .container-home-list {
         max-height: 255px;
         overflow: hidden;
-
     }
 
     .container.container-body-video-detail #carouselExampleControls .container .col-md-2 {
@@ -119,7 +142,7 @@
 }
 
 /* Tablet: width >= 740px and width < 1024px */
-@media only screen and (min-width: 46.25em) and (max-width: 63.9375em) {
+@media only screen and (min-width: 740px) and (max-width: 1023px) {
 
     /* HOME */
     .container.container-body .container-home-list .container .row {
@@ -213,6 +236,15 @@
     }
 
     /* WATCH MOVIE */
+    .container-body-video-ifarme {
+        width: 100%;
+        height: 700px !important;
+    }
+
+    .container-body-episode {
+        padding-top: 40px !important;
+    }
+
     .container.container-body-video-detail {
         max-width: 700px !important;
     }
