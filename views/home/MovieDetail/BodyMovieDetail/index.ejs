@@ -1,18 +1,17 @@
 <div class="container">
     <div class="container-detail-header">
-        
+
     </div>
-    <div class="row">
-        <div class="col-md-9">
-            <%- include('./InforMovieDetail/informoviedetail.ejs',{
-                movie: movie,
-            }) %>
 
-            <%- include('./DescriptionMovieDetail/descriptionmoviedetail.ejs',{movie: movie}) %>
+    <div class="row container-detail-movie">
+        <div class="col-md-9 container-body-movie-detail">
+            <%- include('./InforMovieDetail/informoviedetail.ejs',{ movie: movie, }) %>
 
-            <%- include('../../ChatOnline/chatonline.ejs') %>
+                <%- include('./DescriptionMovieDetail/descriptionmoviedetail.ejs',{movie: movie}) %>
 
-            <%- include('./NominateMovie/index.ejs',{listPhimChieuRap: listPhimChieuRap}) %>
+                    <%- include('../../ChatOnline/chatonline.ejs') %>
+
+                        <%- include('./NominateMovie/index.ejs',{listPhimChieuRap: listPhimChieuRap}) %>
 
         </div>
         <div class="col-md-3">

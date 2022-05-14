@@ -60,13 +60,18 @@ exports.getMovieDetail = async (req, res) => {
 
 exports.getWatchMovie = async (req, res, next) => {
     try {
+        const listPhimChieuRap = await Movie.find({ typeFilm: 'Phim-Chiếu-Rạp' })
+            .limit(18)
 
-        const movieId = req.params.name;
-        const movieDetail = await Movie.findById(movieId);
+        const movieName = req.params.name;
+
+        const movieDetail = await Movie.findOne({ name: movieName });
 
         res.render('home/VideoMovie/index.ejs', {
-            movie: movieDetail
+            movie: movieDetail,
+            listPhimChieuRap: listPhimChieuRap,
         })
+
     } catch (error) {
         console.log(error)
     }
