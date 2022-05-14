@@ -4,31 +4,31 @@ const Movie = require( '../models/movie' )
 
 const ITEMS_PER_CONTAINER_LIST = 5;
 
-exports.getIndex = async( req,res,next ) =>{
+exports.getIndex = async ( req, res, next ) => {
     const page = req.query.page || 1;
 
     try {
-        const listPhimBo = await Movie.find( {typeFilm: 'Phim-Bộ'} )
+        const listPhimBo = await Movie.find( { typeFilm: 'Phim-Bộ' } )
             .limit( 18 );
-        const listPhimLe = await Movie.find( {typeFilm: 'Phim-Lẻ'} )
+        const listPhimLe = await Movie.find( { typeFilm: 'Phim-Lẻ' } )
             .limit( 18 );
-        const listChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} )
+        const listChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
             .limit( 18 );
-        const HoatHinh = await Movie.find( {typeFilm: 'Hoạt-Hình'} )
+        const HoatHinh = await Movie.find( { typeFilm: 'Hoạt-Hình' } )
             .limit( 18 );
-        const listPhimSapChieu = await Movie.find( {typeFilm: 'Phim-Sắp-Chiếu'} )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
             .limit( 6 );
-        
-        res.render( 'home/index',{
+
+        res.render( 'home/HomePage/index.ejs', {
             listPhimBo: listPhimBo,
-            listPhimLe:listPhimLe,
-            listChieuRap:listChieuRap,
-            HoatHinh:HoatHinh,
-            listPhimSapChieu:listPhimSapChieu,
-            pageTitle:'TRANG CHU',
-            path:'/'
+            listPhimLe: listPhimLe,
+            listChieuRap: listChieuRap,
+            HoatHinh: HoatHinh,
+            listPhimSapChieu: listPhimSapChieu,
+            pageTitle: 'TRANG CHU',
+            path: '/'
         } )
-    } 
+    }
     catch ( error ) {
         console.log( error )
     }
@@ -36,33 +36,42 @@ exports.getIndex = async( req,res,next ) =>{
 
 exports.getMovieDetail = async( req,res,next ) =>{
     try {
-        const movieDetail = await Movie.findOne( {name: req.params.name} );     
 
-        const listPhimChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} )
+        const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
             .limit( 18 );
 
-        const listPhimSapChieu = await Movie.find( {typeFilm: 'Phim-Sắp-Chiếu'} )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
             .limit( 6 );
 
-        res.render( 'home/movie-detail',{
-            movie: movieDetail,
+        movieDetail = await Movie.findOne( { name: req.params.name } );
+        if ( movieDetail === null ) {
+            movieDetail = 'Undified';
+        }
+        res.render( 'home/MovieDetail/index.ejs', {
             listPhimChieuRap: listPhimChieuRap,
-            listPhimSapChieu: listPhimSapChieu,
-            national: movieDetail.national
+            movie: movieDetail,
+            listPhimSapChieu: listPhimSapChieu
         } )
     } catch ( error ) {
         console.log( error )
     }
 }
 
-exports.getWatchMovie = async( req,res,next ) =>{
+exports.getWatchMovie = async ( req, res, next ) => {
     try {
+        const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
+            .limit( 18 )
 
-        const listPhimChieuRap = await Movie.find( {typeFilm: 'Phim-Chiếu-Rạp'} );
-        res.render( 'home/movie-watch',{
+        const movieName = req.params.name;
+
+        const movieDetail = await Movie.findOne( { name: movieName } );
+
+        res.render( 'home/VideoMovie/index.ejs', {
+            movie: movieDetail,
             listPhimChieuRap: listPhimChieuRap
         } )
+
     } catch ( error ) {
-        
+        console.log( error )
     }
 }

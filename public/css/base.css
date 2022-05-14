@@ -1,56 +1,56 @@
-:root{
+:root {
     --while-color: #fff;
     --black-color: #000;
     --text-color: #333;
-    --height-header:120px;
+    --height-header: 120px;
     --height-navbar: 40px;
     --height-search: calc((var(--height-header)) - (var(--height-navbar)));
 }
 
-body{
+body {
     margin: 0;
+    background-color: #181818 !important;
 }
 
-*{
+* {
     box-sizing: inherit;
 }
 
 /* Respoinsive web design */
-html{
+html {
     font-size: 62.5%;
     line-height: 1.6rem;
-    font-family: 'Roboto',sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-.none_text_decoration{
+.none_text_decoration {
     text-decoration: none !important;
 }
 
-.grid{
+.grid {
     width: auto;
     max-width: 100%;
     margin: 0 auto;
 }
 
-.grid__row{
+.grid__row {
     display: flex;
     /* flex-wrap: wrap; */
 }
 
-.grid-column
-.grid__full-width{
+.grid-column .grid__full-width {
     display: flex;
     flex-wrap: wrap;
 }
 
 /* Animation  */
 
-@keyframes fadeIn{
-    from{
+@keyframes fadeIn {
+    from {
         opacity: 0;
     }
 
-    to{
+    to {
         opacity: 1;
     }
 }

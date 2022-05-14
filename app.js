@@ -16,6 +16,7 @@ const methodOverride = require( 'method-override' )
 const PORT = 8000
 const MONGOGDB_URL = 'mongodb://localhost:27017/Movies_Website';
 
+
 const app = express();
 const store = new MongoDBStore( {
     uri: MONGOGDB_URL,
@@ -30,11 +31,11 @@ dotenv.config();
 // upload file img and convert path to static in project
 const fileStorage = multer.diskStorage( {
     destination: ( req, file, cb ) => {
-        cb( null,'./images' );
+        cb( null, './images' );
     },
-  
+
     filename: ( req, file, cb ) => {
-        cb( null, Date.now() +'--'+ file.originalname );
+        cb( null, Date.now() + '--' + file.originalname );
     }
 } );
 

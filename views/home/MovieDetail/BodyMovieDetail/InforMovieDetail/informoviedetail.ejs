@@ -1,0 +1,46 @@
+<div class="container container-detail-body">
+    <div class="row">
+        <div class="col-md-6 container-detail-body-img">
+            <div class="container-detail-body-img-content">
+                <img class="container-detail-body-img-detail" src="/<%= movie.imageUrl %>" alt="fsadf">
+                <div class="poster-button">
+                    <a class="btn-detail-body-watch" href="/watching/ONE PIECE" \>XEM PHIM</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 container-detail-body-detail">
+            <div class="container-detail-body-title">
+                <span class="detail-body-title-name">
+                    <div class="title-name-text">
+                        <%= movie.name %>
+                    </div>
+                    <a href="#"><i class="fa-regular fa-heart"></i></a>
+                </span>
+                <span class="detail-body-title-year">Word of Honor (2022)</span>
+            </div>
+
+            <div class="container-scroll-bar">
+                <div class="container-detail-body-content">
+                    <p>Trang Thai: </p>
+                    <p>Sap Chieu: </p>
+                    <p>Đạo diễn: <%= movie.director %>
+                    </p>
+                    <p>Thoi luong: </p>
+                    <p>Quoc Gia: <%= movie.national %>
+                    </p>
+                    <p>Nha san xua: <%= movie.producer %>
+                    </p>
+                    <p>Dien Vien: <%= movie.character %>
+                    </p>
+                    <p>The Loai: <%= movie.typeFilm %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="container-detail-body-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

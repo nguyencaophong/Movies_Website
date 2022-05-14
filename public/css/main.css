@@ -1,16 +1,26 @@
-.body{
-    font-family: Arial;
+a {
+    color: #d7946d !important;
+    text-decoration: none !important;
 }
-.main-header{
+
+h1 {
+    margin: 16px 12px !important;
+    color: #d7946d;
+    padding-bottom: 16px;
+}
+
+.main-header {
     width: 100%;
     height: 80px;
-    background-color: antiquewhite;
+    background-color: #353535;
     display: flex;
     justify-content: space-around;
+    position: fixed;
+    z-index: 100;
 }
 
 
-.main-header-nav-list{
+.main-header-nav-list {
     display: flex;
     list-style: none;
     justify-content: center;
@@ -18,16 +28,16 @@
     height: 80px;
 }
 
-.main-header__item{
+.main-header__item {
     margin-left: 20px;
 
 }
 
-.main-header__item-link{
+.main-header__item-link {
     text-decoration: none;
 }
 
-.main-header-auth{
+.main-header-auth {
     display: flex;
     height: 80px;
     justify-content: center;
@@ -35,129 +45,19 @@
     list-style: none;
 }
 
-.main-header-auth-item{
+.main-header-auth-item {
     margin-left: 20px;
 }
 
-.main-header__login-link{
+.main-header__login-link {
     text-decoration: none;
 }
 
-.main-header__signin-link{
+.main-header__signin-link {
     text-decoration: none;
 }
 
-/*START HOME PAGE */
-
-.container-header-slider-list{
-    width: 100%;
+.container-detail-chatonline {
     height: 300px;
-    background-color: blueviolet;
+    background-color: orchid;
 }
-
-.container-header-slider-item{
-
-}
-
-
-
-.container-body{
-    margin-top: 30px;
-}
-.container-movie-item{
-
-}
-
-.container-movie-item:hover{
-    cursor: pointer;
-    background-color: aqua;
-}
-
-.container-movie-img{
-    width: 120px;
-    height: 100px;
-}
-
-.container-movie-name{
-
-}
-
-.container-home-list{
-    width: 100%;
-    height: auto;
-    background-color: rgb(177, 165, 165);
-}
-
-.container-home-sidebar{
-    height: auto;
-    background-color: chocolate;
-}
-
-.pagination {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .pagination a {
-    text-decoration: none;
-    color: #00695c;
-    padding: 0.5rem;
-    border: 1px solid #00695c;
-    margin: 0 1rem;
-  }
-  
-  .pagination a:hover,
-  .pagination a:active,
-  .pagination a.active {
-    background: #00695c;
-    color: white;
-  }
-
-  .sidebar-movie-chaton{
-      margin-top: 32px;
-      width: 100%;
-      height: 400px;
-      background-color: #00695c;
-  }
-/* END HOME PAGE */
-
-/* START HOME SIDEBAR */
-
-
-.sidebar-movie-new-list{
-    margin-top: 20px;
-
-}
-
-.sidebar-movie-new-item{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.sidebar-movie-new-name{
-
-}
-
-.sidebar-item-img{
-    width: 60px;
-    height: 80px;
-    border-radius: 4px;
-}
-
-.sidebar-item-content{
-    display: column;
-
-}
-
-.sidebar-item-name{
-
-}
-
-.sidebar-item-episode{
-
-}
-
-
-
-/* END HOME SIDEBAR */

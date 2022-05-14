@@ -1,0 +1,30 @@
+<%- include('../../includes/header.ejs') %>
+    <link rel="stylesheet" type="" href="/fontawesome-free-6.1.1-web/css/all.css">
+    <link rel="stylesheet" type="" href="/css/watchmovie.css">
+    <link rel="stylesheet" type="" href="/css/home-movie.css">
+    <link rel="stylesheet" type="" href="/css/movie-detail.css">
+
+
+    </head>
+
+    <body>
+        <%- include('../../includes/navigation.ejs') %>
+
+            <div class="container container-body-video-detail">
+
+                <div class="row padding-right-0">
+                    <%- include('./BodyVideoMovie/bodyvideo.ejs') %>
+
+                </div>
+                <div class="row padding-right-0">
+
+                    <%- include('../ChatOnline/chatonline.ejs') %>
+                </div>
+
+                <%- include('../MovieDetail/BodyMovieDetail/NominateMovie/index.ejs') %>
+
+
+            </div>
+
+
+            <%- include('../../includes/footer.ejs') %>
