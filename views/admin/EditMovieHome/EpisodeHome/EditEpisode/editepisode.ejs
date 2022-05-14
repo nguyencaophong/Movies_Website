@@ -1,0 +1,79 @@
+<%- include('../../../../includes/header.ejs') %>
+<link rel="stylesheet" href="/css/admin/sidebar.css">
+<link rel="stylesheet" href="/css/admin/bodyadmin.css">
+<link rel="stylesheet" href="/css/admin/editmovie.css">
+</header>
+
+<body>
+
+<%- include('../../../../includes/navigation.ejs') %>
+<div class="container">
+  <a href="/admin/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <p class="sidebar-title">DARK ADMIN</p>
+</a>
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 container-sidebar-admin-home">
+      <%- include('../../../SideBarAdmin/index.ejs') %>
+        </div>
+
+        <div class="col py-3">
+            <div class="body-container-admin">
+                <div class="body-admin-header">
+                    <p class="body-admin-header-title"><%= pageTitle %></p>
+                </div>
+
+                
+                <div class="container container-body-editmovie">
+                    
+                    <% if (errorMeassage) { %>
+                        <div class="alert alert-danger user-edit-message-error" role="alert" style="text-align: center;"><%= errorMeassage %></div>
+                    <% } %>
+                    <form action="/admin/<%= movie._id %>/<% if (!editing) { %>add-episode<% } else { %>edit-episode<% } %>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group-container">
+                            <% if(!addEpisodeMode) { %>
+                            <div class="form-group-container-item">
+                                <div class="form-group">
+                                <label for="name">Episode</label>
+                                <input 
+                                    class="form-control form-edit-movie-item-name"
+                                    type="number" 
+                                    name="episode" 
+                                    id="episode" 
+                                    value="<%= oldInput.episode %>">
+                                </div>
+                                <% } %>
+                                <div class="form-group">
+                                    <label for="movieurl">Movie URL</label>
+                                    <input 
+                                      class="form-control form-edit-movie-item-movieUrl"
+                                      type="text" 
+                                      name="movieurl" 
+                                      id="movieurl" 
+                                      value="<%= oldInput.movieUrl %>">
+                                  </div>
+                            </div>
+                            
+                            <div class="btn-form-group-submit">
+    
+                                <button type="submit" class="btn btn-primary btn-edit-movie">Submit</button>
+                            </div>
+                        </div>
+                        <% if (editing) { %>
+                            <input type="hidden" value="<%= episodeId %>" name="episodeId">
+                        <% } %>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('../../../../includes/footer.ejs') %>
+
+

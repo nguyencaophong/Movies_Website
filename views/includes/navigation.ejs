@@ -2,6 +2,7 @@
 <header class="main-header">
     <nav class="main-header-nav">
         <ul class="main-header-nav-list">
+
             <li class="main-header__item">
                 <a href="/" class="main-header__item-link">TRANG CHỦ</a>
             </li>
@@ -29,15 +30,15 @@
             <li class="main-header__item">
                 <a href="" class="main-header__item-link">PHIM BỘ</a>
             </li>
+            <% if (isAuthenticated && roleUser==='admin') { %>
             <li class="main-header__item">
-                <a href="/admin/add-movie" class="main-header__item-link">Add Movies</a>
+                <a href="/admin" class="main-header__item-link">Admin</a>
             </li>
-            <li class="main-header__item">
-                <a href="" class="main-header__item-link">Admin</a>
-            </li>
+            <% } %>
         </ul>
     </nav>
     <nav class="main-header-auth">
+        <% if (!isAuthenticated) { %>
         <li class="main-header-auth-item">
             <a href="/auth/login" class="main-header__login-link">Login</a>
         </li>
@@ -45,5 +46,11 @@
         <li class="main-header-auth-item">
             <a href="/auth/register" class="main-header__signin-link">Sign in</a>
         </li>
+
+        <% } else { %>
+            <li class="main-header-auth-item">
+                <a href="/auth/logout" class="main-header__signin-link">Log out</a>
+            </li>
+        <% } %>
     </nav>
 </header>
