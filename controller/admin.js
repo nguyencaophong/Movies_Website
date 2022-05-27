@@ -321,7 +321,6 @@ exports.getAddMovies = async ( req,res ) =>{
         isEpisodeHome: false,
         oldInput: {
             name:'',
-            movieurl: '',
             description: '',
             director: '',
             character: '',
@@ -337,7 +336,6 @@ exports.getAddMovies = async ( req,res ) =>{
 exports.postAddMovies =async ( req,res ) =>{
 
     const name = req.body.name;
-    const movieurl = req.body.movieurl;
     const images = req.file;
     const description = req.body.description;
     const character = req.body.character;
@@ -346,10 +344,38 @@ exports.postAddMovies =async ( req,res ) =>{
     const producer = req.body.producer;
     const typeFilm = req.body.typeFilm;
     
-    const typeFilmArray = ['Phim-Bộ','Phim-Thuyết-Minh','Phim-Sắp-Chiếu','Hoạt-Hình','Phim-Lẻ','Cổ Trang - Thần Thoại']
-
+    const typeFilmArray = ['Phim-Bộ',
+    'Phim-Thuyết-Minh',
+    'Phim-Sắp-Chiếu',
+    'Hoạt-Hình',
+    'Phim-Lẻ',
+    'Cổ Trang-Thần Thoại',
+    'Khoa Học-Viễn Tưởng',
+    'Thể Thao-Âm Nhạc',
+    'Bí Ẩn-Siêu Nhân',
+    'Võ Thuật-Kiếm Kiệp',
+    'Hình Sự-Chiến Tranh',
+    'Thuyết Minh',
+    'Phiêu Lưu-Hành Động',
+    'Tài Liệu-Hành Động',
+    'Gia Đình- Học Đường',
+    'Việt Nam',
+    'Trung Quốc',
+    'Âu-Mỹ',
+    'Đài Loan',
+    'Hàn Quốc',
+    'Nhật Bản',
+    'Thái Lan',
+    'Ấn Độ',
+    'Hồng Kong',
+    'Canada',
+    'Phim Mới',
+    'Phim Lẻ',
+    'Phim Bộ',
+    'TV Show',
+    'Phim Chiếu Rạp']
+                            
     const checkTypeFilm = typeFilmArray.includes( typeFilm );
-
     const errors = validationResult( req )
 
 
@@ -363,7 +389,6 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMeassage: errors.array()[0].msg,
             oldInput: {
                 name:name,
-                movieUrl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -385,7 +410,6 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMeassage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
             oldInput: {
                 name:name,
-                movieUrl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -407,7 +431,6 @@ exports.postAddMovies =async ( req,res ) =>{
             errorMeassage: 'Attached file is not an image.',
             oldInput: {
                 name:name,
-                movieUrl: movieurl,
                 description: description,
                 director: director,
                 character: character,
@@ -423,7 +446,6 @@ exports.postAddMovies =async ( req,res ) =>{
         const imageUrl = images.path;
         const movie =await new Movie( {
             name: name,
-            movieUrl: movieurl,
             description: description,
             director: director,
             character: character,
@@ -468,7 +490,6 @@ exports.getEditMovie = async ( req,res ) =>{
             errorMeassage: null,
             oldInput:{
                 name:  movieDetail.name,
-                movieUrl:  movieDetail.movieUrl,
                 director:  movieDetail.director,
                 character:  movieDetail.character,
                 national:  movieDetail.national,
@@ -488,7 +509,6 @@ exports.postEditMovie = async( req,res,next ) =>{
     try {
         const name = req.body.name;
         const movieId = req.body.movieId;
-        const movieUrl = req.body.movieurl;
         const director = req.body.director;
         const character = req.body.character;
         const national = req.body.national;
@@ -510,7 +530,6 @@ exports.postEditMovie = async( req,res,next ) =>{
                 isEpisodeHome: false,
                 oldInput:{
                     name:  name,
-                    movieUrl:  movieUrl,
                     director:  director,
                     character:  character,
                     national:  national,
@@ -534,7 +553,6 @@ exports.postEditMovie = async( req,res,next ) =>{
                 isEpisodeHome: false,
                 oldInput:{
                     name:  name,
-                    movieUrl:  movieUrl,
                     director:  director,
                     character:  character,
                     national:  national,
@@ -552,7 +570,6 @@ exports.postEditMovie = async( req,res,next ) =>{
             const newMovie =await new Movie( {
                 id: movieId,
                 name: name,
-                movieUrl: movieUrl,
                 imageUrl:imageUrl.path,
                 director: director,
                 character: character,

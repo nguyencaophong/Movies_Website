@@ -1,16 +1,18 @@
 .container-detail-header {
+    margin-top: 8px;
     color: #fff;
-    width: 100%;
-    height: 40px;
-    padding: 5px 10px;
+    /* width: 100%; */
+    height: 50px;
+    padding: 5px 14px;
     background-color: rgb(26 32 35);
     display: flex;
     align-items: center;
     font-size: 15px;
+    margin-right: 18px;
 }
 
 .container-detail-movie {
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 
 .container-detail-body {
@@ -22,7 +24,7 @@
 }
 
 .col-md-9.container-body-movie-detail {
-    background-color: #302e2e;
+    background-color: #181818;
     margin-top: 16px;
     margin-right: -8px;
     margin-left: 8px;
@@ -30,7 +32,7 @@
 
 .container-detail-body-img {
     height: auto;
-    background-color: #302e2e;
+    background-color: #1a2023;
     padding-top: 8px;
 
 }
@@ -77,7 +79,7 @@
     flex: 1;
     height: auto;
     /* background-color: cadetblue; */
-    background-color: #302e2e;
+    background-color: #1a2023;
     color: #dcdcdc;
     padding: 8px 5px 8px 12px;
 
@@ -90,6 +92,7 @@
 }
 
 .detail-body-title-name {
+    display: flex;
     position: relative;
     font-size: 22px;
     font-weight: 700;
@@ -113,6 +116,14 @@
     top: 0;
 }
 
+.icon-cart-tym{
+    font-size: 20px; 
+    color: cornsilk;
+}
+
+.icon-cart-tym:hover{
+    color: #be2d2a;
+}
 
 /* 
 .detail-body-title-name .fa-regular.fa-heart:active {
@@ -177,7 +188,7 @@
     margin-right: 12px;
     margin-bottom: 24px;
     font-size: 14px;
-    background-color: #353535;
+    background-color: #1a2023;
     padding: 16px;
     margin-top: 16px;
 }
@@ -200,6 +211,7 @@
 .container-detail-comment {
     display: flex;
     flex-flow: column wrap;
+
 }
 
 #form-comment {
@@ -270,3 +282,26 @@
 #carouselExampleControls .container .row {
     justify-content: space-around;
 }
+
+
+/* start nominate */
+
+.header-movie-nominate-detail{
+    margin: 12px 32px;
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+    font-size: 16px;
+}
+
+.header-movie-nominate-icon{
+    color: #df7c12;
+}
+
+.header-movie-nominate-p{
+    margin-left: 8px;
+    color: #ccc;
+
+}
+
+/* end nominate */

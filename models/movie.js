@@ -8,10 +8,6 @@ const movieSchema = new Schema( {
         type:String,
         required: true
     },
-    movieUrl:{
-        type: String,
-        required: true
-    },
     director:{
         type: String,
         required: true

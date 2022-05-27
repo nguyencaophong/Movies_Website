@@ -15,6 +15,7 @@ const cartUserSchema = mongoose.Schema( {
             required: true
         },
         userId: {
+            // eslint-disable-next-line no-undef
             type: Schema.Types.ObjectId,
             ref: 'User',
             required: true

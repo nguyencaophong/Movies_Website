@@ -71,10 +71,6 @@ router.put( '/edit-movie',
             .exists()
             .isLength( {min:5} )
             .trim(),
-        check( 'movieurl','This Movie Url must me 5+ characters long' )
-            .exists()
-            .isLength( {min:5,max:500} )
-            .trim(),
         check( 'description','This description must me 5+ characters long' )
             .exists()
             .isLength( {min:5,max:500} )
@@ -113,10 +109,6 @@ router.post( '/add-movie',
         check( 'name','This username must me 5+ characters long' )
             .exists()
             .isLength( {min:5} )
-            .trim(),
-        check( 'movieurl','This Movie Url must me 5+ characters long' )
-            .exists()
-            .isLength( {min:5,max:500} )
             .trim(),
         check( 'description','This description must me 5+ characters long' )
             .exists()

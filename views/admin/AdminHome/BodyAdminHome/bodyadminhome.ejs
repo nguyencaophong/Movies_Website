@@ -224,7 +224,7 @@
 <!-- Form hidden edit user -->
 <form name="delete-form-objectId" method="POST">
     <input id="hiddent-objectId" type="hidden"  name="objectId">
-    <input id="hidden-csrf" type="hidden" name="_csrf" >
+    <input id="hidden-csrf" type="hidden" name="_csrf" value="<%= csrfToken %>">
 </form>
 <% if (!isMoviePage) { %>
     <script src="../../../js/deleteUser.js"></script>

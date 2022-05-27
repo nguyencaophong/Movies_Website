@@ -16,9 +16,9 @@ btnDeleteMovieId.onclick = () =>{
     deleteForm.action = '/admin/delete-movie';
 
     const hidden_objectId = document.getElementById( 'hiddent-objectId' );
-    const hidden_csrf = document.getElementById( 'hidden-csrf' );
+    // const hidden_csrf = document.getElementById( 'hidden-csrf' );
 
     hidden_objectId.value = objectId;
-    hidden_csrf.value = csrf;
+    // hidden_csrf.value = csrf;
     deleteForm.submit();
 }

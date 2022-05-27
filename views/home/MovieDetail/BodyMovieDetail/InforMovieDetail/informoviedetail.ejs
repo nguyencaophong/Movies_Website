@@ -15,7 +15,9 @@
                     <div class="title-name-text">
                         <%= movie.name %>
                     </div>
-                    <a href="#"><i class="fa-regular fa-heart"></i></a>
+                    <button id="add-to-cart-icon" style="border-radius: 50%; background-color: #1a2023; border: none;">
+                        <i class="fa-solid fa-heart icon-cart-tym" id="add-to-cart-icon"></i>
+                    </button>
                 </span>
                 <span class="detail-body-title-year">Word of Honor (2022)</span>
             </div>
@@ -44,3 +46,12 @@
         </div>
     </div>
 </div>
+
+
+<!-- Form hidden post cart  -->
+<form name="form-add-to-cart" method="POST">
+    <input id="hiddent-objectId" type="hidden"  name="objectId" value="<%= movie._id %>">
+    <input id="hidden-csrf" type="hidden" name="_csrf" value="<%= csrfToken %>">
+</form>
+
+<script src="../../../../js/addtoCart.js"></script>

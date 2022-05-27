@@ -10,13 +10,19 @@
   <body>
     <%- include('../../includes/navigation.ejs') %>s
       <div class="container container-body">
+        <% if (!modeCategory) { %>
         <div class="row">
           <%- include('./SliderHome/index.ejs',{listPhimBo: listPhimBo}) %>
         </div>
+        <% } %>
         <div class="row">
           <div class="col-md-9">
-            <%- include('./BodyHomePage/index.ejs',{listPhimSapChieu: listPhimSapChieu,listPhimBo: listPhimBo,HoatHinh:
-              HoatHinh,listPhimLe: listPhimLe }) %>
+            <% if (!modeCategory) { %>
+              <%- include('./BodyHomePage/index.ejs',{listPhimSapChieu: listPhimSapChieu,listPhimBo: listPhimBo,HoatHinh:
+                HoatHinh,listPhimLe: listPhimLe }) %>
+            <%  } else {%>
+              <%- include('./BodyHomePage/index.ejs',{listCategory: listCategory}) %>
+            <% } %>
           </div>
           <div class="col-md-3">
             <%- include('../SideBar/index.ejs',{listPhimSapChieu: listPhimSapChieu}) %>

@@ -292,12 +292,12 @@ exports.getCart = async( req,res ) =>{
 }
 
 exports.postCart = async( req,res ) =>{
-    const movieId = req.body.movieId;
+    const movieId = req.body.objectId;
 
     try {
         const movieDetail = await Movie.findById( movieId );
         const addMovietoCart = await req.user.addToCart( movieDetail );
-        const nameMovie = movieDetail.name;
+
         res.redirect( `/film/${movieDetail.name}` )
     } catch ( error ) {
         console.log( error )

@@ -1,5 +1,6 @@
+<% if (!modeCategory) { %>
 <div class="container-home-list">
-  <div id="IDPHIMBO" class="carousel slide" data-bs-ride="carousel">
+  <div id="IDPHIMBO" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <h1>PHIM BỘ MỚI CẬP NHẬT</h1>
       <div class="carousel-item active">
@@ -42,7 +43,7 @@
 </div>
 
 <div class="container-home-list">
-  <div id="IDPHIMBO" class="carousel slide" data-bs-ride="carousel">
+  <div id="IDPHIMBO" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <h1>PHIM LẺ MỚI CẬP NHẬT</h1>
       <div class="carousel-item active">
@@ -85,12 +86,8 @@
 
 </div>
 
-
-
-
-
 <div class="container-home-list">
-  <div id="IDPHIMBO" class="carousel slide" data-bs-ride="carousel">
+  <div id="IDPHIMBO" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <h1>PHIM CHIẾU RẠP MỚI CẬP NHẬT</h1>
       <div class="carousel-item active">
@@ -135,7 +132,7 @@
 
 
 <div class="container-home-list">
-  <div id="IDPHIMBO" class="carousel slide" data-bs-ride="carousel">
+  <div id="IDPHIMBO" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <h1>HOẠT HÌNH</h1>
       <div class="carousel-item active">
@@ -177,3 +174,20 @@
   </div>
 
 </div>
+
+<% } else { %>
+  <div class="container-home-list">
+    <div class="container-home-title">
+      <span class="container-home-nametitle"><%= nameCategory %></span>
+    </div>
+    <div class="container">
+      <div class="row">
+        <% for (let i=0; i < listCategory.length; i++) { %>
+          <%- include('./ListBodyHomePage/itemlistbodyhomepage.ejs',{name: listCategory[i].name, imageUrl:
+            listCategory[i].imageUrl}) %>
+            <% } %>
+      </div>
+    </div>
+  </div>
+<% } %>
+
