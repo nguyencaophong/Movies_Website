@@ -1,6 +1,7 @@
 const path = require( 'path' );
 
 const Movie = require( '../models/movie' );
+const User = require('../models/user');
 const { move } = require('../routes/home');
 
 const ITEMS_PER_CONTAINER_LIST = 5;
@@ -45,14 +46,32 @@ exports.getMovieDetail = async( req,res) =>{
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
             .limit( 6 );
 
-        movieDetail = await Movie.findOne( { name: req.params.name } );
+        const movieDetail = await Movie.findOne( { name: req.params.name } );
+        
+        const listComment = movieDetail.listComment.sort( ( a,b ) =>{
+            return b.location - a.location;
+        } )
+        const listEpisode = movieDetail.listEpisode.sort((a,b) =>{
+            return a.episode - b.episode;
+        })
+        
         if ( movieDetail === null ) {
             movieDetail = 'Undified';
         }
+
+        if(movieDetail.listEpisode.length===0){
+            var modeWatching=false;
+        }
+
         res.render( 'home/MovieDetail/index.ejs', {
             listPhimChieuRap: listPhimChieuRap,
             movie: movieDetail,
-            listPhimSapChieu: listPhimSapChieu
+            listPhimSapChieu: listPhimSapChieu,
+            user: req.user._id,
+            listcomment: listComment,
+            modeWatching: modeWatching,
+            listEpisode:listEpisode
+            
         } )
     } catch ( error ) {
         console.log( error )
@@ -61,22 +80,45 @@ exports.getMovieDetail = async( req,res) =>{
 
 exports.getWatchMovie = async ( req, res) => {
     try {
+        const episode = req.query.episode;
         const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
             .limit( 18 )
+        const movieDetail = await Movie.findOne( { name: req.params.name } );
 
-        const movieName = req.params.name;
+        
+        const listEpisode = movieDetail.listEpisode.sort((a,b) =>{
+            return a.episode - b.episode;
+        })
 
-        const movieDetail = await Movie.findOne( { name: movieName } );
+        console.log(listEpisode);
+        const listComment = movieDetail.listComment.sort( ( a,b ) =>{
+            return b.location - a.location;
+            } )
 
+        const movieEpisodeDetail = movieDetail.listEpisode.filter(value =>{
+                return value.episode.toString()===episode.toString()
+        });
+
+        console.log(movieEpisodeDetail);
+        
+        if ( movieDetail === null ) {
+                movieDetail = 'Undified';
+            }
         res.render( 'home/VideoMovie/index.ejs', {
             movie: movieDetail,
-            listPhimChieuRap: listPhimChieuRap
+            movieEpisodeDetail: movieEpisodeDetail,
+            listPhimChieuRap: listPhimChieuRap,
+            user: req.user._id,
+            listcomment: listComment,
+            listEpisode: listEpisode
         } )
 
     } catch ( error ) {
         console.log( error )
     }
 }
+
+
 
 exports.getCategory = async( req, res) =>{
     try {
@@ -119,6 +161,25 @@ exports.searchMovie = async(req,res)=>{
             nameCategory: keywordSearch,
             modeCategory: true
         })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// CHAT ONLINE
+
+exports.postChatOnline = async(req,res,next) =>{
+    try {
+        const movieId = req.body.movieId;
+        const userId = req.user._id
+        const comment = req.body.comment;
+
+        const movieDetail = await Movie.findById(movieId);
+        const userDetail = await User.findById(userId);
+
+
+        await movieDetail.addComment(userDetail.email[0],comment);
+        res.redirect(`/film/${movieDetail.name}`);
     } catch (error) {
         console.log(error);
     }

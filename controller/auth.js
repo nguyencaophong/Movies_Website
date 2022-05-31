@@ -277,12 +277,13 @@ exports.getCart = async( req,res ) =>{
         const getAllCart =await req.user
             .populate( 'cart.items.movieId' )
 
-        const movies = getAllCart.cart.items
+        const listMovie = getAllCart.cart.items
 
         res.render( 'home/CartUser/index.ejs',{
             path:'/auth/cart',
             pageTitle:'Cart',
-            movies: movies
+            listMovie: listMovie,
+            modeEditUser: 0
         } )
 
         
@@ -316,3 +317,128 @@ exports.postDeleteMovieCart = async( req,res,next ) =>{
         console.log( error )    
     }
 }
+
+// INFRO ACCOUNT USER
+exports.getInforUser = async(req,res,next) =>{
+    try {
+        const emailUser = req.user.email
+        const userDetail = await User.findOne({email: emailUser});
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+        .limit( 6 );
+
+        res.render('home/CartUser/index.ejs',{
+            pageTitle:'My ACCOUNT',
+            user: userDetail,
+            listPhimSapChieu: listPhimSapChieu,
+            modeEditUser: 1,
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getChangeMyAccount = async(req,res,next) =>{
+    try {
+        const userId = req.user._id
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+        .limit( 6 );
+        const userDetail = await User.findById(userId)
+        
+        let message = flash( 'error' );
+        if( message.length >0 ) {
+            message = message[0]
+        }
+        else{
+            message = null
+        }
+
+        res.render('home/CartUser/index.ejs',{
+            pageTitle:'CHANGE MY ACCOUNT',
+            user: userDetail,
+            oldInput:{
+                currentpassword:'',
+                newpassword:''
+            },
+
+            listPhimSapChieu: listPhimSapChieu,
+            modeEditUser: 2,
+            errorMeassage:message,
+            validationErrors:[],
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.putChangeMyAccount = async(req,res,next) =>{
+    try {
+        const currentPassword = req.body.currentpassword;
+        const newPassword = req.body.newpassword;
+        const userId = req.user._id;
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+        .limit( 6 );
+        const userDetail = await User.findById(userId);
+        const checkCurrentPassword =await bcrypt.compare(currentPassword,req.user.password)
+
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()){
+            res.status(422).render('home/CartUser/index.ejs',{
+                    pageTitle:'CHANGE MY ACCOUNT',
+                    oldInput:{
+                        currentpassword:req.body.currentpassword,
+                        newpassword:req.body.newpassword
+                    },
+                    user: userDetail,
+                    listPhimSapChieu: listPhimSapChieu,
+                    modeEditUser: 2,
+                    errorMeassage: errors.array()[0].msg,
+                    type: 'error',
+                    validationErrors: errors.array()
+                })
+        }
+
+        else if(!checkCurrentPassword){
+            res.status(422).render('home/CartUser/index.ejs',{
+                pageTitle:'CHANGE MY ACCOUNT',
+                oldInput:{
+                    currentpassword:req.body.currentpassword,
+                    newpassword:req.body.newpassword
+                },
+                user: userDetail,
+                listPhimSapChieu: listPhimSapChieu,
+                modeEditUser: 2,
+                errorMeassage: 'Mật khẩu hiện tại không khớp !!!',
+                type: 'error',
+                validationErrors: []
+            })
+        }
+        else{
+            try {
+            const bcryptPassword =await bcrypt.hash(newPassword,12)
+            await User.updateOne({_id:userId},{email:userDetail.email,password: bcryptPassword})
+
+            console.log(`Update infor of User ${userDetail.email} success!!!`);
+            res.status(200).render('home/CartUser/index.ejs',{
+                pageTitle:'CHANGE MY ACCOUNT',
+                oldInput:{
+                    currentpassword:'',
+                    newpassword:''
+                },
+                user: userDetail,
+                listPhimSapChieu: listPhimSapChieu,
+                modeEditUser: 2,
+                errorMeassage: 'Thay đổi thông tin thành công !!!',
+                type: 'success',
+                validationErrors: []
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// END INFOR MY ACCOUNT

@@ -73,4 +73,25 @@ route.get( '/cart',isLogin,authController.getCart );
 route.post( '/cart',isLogin,authController.postCart );
 
 route.post( '/cart-delete',isLogin,authController.postDeleteMovieCart )
+
+// INFOR account User
+
+route.get('/my-account',authController.getInforUser)
+
+route.get('/change-myaccount', authController.getChangeMyAccount)
+
+route.put( '/change-myaccount',
+    [
+        check( 'currentpassword','This currentpassword must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5} )
+            .trim(),
+        check( 'newpassword','This newpassword must me 5+ characters long' )
+            .exists()
+            .isLength( {min:5} )
+            .trim()
+            
+    ],
+    authController.putChangeMyAccount )
+
 module.exports = route;

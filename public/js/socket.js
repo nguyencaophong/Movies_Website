@@ -1,33 +1,27 @@
-import { io } from "socket.io-client";
 
+    const socket = io();
+    const chatForm = document.getElementById('form-comment');
+    const userId = document.getElementById('userId').value;
+    const chatComment = document.getElementById('comment');
+    const room = document.getElementById('movieId').value;
 
-const socket = io();
-const FormComment = document.querySelector('#form-comment');
-const Comment = document.querySelector('#comment');
-const room = '<%= movie.name %>';
-socket.emit('join-room', room);
-FormComment.addEventListener('submit',
-    (e) => {
+    socket.emit('join-room', room);
+    chatForm.addEventListener('submit',(e)=>{
         e.preventDefault();
-        const comment = Comment.value;
-        // ten phong
-        // comment
-        // ten user 
-
-
-        socket.emit('comment', room, {
+        const comment = chatComment.value;
+            socket.emit('comment', room,userId, {
             comment: comment,
-            user: null
         });
-        Comment.value = '';
-    }
-)
+        chatComment.value = '';
+    })
 
-const comments = document.querySelector('#list-comment');
-socket.on('user-comment', (comment) => {
-    console.log(comment);
-    const commentItem = document.createElement('li');
-    commentItem.textContent = comment.comment;
-    console.log(comment.room);
-    comments.append(commentItem);
-})
+    const comments = document.querySelector('#list-comment');
+    socket.on('user-comment', (comment) => {
+        const liNameComment = document.createElement('li');
+        liNameComment.style.fontSize='14px';
+        liNameComment.style.padding='8px 12px';
+        liNameComment.innerHTML =`<i class="fa-solid fa-user" style="font-size: 20px; color: rgb(33, 129, 97);"></i> User ${comment.name}:   ${comment.comment}` ;
+
+        comments.appendChild(liNameComment);
+    })
+

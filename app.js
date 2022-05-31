@@ -10,8 +10,11 @@ const csrf = require( 'csurf' );
 const dotenv = require( 'dotenv' );
 const route = require( './routes/index' );
 const bodyParser = require( 'body-parser' );
-const User = require( './models/user' );
 const methodOverride = require( 'method-override' )
+const socket = require('socket.io');
+const User = require( './models/user' );
+const Movie = require('./models/movie');
+const is_auth =require('./middleware/is-auth');
 
 const PORT = 8000
 const MONGOGDB_URL = 'mongodb://localhost:27017/Movies_Website';
@@ -113,7 +116,38 @@ mongoose
     .connect( MONGOGDB_URL, { useNewUrlParser: true, useUnifiedTopology: true  } )
     .then( result => {                     
         console.log( `Server running on PORT: http://localhost:${PORT}` )
-        app.listen( PORT );
+        const server = app.listen( PORT );
+                // su dung socket 
+                const io = socket(server);
+                io.on("connection",
+                    (socket) => {
+                        console.log('User connected to socket.io');
+                        socket.on('join-room',
+                            (room) => {
+                                socket.join(room);
+                            }
+                        );
+                        socket.on('comment',
+                            (room,userId, data) => 
+                            // tra lai cho client đã tham gia vào romom
+                            {
+                                
+                                Movie.findById(room)
+                                    .then(movie =>{
+                                        const comment = data.comment
+                                        const nameUser = userId.substr(1, 4);
+                                        movie.addComment(nameUser,comment);
+                                        io.to(room).emit('user-comment', {
+                                            name: nameUser,
+                                            comment: data.comment,
+                                            room: room
+                                        })
+                                    })
+                            }
+                            )
+                    }
+        
+                );
     } )
     .catch( err => {                
         console.log( err );

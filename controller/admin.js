@@ -44,7 +44,6 @@ exports.getAllUser = async( req,res ) =>{
         console.log( error );
     }
 }
-
 exports.getEditUser = async( req,res ) =>{
     try {
         const editMode = req.query.edit;

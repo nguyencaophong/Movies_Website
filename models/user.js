@@ -23,7 +23,6 @@ const userSchema = new Schema( {
                     ref:'Movie',
                     required: true
                 },
-                quantity: {type: Number , required: true}
             }
         ]
     }
@@ -31,19 +30,26 @@ const userSchema = new Schema( {
 
 userSchema.methods.addToCart = function ( movie ) {
     const updateCartItems = [...this.cart.items]
-    let quantity =0
-    quantity = quantity + 1;
-    updateCartItems.push( {
-        movieId: movie._id,
-        quantity:quantity
-    } )
+    
+    const listIdFromCart = updateCartItems.map(value =>{
+        return value.movieId.toString()
+    })
 
-    const updateCart = {
-        items:updateCartItems
+    const checkNewMovie_inCart = listIdFromCart.includes(movie._id.toString())   
+    if(!checkNewMovie_inCart){
+        updateCartItems.push( {
+            movieId: movie._id,
+        } )
+        const updateCart = {
+            items:updateCartItems
+        }
+        
+        this.cart = updateCart
+        return this.save()
     }
-
-    this.cart = updateCart
-    return this.save()
+    else{
+        return 0
+    }
 }
 
 userSchema.methods.removeFromCart = function ( movieId ) {

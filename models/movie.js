@@ -48,11 +48,10 @@ const movieSchema = new Schema( {
             }
         }
     ],
-    comment:[
+    listComment:[
         {
-            userId:{
-                type:Schema.Types.ObjectId,
-                ref:'User',
+            name:{
+                type:String,
                 required: true
             },
             content:{
@@ -113,6 +112,29 @@ movieSchema.methods.editEpisode = function ( episode, movieUrl,episodeId ) {
 
     this.listEpisode = updateListEpisode
     return this.save()
+}
+
+movieSchema.methods.addComment = function(name,comment){
+    const updateComment = [...this.listComment];
+    let locationComment = -Infinity;
+    if( updateComment.length === 0 ) {
+        locationComment = 0;
+    }
+    else{
+        for( let e of updateComment ) {
+            if( e.location > locationComment ) {
+                locationComment = e.location;
+            }
+        } 
+    }
+
+    updateComment.push({
+        name: name,
+        content: comment,
+        location: locationComment +1
+    })
+    this.listComment = updateComment
+    this.save()
 }
 
 module.exports = mongoose.model( 'Movie',movieSchema );
