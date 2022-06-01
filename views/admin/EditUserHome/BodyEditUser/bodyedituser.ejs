@@ -5,9 +5,27 @@
 
     <div class="body-edit-user">
         <div class="body-edit-user-form">
-            <% if (errorMeassage) { %>
-                <div class="alert alert-danger user-edit-message-error" role="alert"><%= errorMeassage %></div>
-            <% } %>
+            <div class="toast-message-box">
+                <% if(errorMeassage) { %>
+                <div id="toast-message" class="toast-message">
+                    <div class="toast-message toast-message__error-admin">
+                      <div class="toast-message__icon">
+                        <i class="fas fa-exclamation-circle" style="font-size: 20px; color:#333 ;"></i>
+                    </div>
+                    <div class="toast-message__body">
+      
+                        <h3 class="toast-message__title">Error !!! </h3>
+
+                        <p class="toast-message__msg"><%= errorMeassage %></p>
+                    </div>
+                    <div class="toast-message__close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+
+              </div>
 
             <div class="container">
             <form action="/admin/<% if (editing) { %>edit-user<% } else { %>add-user<% } %>" method="POST" enctype="multipart/form-data">

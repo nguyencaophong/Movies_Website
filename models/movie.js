@@ -133,8 +133,19 @@ movieSchema.methods.addComment = function(name,comment){
         content: comment,
         location: locationComment +1
     })
-    this.listComment = updateComment
-    this.save()
+    this.listComment = updateComment;
+    this.save();
+}
+
+movieSchema.methods.deleteEpisode = function(episode){
+    const updateEpisode = [...this.listEpisode];
+    const hasRemoveEpisode = updateEpisode.filter(value =>{
+        return value.episode.toString()!==episode.toString();
+    })
+
+    this.listEpisode= hasRemoveEpisode;
+    this.save();
+    
 }
 
 module.exports = mongoose.model( 'Movie',movieSchema );

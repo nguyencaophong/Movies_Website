@@ -6,9 +6,27 @@
             <p class="body-admin-header-title"><%= pageTitle %></p>
         </div>
     <div class="container-body-editmovie">
-            <% if (errorMeassage) { %>
-                <div class="alert alert-danger user-edit-message-error" role="alert" style="text-align: center;"><%= errorMeassage %></div>
+        <div class="toast-message-box">
+            <% if(errorMeassage) { %>
+            <div id="toast-message" class="toast-message">
+                <div class="toast-message toast-message__error-admin">
+                  <div class="toast-message__icon">
+                    <i class="fas fa-exclamation-circle" style="font-size: 20px; color:#333 ;"></i>
+                </div>
+                <div class="toast-message__body">
+  
+                    <h3 class="toast-message__title">Error !!! </h3>
+
+                    <p class="toast-message__msg"><%= errorMeassage %></p>
+                </div>
+                <div class="toast-message__close">
+                    <i class="fas fa-times"></i>
+                </div>
+              </div>
+            </div>
             <% } %>
+
+          </div>
     
             <form action="/admin/<% if (editing) { %>edit-movie?_method=PUT<% } else {%>add-movie<% } %>" method="POST" enctype="multipart/form-data">
                 <div class="form-group-container">
@@ -87,7 +105,7 @@
 
                     <div class="form-group-container-item-typeFilm">
                         <div class="form-control">
-                            <label for="typeFilm">Typefilm</label>
+                            <label for="typeFilm" style="font-size: 16px ; font-weight: 600;">Typefilm:   </label>
                             <input type="radio" 
                             name="typeFilm" 
                             id="typeFilm"
@@ -111,24 +129,19 @@
                             <input type="radio" 
                             name="typeFilm" 
                             id="typeFilm"
-                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            value="Cổ-Trang-Thần-Thoại" style="font-size:10px ;"> Cổ Trang-Thần Thoại
                             <input type="radio" 
                             name="typeFilm" 
                             id="typeFilm"
-                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            value="Khoa-Học-Viễn-Tưởng" style="font-size:10px ;"> Khoa Học-Viễn Tưởng
                             <input type="radio" 
                             name="typeFilm" 
                             id="typeFilm"
-                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            value="Phiêu-Lưu-Hành-Động" style="font-size:10px ;"> Phiêu Lưu-Hành Động
                             <input type="radio" 
                             name="typeFilm" 
                             id="typeFilm"
-                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
-                            <input type="radio" 
-                            name="typeFilm" 
-                            id="typeFilm"
-                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
-
+                            value="Việt-Nam" style="font-size:10px ;"> Việt Nam
                         </div>
                     </div>
                 </div>

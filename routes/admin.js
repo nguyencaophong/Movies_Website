@@ -144,6 +144,8 @@ router.post( '/:id/add-episode',[
 ]
 ,adminController.postAddEpisode );
 
+router.post( '/:id/delete-episode',adminController.postDeleteEpisode );
+
 router.get( '/:idmovie/edit-episode', adminController.getEditEpisode );
 
 router.post( '/:idmovie/edit-episode',[

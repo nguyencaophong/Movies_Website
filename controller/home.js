@@ -114,7 +114,7 @@ exports.getCategory = async( req, res) =>{
         const getCategory = req.params.category
         const listMove = await Movie.find()
 
-        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim Sắp Chiếu' } )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
         .limit( 6 );
 
         listMovieCategory = listMove.filter((movie) =>{
@@ -141,7 +141,7 @@ exports.searchMovie = async(req,res)=>{
                     value.typeFilm.toUpperCase().includes(keywordSearch.toUpperCase()))
         })
 
-        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim Sắp Chiếu' } )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
         .limit( 6 );
 
         res.render('home/HomePage/index.ejs',{

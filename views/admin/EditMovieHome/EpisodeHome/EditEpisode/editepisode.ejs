@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="/css/admin/sidebar.css">
 <link rel="stylesheet" href="/css/admin/bodyadmin.css">
 <link rel="stylesheet" href="/css/admin/editmovie.css">
+<link rel="stylesheet" href="/css/toastmessage.css">
+
 </header>
 
 <body>
@@ -17,17 +19,33 @@
         </div>
 
         <div class="col py-3">
+            <div class="body-admin-header">
+                <p class="body-admin-header-title"><%= pageTitle %></p>
+            </div>
             <div class="body-container-admin">
-                <div class="body-admin-header">
-                    <p class="body-admin-header-title"><%= pageTitle %></p>
-                </div>
-
-                
-                <div class="container container-body-editmovie">
+                <div class="container-body-editmovie">
                     
-                    <% if (errorMeassage) { %>
-                        <div class="alert alert-danger user-edit-message-error" role="alert" style="text-align: center;"><%= errorMeassage %></div>
-                    <% } %>
+                    <div class="toast-message-box">
+                        <% if(errorMeassage) { %>
+                        <div id="toast-message" class="toast-message">
+                            <div class="toast-message toast-message__error-admin">
+                              <div class="toast-message__icon">
+                                <i class="fas fa-exclamation-circle" style="font-size: 20px; color:#333 ;"></i>
+                            </div>
+                            <div class="toast-message__body">
+              
+                                <h3 class="toast-message__title">Error !!! </h3>
+      
+                                <p class="toast-message__msg"><%= errorMeassage %></p>
+                            </div>
+                            <div class="toast-message__close">
+                                <i class="fas fa-times"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <% } %>
+      
+                      </div>
                     <form action="/admin/<%= movie._id %>/<% if (!editing) { %>add-episode<% } else { %>edit-episode<% } %>" method="POST" enctype="multipart/form-data">
                         <div class="form-group-container">
                             <% if(!addEpisodeMode) { %>

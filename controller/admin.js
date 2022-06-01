@@ -773,3 +773,17 @@ exports.postEditEpisode = async( req,res,next ) =>{
         console.log( error );
     }
 }
+
+exports.postDeleteEpisode = async(req,res,next) =>{
+    try {
+        const paramEpisode = req.query.episode;
+        const movieId = req.params.id;
+        
+        const movieDetail = await Movie.findById(movieId);
+        await movieDetail.deleteEpisode(paramEpisode);
+        res.redirect(`/admin/${movieId}/get-all-episode?edit=true`)
+        console.log(`DELETE EPISODE OF ${movieDetail.name} SUCCESS !!!`);
+    } catch (error) {
+        console.log(error);
+    }
+}
