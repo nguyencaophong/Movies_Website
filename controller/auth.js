@@ -11,7 +11,7 @@ const Movie = require( '../models/movie' );
 const transporter = nodemailer.createTransport(
     sendgridTransport( {
         auth: {
-            api_key: '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'
+            api_key: ''
         }
     } )
 )
