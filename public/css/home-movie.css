@@ -30,7 +30,10 @@
     height: 230px;
 }
 
-.container-movie-name {}
+.container-movie-name {
+    font-weight: 500;
+
+}
 
 .container-home-list {
     width: 100%;
@@ -114,7 +117,7 @@
 .container-movie-item-link .container-movie-name {
     min-height: 55px;
     padding-top: 5px;
-    background-color: #686e71;
+    background-color: #263238;
     margin-bottom: 16px;
 }
 

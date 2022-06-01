@@ -8,18 +8,17 @@
   </head>
 
   <body>
-    <%- include('../../includes/navigation.ejs') %>s
+    <%- include('../../includes/navigation.ejs') %>
       <div class="container container-body">
         <% if (!modeCategory) { %>
         <div class="row">
-          <%- include('./SliderHome/index.ejs',{listPhimBo: listPhimBo}) %>
+          <%- include('./SliderHome/index.ejs',{listPhimLe: listPhimLe}) %>
         </div>
-        <% } %>
+        <% } %> 
         <div class="row">
           <div class="col-md-9">
             <% if (!modeCategory) { %>
-              <%- include('./BodyHomePage/index.ejs',{listPhimSapChieu: listPhimSapChieu,listPhimBo: listPhimBo,HoatHinh:
-                HoatHinh,listPhimLe: listPhimLe }) %>
+              <%- include('./BodyHomePage/index.ejs',{listPhimBo: listPhimBo,listPhimLe:listPhimLe}) %>
             <%  } else {%>
               <%- include('./BodyHomePage/index.ejs',{listCategory: listCategory}) %>
             <% } %>

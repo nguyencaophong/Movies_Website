@@ -1,11 +1,11 @@
 <div class="body-container-admin">
 
-    <div class="body-admin-header">
-        <p class="body-admin-header-title"><%= pageTitle %></p>
-    </div>
-            
     
-    <div class="container container-body-editmovie">
+
+        <div class="body-admin-header">
+            <p class="body-admin-header-title"><%= pageTitle %></p>
+        </div>
+    <div class="container-body-editmovie">
             <% if (errorMeassage) { %>
                 <div class="alert alert-danger user-edit-message-error" role="alert" style="text-align: center;"><%= errorMeassage %></div>
             <% } %>
@@ -14,16 +14,25 @@
                 <div class="form-group-container">
                     <div class="form-group-container-item">
                         <div class="form-group">
-                        <label for="name">Name Film</label>
-                        <input 
-                            class="form-control form-edit-movie-item-name"
-                            type="text" 
-                            name="name" 
-                            id="name" 
-                            value="<%= oldInput.name %>">
+                            <label for="name">Name Film</label>
+                            <input 
+                                class="form-control form-edit-movie-item-name"
+                                type="text" 
+                                name="name" 
+                                id="name" 
+                                value="<%= oldInput.name %>">
                         </div>
+                        <div class="form-group">
+                            <label for="director">Director</label>
+                            <input 
+                            class="form-control form-edit-movie-item-director"
+                            type="text" 
+                            name="director" 
+                            id="director" 
+                            value="<%=  oldInput.director %>">
+                        </div>
+
                     </div>
-                    
                     <div class="form-group">
                         <label for="description">Description</label>
                         <textarea 
@@ -35,19 +44,16 @@
                         ><%= oldInput.description %></textarea>
                     </div>
                 </div>
-
-
                 <div class="form-group-container">
                     <div class="form-group-container-item">
-
                         <div class="form-group">
-                            <label for="director">Director</label>
+                            <label for="producer">Producer</label>
                             <input 
-                            class="form-control form-edit-movie-item-director"
+                            class="form-control form-edit-movie-item-producer"
                             type="text" 
-                            name="director" 
-                            id="director" 
-                            value="<%=  oldInput.director %>">
+                            name="producer" 
+                            id="producer" 
+                            value="<%=  oldInput.producer %>">
                         </div>
 
                         <div class="form-group">
@@ -59,6 +65,12 @@
                             id="national" 
                             value="<%= oldInput.national  %>">
                         </div>
+                    </div>
+                    <div class="form-group-container-item">
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control form-edit-movie-item-image" name="image" id="image" >
+                        </div>
                         <div class="form-group">
                             <label for="character">Character</label>
                             <input 
@@ -68,36 +80,57 @@
                             id="character" 
                             value="<%= oldInput.character %>">
                         </div>
-                    </div>
 
-                    <div class="form-group-container-item">
-                        <div class="form-group">
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control form-edit-movie-item-image" name="image" id="image" >
-                        </div>
-                        <div class="form-group">
-                            <label for="producer">Producer</label>
-                            <input 
-                            class="form-control form-edit-movie-item-producer"
-                            type="text" 
-                            name="producer" 
-                            id="producer" 
-                            value="<%=  oldInput.producer %>">
-                        </div>
-                
-                        <div class="form-group">
+                    </div>   
+                </div>
+                <div class="form-group-container">
+
+                    <div class="form-group-container-item-typeFilm">
+                        <div class="form-control">
                             <label for="typeFilm">Typefilm</label>
-                            <input 
-                            class="form-control form-edit-movie-item-typefilm"
-                            type="text" 
+                            <input type="radio" 
                             name="typeFilm" 
-                            id="typeFilm" 
-                            value="<%=  oldInput.typeFilm  %>">
-                        </div>
+                            id="typeFilm"
+                            value="Phim-Bộ" style="font-size:10px ;"> Pim Bộ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Chiếu-Rạp" style="font-size:10px ;"> Phim Chiếu Rạp
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Hoạt-Hình" style="font-size:10px ;"> Hoạt Hình
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Sắp-Chiếu" style="font-size:10px ;"> Phim Sắp Chiếu
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
+                            <input type="radio" 
+                            name="typeFilm" 
+                            id="typeFilm"
+                            value="Phim-Lẻ" style="font-size:10px ;"> Pim Lẻ
 
+                        </div>
                     </div>
-                    
-                    
                 </div>
                 <div class="btn-form-group-submit">
 

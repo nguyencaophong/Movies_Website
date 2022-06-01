@@ -34,11 +34,7 @@
             <form  method="POST" action="/admin/<% if (!isMoviePage) { %>search-user<% } else { %>search-movie<% } %>" >
                 <input  class="form-control body-admin-search-input" type="search" placeholder="Please enter email!" name="keywordSearch">     
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <% if(!isMoviePage) { %>
-                <input type="hidden" name="listUser" value="<%= users %>">
-                <% } else { %>
-                <input type="hidden" name="listMovie" value="<%= movies %>">
-                <% } %>
+
                 <i class="fa-solid fa-magnifying-glass body-admin-search-icon"></i>
             </form>
         </div>

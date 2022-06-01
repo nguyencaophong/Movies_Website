@@ -249,7 +249,7 @@ exports.searchUser = async( req,res ) =>{
     try {
         const keywordSearch = req.body.keywordSearch;
         const listUser = await User.find();
-        
+
         const listUserDetail = listUser.filter( value =>{
             return value.email.toUpperCase().includes( keywordSearch.toUpperCase() )
         } )
@@ -290,21 +290,14 @@ exports.searchMovie = async( req,res ) =>{
     try {
         const keywordSearch = req.body.keywordSearch;
         const listMovie = await Movie.find();
-        
         const listNameDetail = listMovie.filter( value =>{
-            return value.name.toUpperCase().includes( keywordSearch.toUpperCase() )
+            return (value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || value.typeFilm.toUpperCase().includes( keywordSearch.toUpperCase() ))
         } )
-        const listTypeDetail = listMovie.filter( value =>{
-            return value.typeFilm.toUpperCase().includes( keywordSearch.toUpperCase() )
-        } )
-
-        const listMoveDetail = listNameDetail.concat( listTypeDetail )
-
         res.render( 'admin/AdminHome/index.ejs',{
             path:'/admin/search-movie',
             isMoviePage: true,
             pageTitle:'SEARCH M O V I E',
-            movies: listMoveDetail
+            movies: listNameDetail
         } )
     } catch ( error ) {
         console.log( error );
@@ -344,10 +337,10 @@ exports.postAddMovies =async ( req,res ) =>{
     const typeFilm = req.body.typeFilm;
     
     const typeFilmArray = ['Phim-Bộ',
-    'Phim-Thuyết-Minh',
-    'Phim-Sắp-Chiếu',
-    'Hoạt-Hình',
-    'Phim-Lẻ',
+    'Phim Thuyết Minh',
+    'Phim Sắp Chiếu',
+    'Hoạt Hình',
+    'Phim Lẻ',
     'Cổ Trang-Thần Thoại',
     'Khoa Học-Viễn Tưởng',
     'Thể Thao-Âm Nhạc',
@@ -357,10 +350,10 @@ exports.postAddMovies =async ( req,res ) =>{
     'Thuyết Minh',
     'Phiêu Lưu-Hành Động',
     'Tài Liệu-Hành Động',
-    'Gia Đình- Học Đường',
+    'Gia Đình-Học Đường',
     'Việt Nam',
     'Trung Quốc',
-    'Âu-Mỹ',
+    'Âu Mỹ',
     'Đài Loan',
     'Hàn Quốc',
     'Nhật Bản',
@@ -399,26 +392,26 @@ exports.postAddMovies =async ( req,res ) =>{
         } )
     }
 
-    if( checkTypeFilm === false ) {
-        return res.status( 422 ).render( 'admin/EditMovieHome/index.ejs',{
-            pageTitle: 'Add Movie',
-            path: 'admin/add-movie',
-            editing: false,
-            hasError: true,
-            isEpisodeHome: false,
-            errorMeassage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
-            oldInput: {
-                name:name,
-                description: description,
-                director: director,
-                character: character,
-                national: national,
-                producer: producer,
-                typeFilm: typeFilm
-            },
-            validationErrors: errors.array()
-        } )
-    }
+    // if( checkTypeFilm === false ) {
+    //     return res.status( 422 ).render( 'admin/EditMovieHome/index.ejs',{
+    //         pageTitle: 'Add Movie',
+    //         path: 'admin/add-movie',
+    //         editing: false,
+    //         hasError: true,
+    //         isEpisodeHome: false,
+    //         errorMeassage: 'Type Film không hợp lệ, vd : [Phim-Bộ, Phim-Thuyết-Minh, Phim-Sắp-Chiếu...',
+    //         oldInput: {
+    //             name:name,
+    //             description: description,
+    //             director: director,
+    //             character: character,
+    //             national: national,
+    //             producer: producer,
+    //             typeFilm: typeFilm
+    //         },
+    //         validationErrors: errors.array()
+    //     } )
+    // }
 
     if( !images ) {
         return res.status( 422 ).render( 'admin/EditMovieHome/index.ejs',{
@@ -513,7 +506,7 @@ exports.postEditMovie = async( req,res,next ) =>{
         const national = req.body.national;
         const producer = req.body.producer;
         const description = req.body.description;
-        const imageUrl = req.file;
+        const image = req.file;
         const typeFilm = req.body.typeFilm;
 
         const error = validationResult( req );
@@ -534,14 +527,14 @@ exports.postEditMovie = async( req,res,next ) =>{
                     national:  national,
                     producer:  producer,
                     description:  description,
-                    imageUrl:  imageUrl,
+                    imageUrl:  image,
                     typeFilm:  typeFilm
                 },
                 validationErrors: error.array()
             } )
         }
 
-        if( !imageUrl ) {
+        if( !image ) {
             return res.status( 422 ).render( 'admin/EditMovieHome/index.ejs' ,{
                 movieId: movieId,
                 path: '',
@@ -557,7 +550,7 @@ exports.postEditMovie = async( req,res,next ) =>{
                     national:  national,
                     producer:  producer,
                     description:  description,
-                    imageUrl:  imageUrl,
+                    imageUrl:  image,
                     typeFilm:  typeFilm
                 },
                 validationErrors: error.array()
@@ -565,11 +558,11 @@ exports.postEditMovie = async( req,res,next ) =>{
         }
 
         try {
-
+            const imageUrl = image.path;
             const newMovie =await new Movie( {
                 id: movieId,
                 name: name,
-                imageUrl:imageUrl.path,
+                imageUrl:imageUrl,
                 director: director,
                 character: character,
                 national: national,
@@ -579,7 +572,18 @@ exports.postEditMovie = async( req,res,next ) =>{
                 userId: req.user
             } )
 
-            await Movie.updateOne( { _id: movieId } ,req.body );
+            await Movie.updateOne( { _id: movieId } , {
+                id: movieId,
+                name: name,
+                imageUrl:imageUrl,
+                director: director,
+                character: character,
+                national: national,
+                producer: producer,
+                description: description,
+                typeFilm: typeFilm,
+                userId: req.user
+            });
 
             res.redirect( '/admin/get-all-movie' );
             console.log( 'EDIT MOVIE SUCCESS !' );
@@ -734,7 +738,6 @@ exports.postEditEpisode = async( req,res,next ) =>{
         const listEpisode = movieDetail.listEpisode;
 
         const error = validationResult( req );
-        console.log( listEpisode[0] );
 
         const episodeDetail = listEpisode.filter( ( valude,index ) =>{
             return {

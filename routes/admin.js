@@ -73,7 +73,7 @@ router.put( '/edit-movie',
             .trim(),
         check( 'description','This description must me 5+ characters long' )
             .exists()
-            .isLength( {min:5,max:500} )
+            .isLength( {min:5} )
             .trim(),
         check( 'director','This director must me 5+ characters long'  )
             .exists()
@@ -90,11 +90,6 @@ router.put( '/edit-movie',
             .isLength( {min:5} )
             .trim(),
         check( 'producer','This producer must me 5+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:5} )
-            .trim(),
-        check( 'typeFilm','This typefilm must me 5+ characters long'  )
             .exists()
             .isString()
             .isLength( {min:5} )
@@ -110,10 +105,6 @@ router.post( '/add-movie',
             .exists()
             .isLength( {min:5} )
             .trim(),
-        check( 'description','This description must me 5+ characters long' )
-            .exists()
-            .isLength( {min:5,max:500} )
-            .trim(),
         check( 'director','This director must me 5+ characters long'  )
             .exists()
             .isString().isLength( {min:5} )
@@ -129,11 +120,6 @@ router.post( '/add-movie',
             .isLength( {min:5} )
             .trim(),
         check( 'producer','This producer must me 5+ characters long'  )
-            .exists()
-            .isString()
-            .isLength( {min:5} )
-            .trim(),
-        check( 'typeFilm','This typefilm must me 5+ characters long'  )
             .exists()
             .isString()
             .isLength( {min:5} )

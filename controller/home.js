@@ -47,7 +47,6 @@ exports.getMovieDetail = async( req,res) =>{
             .limit( 6 );
 
         const movieDetail = await Movie.findOne( { name: req.params.name } );
-        
         const listComment = movieDetail.listComment.sort( ( a,b ) =>{
             return b.location - a.location;
         } )
@@ -80,37 +79,27 @@ exports.getMovieDetail = async( req,res) =>{
 
 exports.getWatchMovie = async ( req, res) => {
     try {
-        const episode = req.query.episode;
+        const movieDetail = await Movie.findOne( { name: req.params.name } );
         const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
             .limit( 18 )
-        const movieDetail = await Movie.findOne( { name: req.params.name } );
-
-        
-        const listEpisode = movieDetail.listEpisode.sort((a,b) =>{
+                   
+        const listEpisodeitem =await movieDetail.listEpisode.sort( ( a,b ) =>{
             return a.episode - b.episode;
-        })
-
-        console.log(listEpisode);
-        const listComment = movieDetail.listComment.sort( ( a,b ) =>{
+            } )
+        const listComment =await movieDetail.listComment.sort( ( a,b ) =>{
             return b.location - a.location;
             } )
 
         const movieEpisodeDetail = movieDetail.listEpisode.filter(value =>{
-                return value.episode.toString()===episode.toString()
+                return value.episode.toString()===req.query.episode.toString()
         });
-
-        console.log(movieEpisodeDetail);
-        
-        if ( movieDetail === null ) {
-                movieDetail = 'Undified';
-            }
         res.render( 'home/VideoMovie/index.ejs', {
             movie: movieDetail,
             movieEpisodeDetail: movieEpisodeDetail,
             listPhimChieuRap: listPhimChieuRap,
             user: req.user._id,
             listcomment: listComment,
-            listEpisode: listEpisode
+            listEpisode: listEpisodeitem
         } )
 
     } catch ( error ) {
@@ -125,7 +114,7 @@ exports.getCategory = async( req, res) =>{
         const getCategory = req.params.category
         const listMove = await Movie.find()
 
-        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim Sắp Chiếu' } )
         .limit( 6 );
 
         listMovieCategory = listMove.filter((movie) =>{
@@ -152,7 +141,7 @@ exports.searchMovie = async(req,res)=>{
                     value.typeFilm.toUpperCase().includes(keywordSearch.toUpperCase()))
         })
 
-        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim Sắp Chiếu' } )
         .limit( 6 );
 
         res.render('home/HomePage/index.ejs',{
