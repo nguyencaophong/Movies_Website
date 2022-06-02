@@ -1,5 +1,11 @@
 /* PC: width >= 1024px */
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1025px) {
+
+    .nav__bar-btns,
+    .nav__overlay {
+        display: none;
+    }
+
     .container .container-detail-body .row {
         max-height: 415px;
         overflow: hidden;
@@ -16,10 +22,26 @@
     .container-detail-body-img-detail {
         width: 100% !important;
     }
+
+    .container-detail-header {
+        margin-right: 0;
+    }
 }
 
 /* Mobile: width < 740px */
 @media only screen and (max-width: 739px) {
+
+    .nav__bar-btns {
+        display: block;
+    }
+
+    .main-header__nav {
+        display: none;
+    }
+
+    .main-header__logo {
+        display: none;
+    }
 
     /* HOME */
 
@@ -29,7 +51,6 @@
     .main-header-nav-list {
         display: none !important;
     }
-
 
     .container-header-slider-list {
         overflow: hidden;
@@ -77,6 +98,10 @@
     }
 
     /* MOVIE DETAIL */
+    .container-detail-header {
+        margin-right: 0;
+    }
+
     .col-md-9.container-body-movie-detail {
         background-color: #302e2e;
         margin: 16px 0 0;
@@ -142,7 +167,15 @@
 }
 
 /* Tablet: width >= 740px and width < 1024px */
-@media only screen and (min-width: 740px) and (max-width: 1023px) {
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+
+    .nav__bar-btns {
+        display: block;
+    }
+
+    .main-header__nav {
+        display: none;
+    }
 
     /* HOME */
     .container.container-body .container-home-list .container .row {
@@ -182,7 +215,9 @@
 
     .container-detail-header {
         min-width: 720px !important;
-        margin-left: -7px
+        margin-right: 0;
+        margin-left: 0;
+        padding-right: 0;
     }
 
     .container .container-detail-body {
