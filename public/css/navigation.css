@@ -1,107 +1,100 @@
-
-.container-header-navigation{
+.container-header-navigation {
     height: 80px;
-    background-color:#263238;
+    background-color: #263238;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
     z-index: 100;
-    
+
 }
 
-.container-navigarion-flush{
+.container-navigarion-flush {
     width: 100%;
     height: 80px;
     background-color: #263238;
 }
 
-.main-header__logo{
-}
+.main-header__logo {}
 
-.main-header__logo-img{
+.main-header__logo-img {
     width: 100px;
     max-height: 60px;
     box-sizing: border-box;
 
 }
 
-.main-header__nav{
+.main-header__nav {}
 
-}
-
-.main-header__nav-list{
+.main-header__nav-list {
     display: flex;
     align-items: center;
     margin-right: 100px;
 
 }
 
-.main-header__nav-item{
+.main-header__nav-item {
     margin-left: 24px;
     font-size: 14px;
 }
 
-.main-header__nav-item a:hover{
+.main-header__nav-item a:hover {
     color: rgb(84, 102, 118);
 }
 
 
-.main-header__nav-link{
+.main-header__nav-link {
     color: aliceblue;
 
 }
 
 
 
-.main-header__serach{
+.main-header__serach {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.main-header__auth{
+.main-header__auth {
     list-style-type: none;
 
 }
 
-.main-header__auth-item{
+.main-header__auth-item {}
 
-}
-
-.main-header__login-link{
+.main-header__login-link {
     padding: 12px 16px;
     background-color: #b71c1c;
     border-radius: 4px;
     color: aliceblue;
 }
 
-.main-header__login-link-x{
-    
-}
+.main-header__login-link-x {}
 
-.main-header__login-link:hover{
+.main-header__login-link:hover {
     color: aliceblue;
     background-color: #485f69;
 }
 
 
 /*start notify the loai */
-@keyframes headerNotifyGrowth{
+@keyframes headerNotifyGrowth {
     from {
         transform: scale(0);
     }
-    to{
+
+    to {
         transform: scale(1);
     }
 }
 
-.main-header__nav-item-title{
+.main-header__nav-item-title {
     position: relative;
-    
+
 }
 
-.header_notify_theloai{
+.header_notify_theloai {
     border-top: 3px solid #ffc107;
     position: absolute;
     width: 600px;
@@ -113,12 +106,12 @@
     display: none;
 }
 
-.main-header__nav-item-title:hover .header_notify_theloai{
+.main-header__nav-item-title:hover .header_notify_theloai {
     display: block;
 
 }
 
-.header_notify_theloai::before{
+.header_notify_theloai::before {
     content: "";
     border-style: solid;
     border-width: 20px 27px;
@@ -140,14 +133,14 @@
     cursor: pointer;
 } */
 
-.header_notify_theloai-list{
+.header_notify_theloai-list {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.header_notify_theloai-item{
+.header_notify_theloai-item {
     padding: 12px 20px;
     /* background-color: #22333a; */
     color: #22333a;
@@ -159,12 +152,12 @@
 
 /* start notify when after login */
 
-.main-header__auth-login{
+.main-header__auth-login {
     position: relative;
 
 }
 
-.main-header__auth-login-notify{
+.main-header__auth-login-notify {
     position: absolute;
     right: 0;
     top: 40px;
@@ -175,11 +168,11 @@
     animation: headerNotifyGrowth ease 0.3s;
 }
 
-.main-header__auth-login:hover .main-header__auth-login-notify{
+.main-header__auth-login:hover .main-header__auth-login-notify {
     display: block;
 }
 
-.main-header__auth-login-notify::before{
+.main-header__auth-login-notify::before {
     content: "";
     border-style: solid;
     border-width: 20px 20px;
@@ -190,11 +183,11 @@
 
 }
 
-.main-header__auth-login-notify::after{
+.main-header__auth-login-notify::after {
     content: "";
     display: block;
     position: absolute;
-    right:  0;
+    right: 0;
     top: -18px;
     width: 90px;
     height: 30px;
@@ -204,32 +197,31 @@
 
 
 
-.main-header__auth-login-list{
+.main-header__auth-login-list {
     list-style-type: none;
     padding: 0;
 }
 
-.main-header__auth-login-item{
+.main-header__auth-login-item {
     display: flex;
     padding: 12px 12px;
 }
 
-.main-header__auth-login-item:hover{
+.main-header__auth-login-item:hover {
     opacity: 0.5;
 }
 
-.main-header__auth-login-item:hover{
+.main-header__auth-login-item:hover {
     color: #ffc107;
 
 }
 
-.main-header__auth-login-item i
-{
+.main-header__auth-login-item i {
     font-size: 14px;
     color: rgb(191, 182, 182);
 }
 
-.main-header__auth-login-item span{
+.main-header__auth-login-item span {
     margin-left: 4px;
     font-size: 12px;
     font-weight: 500;
@@ -238,3 +230,83 @@
 
 
 /* end notify */
+
+/* NAV FOR TABLET & MOBILE */
+
+.nav__bar-btns {
+    font-size: 48px;
+    margin-left: 8px;
+    color: #fff;
+}
+
+.nav__overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    animation: fadeIn linear 0.2s;
+}
+
+.nav__mobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 100%;
+    background-color: #fff;
+    transform: translateX(140%);
+    opacity: 0;
+    transition: transform linear 0.3s, opacity linear 0.2s;
+}
+
+.nav__mobile-list {
+    margin-top: 24px;
+    list-style-type: none;
+}
+
+.nav__mobile-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+
+.nav__mobile-close {
+    font-size: 32px;
+    color: #666;
+    position: absolute;
+    /* top: 1rem; */
+    right: 1rem;
+}
+
+.nav__input {
+    display: none;
+}
+
+.nav__input:checked~.nav__overlay {
+    display: block;
+
+
+}
+
+.nav__input:checked~.nav__mobile {
+    transform: translateX(0);
+    opacity: 1;
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
