@@ -6,8 +6,8 @@
     height: auto;
     background-color: #1a2023;
     margin-top: 16px;
-    margin-right: 8px;
-    min-width: 270px;
+    /* margin-right: 8px;
+    min-width: 270px; */
 }
 
 .container-home-sidebar .caption {

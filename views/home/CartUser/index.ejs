@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <%- include('../../includes/navigation.ejs') %>s
+    <%- include('../../includes/navigation.ejs') %>
       <div class="container container-body">
         <div class="row">
           <% if (modeEditUser==0) { %>
@@ -23,7 +23,7 @@
                 <span class="container-home-nametitle">Giỏ Yêu Thích</span>
               </div>
               <div class="container">
-                <div class="row">
+                <div class="row container-cart-user-detail-tablet">
                   <% for (let i=0; i < listMovie.length; i++) { %>
                     <%- include('./CartItem/cartitem.ejs',{name: listMovie[i].movieId.name, imageUrl:
                       listMovie[i].movieId.imageUrl,movie: listMovie[i]}) %>
@@ -33,7 +33,7 @@
             </div>
           </div>
           <% } else if(modeEditUser==1) { %>
-            <div class="col-md-9">
+            <div class="col-md-9 container-cart-user-detail">
               <div class="content-myaccount-detail">
                 <img class="content-myaccount-img" src="/images/logo_user.png" alt="">
                 <!-- Table infor my account user -->
@@ -59,10 +59,6 @@
                         Car Like:</th>
                       <td><%= user.cart.items.length %></td>
                     </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -82,7 +78,7 @@
               <%- include('../SideBar/index.ejs',{listPhimSapChieu:listPhimSapChieu}) %>
             </div>
             <% } else { %>
-              <div class="col-md-9">
+              <div class="col-md-9 container-cart-user-detail">
                 <div class="toast-message-box">
                   <% if(errorMeassage) { %>
                   <div id="toast-message" class="toast-message">
