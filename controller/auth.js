@@ -1,22 +1,22 @@
 const path = require( 'path' )
 const crypto = require( 'crypto' )
 const bcrypt = require( 'bcryptjs' );
+const User = require( '../models/user' );
 const nodemailer = require( 'nodemailer' );
 const sendgridTransport = require( 'nodemailer-sendgrid-transport' )
 const { validationResult } = require( 'express-validator' );
 const flash = require( 'express-flash' );
-const User = require( '../models/user' );
 const Movie = require( '../models/movie' );
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-// const transporter = nodemailer.createTransport(
-//     sendgridTransport( {
-//         auth: {
-//             api_key: process.env.API_KEY_SENDGRID
-//         }
-//     } )
-// )
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const transporter = nodemailer.createTransport(
+    sendgridTransport( {
+        auth: {
+            api_key: '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'
+        }
+    } )
+)
 
 exports.getLogin = async( req,res ) =>{
     let message = flash( 'error' );
@@ -214,7 +214,7 @@ exports.postReset = async( req,res ) =>{
 
         const msg = {
             to: req.body.email, // Change to your recipient
-            from: process.env.EMAIL_SENDGRID, // Change to your verified sender
+            // from: 'phongnguyenw@gmail.com', // Change to your verified sender
             subject: 'Password reset',
             text: 'and easy to do anywhere, even with Node.js',
             html: `
@@ -224,23 +224,30 @@ exports.postReset = async( req,res ) =>{
         }
         // await transporter.sendMail( {
         //     to: req.body.email,
-        //     from: process.env.EMAIL_SENDGRID,
+        //     from: 'phongnguyenw@gmail.com',
         //     subject: 'Password reset',
         //     html: `
         //         <p>You requested a password reset</p>
         //         <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
         //       `
         // } )
-        sgMail
-            .send(msg)
-            .then(() => {
-                console.log('Email sent')
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-        console.log( 'Send email success!' )
+        let sentEmail = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'n19dcat016@student.ptithcm.edu.vn',
+                pass: 'n19dcat016#081100'
+            }
+        });
 
+        sentEmail.sendMail(msg,
+            (err, data) => {
+                if (err) {
+                    console.log('error');
+                }
+                else {
+                    console.log('success');
+                }
+            })
         res.redirect( '/' )
     } catch ( error ) {
         console.log( error )

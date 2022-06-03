@@ -138,7 +138,7 @@ exports.searchMovie = async(req,res)=>{
         const listMovie = await Movie.find();
         const listMovieDetail = listMovie.filter(value =>{
             return (value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || 
-                    value.typeFilm.toUpperCase().includes(keywordSearch.toUpperCase()))
+                    value.typeFilm.replace(/-/g,'').toUpperCase().includes(keywordSearch.replace(/\s/g, '').toUpperCase()))
         })
 
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
