@@ -133,10 +133,27 @@
     width: 100%;
 }
 
+.container-body-edit-comment-item-link{
+    margin-top: 12px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
 .episode-item{
     position: relative;
     margin: 12px 8px;
     padding: 8px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid #999;
+    text-align: center;
+}
+
+.comment-item{
+    position: relative;
+    margin: 20px 12px 32px 12px;
+    
+    padding: 12px;
     background-color: white;
     border-radius: 4px;
     border: 2px solid #999;
@@ -169,6 +186,12 @@
 }
 
 .episode-item span{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(17, 23, 27);
+}
+
+.comment-item span{
     font-size: 14px;
     font-weight: 600;
     color: rgb(17, 23, 27);

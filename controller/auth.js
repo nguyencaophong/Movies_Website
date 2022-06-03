@@ -164,7 +164,8 @@ exports.getReset = async( req,res ) =>{
             errorMeassage: null,
             oldInput:{
                 email: ''
-            }
+            },
+            type:'none'
         } )
     } catch ( error ) {
         console.log( error )
@@ -230,7 +231,7 @@ exports.postReset = async( req,res ) =>{
                             console.log('error');
                         }
                         else {
-                            console.log('success');
+                            console.log('Send email success!!!');
                             res.status(422).render('auth/reset',{
                                 email: email,
                                 errorMeassage: `Send Email success. Please check email to change password...`,

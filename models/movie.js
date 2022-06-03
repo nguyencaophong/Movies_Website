@@ -148,4 +148,15 @@ movieSchema.methods.deleteEpisode = function(episode){
     
 }
 
+movieSchema.methods.deleteComment = function(locationComment){
+    const updateComment = [...this.listComment];
+    const hasRemoveComment = updateComment.filter(value =>{
+        return value.location.toString()!==locationComment.toString();
+    })
+
+    this.listComment= hasRemoveComment;
+    this.save();
+    
+}
+
 module.exports = mongoose.model( 'Movie',movieSchema );

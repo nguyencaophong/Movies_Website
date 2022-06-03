@@ -787,3 +787,42 @@ exports.postDeleteEpisode = async(req,res,next) =>{
         console.log(error);
     }
 }
+
+
+// CRUD COMMENT OF MOVIE
+exports.getAllComment = async(req,res,next) =>{
+    try {
+        const movieId = req.params.id;
+        const movieDetail = await Movie.findById(movieId);
+        const listComment = movieDetail.listComment.sort((a,b)=>{
+            a.location - b.location
+        })
+        res.render('admin/EditMovieHome/ChatOnlineHome/index.ejs',{
+            pageTitle:'EDIT COMMENT',
+            listComment : movieDetail.listComment,
+            movie: movieDetail
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.postDeleteComment = async(req,res,next) =>{
+    try {
+        const locationComment = req.query.comment;
+        const movieId = req.params.id;
+        const movieDetail = await Movie.findById(movieId);
+
+        if(!movieDetail){
+            res.send('Can not found');
+
+        }
+        else{
+            await movieDetail.deleteComment(locationComment);
+            console.log(`DELETE COMMENT OF LOCATION ${locationComment} SUCCESS!!!`);
+        }
+        res.redirect(`/admin/${movieId}/get-all-comment?edit=true`);
+    } catch (error) {
+        console.log(error);
+    }
+}

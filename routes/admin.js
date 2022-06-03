@@ -132,6 +132,8 @@ router.post( '/delete-movie',adminController.deleteMovie );
 
 router.post( '/search-movie',adminController.searchMovie );
 
+
+// CRUD EPISODE O MOVIE
 router.get( '/:id/get-all-episode',adminController.editEpisode );
 
 router.get( '/:id/add-episode',adminController.getAddEpisode );
@@ -160,4 +162,8 @@ router.post( '/:idmovie/edit-episode',[
 ]
 ,adminController.postEditEpisode );
 
+
+// CRUD COMMENT OF MOVIE
+router.get('/:id/get-all-comment',adminController.getAllComment);
+router.post('/:id/delete-comment',adminController.postDeleteComment);
 module.exports = router;
