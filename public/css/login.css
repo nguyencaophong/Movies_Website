@@ -34,3 +34,17 @@
         width: 280px;
         border-color: #2ecc71;
       }
+
+
+      .with-120{
+        width: 120px;
+      }
+      .form-label{
+        font-size: 12px;
+      }
+
+      .font-size-12{
+        font-size: 12px;
+        text-decoration: double;
+        border-bottom: 1px solid olive;
+      }

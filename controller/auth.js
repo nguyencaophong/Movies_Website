@@ -7,14 +7,16 @@ const { validationResult } = require( 'express-validator' );
 const flash = require( 'express-flash' );
 const User = require( '../models/user' );
 const Movie = require( '../models/movie' );
+const sgMail = require('@sendgrid/mail');
 
-const transporter = nodemailer.createTransport(
-    sendgridTransport( {
-        auth: {
-            api_key: ''
-        }
-    } )
-)
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+// const transporter = nodemailer.createTransport(
+//     sendgridTransport( {
+//         auth: {
+//             api_key: process.env.API_KEY_SENDGRID
+//         }
+//     } )
+// )
 
 exports.getLogin = async( req,res ) =>{
     let message = flash( 'error' );
@@ -159,7 +161,10 @@ exports.getReset = async( req,res ) =>{
         res.render( 'auth/reset', {
             path: '/reset',
             pageTitle: 'Reset Password',
-            errorMeassage: null
+            errorMeassage: null,
+            oldInput:{
+                email: ''
+            }
         } )
     } catch ( error ) {
         console.log( error )
@@ -169,6 +174,7 @@ exports.getReset = async( req,res ) =>{
 
 exports.postReset = async( req,res ) =>{
     let token = ''
+    const email = req.body.email;
     const hashResetToken = crypto.randomBytes( 32, ( err, buffer ) => {
         if ( err ) {
             console.log( err ,'check error' )
@@ -177,28 +183,62 @@ exports.postReset = async( req,res ) =>{
         token = buffer.toString( 'hex' )
     } )
 
+    const error = validationResult( req );
+    if(!error.isEmpty()){
+        res.status(422).render('auth/reset',{
+            email: email,
+            errorMeassage: error.array()[0].msg,
+            oldInput:{
+                email: email
+            }
+        })
+    }
+
     try {
         const userDetail = await User.findOne( { email: req.body.email } )
 
         if ( !userDetail ) {
-            req.flash( 'error', 'No account with that email found.' )
-            res.redirect( '/auth/reset' )
+            res.status(422).render('auth/reset',{
+                email: email,
+                errorMeassage: `Can't find email detail !!!`,
+                oldInput:{
+                    email: email
+                }
+            })
         }
+       
+        userDetail.resetToken = token;
+        userDetail.resetTokenExpiration = Date.now() + 3600000;
+        
+        await userDetail.save();
 
-        userDetail.resetToken = token
-        userDetail.resetTokenExpiration = Date.now() + 3600000
-
-        await userDetail.save()
-
-        await transporter.sendMail( {
-            to: req.body.email,
-            from: process.env.EMAIL_SENDGRID,
+        const msg = {
+            to: req.body.email, // Change to your recipient
+            from: process.env.EMAIL_SENDGRID, // Change to your verified sender
             subject: 'Password reset',
+            text: 'and easy to do anywhere, even with Node.js',
             html: `
-                <p>You requested a password reset</p>
-                <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
-              `
-        } )
+            <p>You requested a password reset</p>
+            <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
+            `,
+        }
+        // await transporter.sendMail( {
+        //     to: req.body.email,
+        //     from: process.env.EMAIL_SENDGRID,
+        //     subject: 'Password reset',
+        //     html: `
+        //         <p>You requested a password reset</p>
+        //         <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
+        //       `
+        // } )
+        sgMail
+            .send(msg)
+            .then(() => {
+                console.log('Email sent')
+            })
+            .catch((error) => {
+                console.error(error)
+            })
         console.log( 'Send email success!' )
 
         res.redirect( '/' )
