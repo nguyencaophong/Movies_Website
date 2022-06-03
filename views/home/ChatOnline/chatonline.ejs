@@ -5,7 +5,7 @@
             <input type='text' id="comment" name="comment">
             <button class="btn-comment"> Send </button>
             <input type="hidden" name="movieId" id="movieId" value="<%= movie._id %>">
-            <input type="hidden" name="userId" id="userId" value="<%= user._id %>">
+            <input type="hidden" name="emailUser" id="emailUser" value="<%= user.email %>">
             <input id="hidden-csrf" type="hidden" name="_csrf" value="<%= csrfToken %>">
         </form>
         <ul id='list-comment' style="list-style-type: none; overflow-y: scroll; height: 350px;">

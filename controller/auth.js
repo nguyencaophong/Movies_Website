@@ -173,106 +173,103 @@ exports.getReset = async( req,res ) =>{
 }
 
 exports.postReset = async( req,res ) =>{
-    let token = ''
     const email = req.body.email;
-    const hashResetToken = crypto.randomBytes( 32, ( err, buffer ) => {
-        if ( err ) {
-            console.log( err ,'check error' )
-            res.redirect( '/auth/reset' )
-        }
-        token = buffer.toString( 'hex' )
-    } )
-
     const error = validationResult( req );
     if(!error.isEmpty()){
-        res.status(422).render('auth/reset',{
-            email: email,
+        return res.status(422).render('auth/reset',{
             errorMeassage: error.array()[0].msg,
+            type:'error',
             oldInput:{
                 email: email
             }
         })
     }
 
-    try {
-        const userDetail = await User.findOne( { email: req.body.email } )
-
-        if ( !userDetail ) {
-            res.status(422).render('auth/reset',{
-                email: email,
-                errorMeassage: `Can't find email detail !!!`,
-                oldInput:{
-                    email: email
-                }
-            })
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/reset');
         }
-       
-        userDetail.resetToken = token;
-        userDetail.resetTokenExpiration = Date.now() + 3600000;
+        const token = buffer.toString('hex');
+        User.findOne({ email: req.body.email })
+            .then((user) => {
+                if (!user) {
+                    return res.status(422).render('auth/reset',{
+                        errorMeassage: `Can't find email detail !!!`,
+                        type:'error',
+                        oldInput:{
+                            email: email
+                        }
+                    })
+                }
+                user.resetToken = token;
+                user.resetTokenExpiration = Date.now() + 3600000;
+                return user.save();
+            })
+            .then((result) => {
+                const msg = {
+                    to: email, 
+                    subject: 'Password reset',
+                    text: 'and easy to do anywhere, even with Node.js',
+                    html: `
+                    <p>You requested a password reset</p>
+                    <p>Click this <a href="http://localhost:8000/auth/new-password/${result.resetToken}">link</a> to set a new password.</p>
+                    `,
+                }
+                let sentEmail = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'n19dcat016@student.ptithcm.edu.vn',
+                        pass: 'n19dcat016#081100'
+                    }
+                });
         
-        await userDetail.save();
-
-        const msg = {
-            to: req.body.email, // Change to your recipient
-            // from: 'phongnguyenw@gmail.com', // Change to your verified sender
-            subject: 'Password reset',
-            text: 'and easy to do anywhere, even with Node.js',
-            html: `
-            <p>You requested a password reset</p>
-            <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
-            `,
-        }
-        // await transporter.sendMail( {
-        //     to: req.body.email,
-        //     from: 'phongnguyenw@gmail.com',
-        //     subject: 'Password reset',
-        //     html: `
-        //         <p>You requested a password reset</p>
-        //         <p>Click this <a href="http://localhost:8000/auth/new-password/${token}">link</a> to set a new password.</p>
-        //       `
-        // } )
-        let sentEmail = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'n19dcat016@student.ptithcm.edu.vn',
-                pass: 'n19dcat016#081100'
-            }
-        });
-
-        sentEmail.sendMail(msg,
-            (err, data) => {
-                if (err) {
-                    console.log('error');
-                }
-                else {
-                    console.log('success');
-                }
+                sentEmail.sendMail(msg,
+                    (err, data) => {
+                        if (err) {
+                            console.log('error');
+                        }
+                        else {
+                            console.log('success');
+                            res.status(422).render('auth/reset',{
+                                email: email,
+                                errorMeassage: `Send Email success. Please check email to change password...`,
+                                type:'success',
+                                oldInput:{
+                                    email: email
+                                }
+                            })
+                        }
+                    })
             })
-        res.redirect( '/' )
-    } catch ( error ) {
-        console.log( error )
-    }
+            .catch((err) => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            });
+    });
+
 }
 
 exports.getNewPassword = async ( req, res, next ) => {
     const token = req.params.token
-    let message = flash( 'error' )
-
+    console.log(token);
     try {
         const userDetail = await User.findOne( {
             resetToken: token,
             resetTokenExpiration: { $gt: Date.now() }
         } )
-
-        if ( message.length > 0 ) {
-            message = message[0]
-        } else {
-            message = null
+        if(!userDetail){
+            return res.send('Permission denied!!!')
         }
-        res.render( 'auth/new-password', {
+        res.render( 'auth/newpassword', {
             path: '/new-password',
             pageTitle: 'New Password',
-            errorMeassage: message,
+            errorMeassage: null,
+            oldInput:{
+                currentpassword: '',
+                confirmPassword: ''
+            },
             userId: userDetail._id.toString(),
             passwordToken: token
         } )
@@ -283,10 +280,22 @@ exports.getNewPassword = async ( req, res, next ) => {
 
 exports.postNewPassword = async ( req, res, next ) => {
     const newPassword = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
     const userId = req.body.userId;
     const passwordToken = req.body.passwordToken;
 
-    let resetUser;
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(422).render(`auth/newpassword`,{
+            oldInput:{
+                password: newPassword,
+                confirmPassword: confirmPassword
+            },
+            errorMeassage: errors.array()[0].msg,
+            userId: userId,
+            passwordToken: passwordToken
+        })
+    }
 
     try {
         const userDetail = await User.findOne( {
@@ -295,7 +304,6 @@ exports.postNewPassword = async ( req, res, next ) => {
             _id: userId
         } )
 
-        resetUser = userDetail
         const hashedPassword = await bcrypt.hash( newPassword, 12 )
 
         userDetail.password = hashedPassword

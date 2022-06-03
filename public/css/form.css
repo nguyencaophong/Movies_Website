@@ -4,15 +4,22 @@
     border: 1px solid #4771fa;
     padding: 0.5rem;
     border-radius: 3px;
-    background: #b9c9ff;
+    /* background: #b9c9ff; */
     text-align: center;
   }
   
   .user-message--error {
-    border-color: red;
-    background: rgb(255, 176, 176);
     color: red;
+    font-size: 16px;
+    border: none;
   }
+
+  .user-message--success{
+    color: rgb(76, 204, 40);
+    font-size: 16px;
+    border: none;
+  }
+
 .product-form{
     width: 100%;
     display: column;

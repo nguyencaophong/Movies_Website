@@ -1,7 +1,7 @@
 
     const socket = io();
     const chatForm = document.getElementById('form-comment');
-    const userId = document.getElementById('userId').value;
+    const emailUser = document.getElementById('emailUser').value;
     const chatComment = document.getElementById('comment');
     const room = document.getElementById('movieId').value;
 
@@ -9,7 +9,7 @@
     chatForm.addEventListener('submit',(e)=>{
         e.preventDefault();
         const comment = chatComment.value;
-            socket.emit('comment', room,userId, {
+            socket.emit('comment', room,emailUser, {
             comment: comment,
         });
         chatComment.value = '';

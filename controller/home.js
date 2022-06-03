@@ -53,6 +53,8 @@ exports.getMovieDetail = async( req,res) =>{
         const listEpisode = movieDetail.listEpisode.sort((a,b) =>{
             return a.episode - b.episode;
         })
+
+        const userDetail = await User.findById(req.user._id);
         
         if ( movieDetail === null ) {
             movieDetail = 'Undified';
@@ -66,7 +68,7 @@ exports.getMovieDetail = async( req,res) =>{
             listPhimChieuRap: listPhimChieuRap,
             movie: movieDetail,
             listPhimSapChieu: listPhimSapChieu,
-            user: req.user._id,
+            user: userDetail,
             listcomment: listComment,
             modeWatching: modeWatching,
             listEpisode:listEpisode

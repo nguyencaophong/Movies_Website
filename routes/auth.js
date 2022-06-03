@@ -86,7 +86,27 @@ route.post( '/reset',
 
 route.get( '/new-password/:token',authController.getNewPassword );
 
-route.post( '/new-password',authController.postNewPassword );
+route.post( '/new-password',
+[
+    check( 'password','This password must me 5+ characters long' )
+        .exists()
+        .isLength( {min:5} )
+        .trim(),
+    check( 'confirmPassword','This confirmPassword must me 5+ characters long' )
+        .exists()
+        .isLength( {min:5} )
+        .trim(),
+    check( 'confirmPassword' )
+        .trim()
+        .custom( ( value, { req } ) => {
+            if ( value !== req.body.password ) {
+                throw new Error( 'Passwords have to match!' );
+            }
+            return true;
+        } )
+        
+]
+,authController.postNewPassword );
 
 route.get( '/logout',authController.logOut );
 

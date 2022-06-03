@@ -128,14 +128,17 @@ mongoose
                             }
                         );
                         socket.on('comment',
-                            (room,userId, data) => 
+                            (room,emailUser, data) => 
                             // tra lai cho client đã tham gia vào romom
                             {
-                                
+                                // console.log(emailUser);
                                 Movie.findById(room)
                                     .then(movie =>{
                                         const comment = data.comment
-                                        const nameUser = userId.substr(1, 4);
+                                        var nameUser = emailUser.substr(0,emailUser.indexOf('@'));
+                                        if(nameUser.length > 8){
+                                            nameUser = nameUser.substr(0,11);
+                                        }
                                         movie.addComment(nameUser,comment);
                                         io.to(room).emit('user-comment', {
                                             name: nameUser,
