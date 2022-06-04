@@ -1,6 +1,6 @@
                // Exec form Delete 
                 const btndeletemovieId = document.getElementById('deletemovieId')
-                const deleteForm = document.forms['delete-form-comment']
+                const deleteForm = document.forms['delete-form-episode']
                 let movieId;
                 let Episode;
                 document.addEventListener('DOMContentLoaded' , () =>{

@@ -166,4 +166,5 @@ router.post( '/:idmovie/edit-episode',[
 // CRUD COMMENT OF MOVIE
 router.get('/:id/get-all-comment',adminController.getAllComment);
 router.post('/:id/delete-comment',adminController.postDeleteComment);
+
 module.exports = router;

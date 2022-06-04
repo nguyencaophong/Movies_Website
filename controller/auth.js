@@ -13,7 +13,7 @@ const sgMail = require('@sendgrid/mail');
 const transporter = nodemailer.createTransport(
     sendgridTransport( {
         auth: {
-            api_key: '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'
+            api_key: process.env.SENDGRID_API_KEY
         }
     } )
 )
@@ -220,8 +220,8 @@ exports.postReset = async( req,res ) =>{
                 let sentEmail = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'n19dcat016@student.ptithcm.edu.vn',
-                        pass: 'n19dcat016#081100'
+                        user: process.env.EMAIL_SEND,
+                        pass: process.env.PASS_EMAIL_SEND
                     }
                 });
         

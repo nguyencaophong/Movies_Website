@@ -798,7 +798,7 @@ exports.getAllComment = async(req,res,next) =>{
             a.location - b.location
         })
         res.render('admin/EditMovieHome/ChatOnlineHome/index.ejs',{
-            pageTitle:'EDIT COMMENT',
+            pageTitle:`EDIT COMMENT OF ${movieDetail.name}`,
             listComment : movieDetail.listComment,
             movie: movieDetail
         })
