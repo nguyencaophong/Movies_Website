@@ -17,8 +17,8 @@ const Movie = require('./models/movie');
 const is_auth =require('./middleware/is-auth');
 
 dotenv.config();
-const PORT = 8000
-const MONGOGDB_URL = 'mongodb+srv://lifegoeson:8OtbiUtOixeFOXbh@@cluster0.tvipf.mongodb.net/Movies_Website';
+const PORT = process.env.PORT || 8000;
+const MONGOGDB_URL = 'mongodb+srv://lifegoeson:uDfS9EAzeVKslhnf@cluster0.tvipf.mongodb.net/Movies_Website';
 
 
 const app = express();
