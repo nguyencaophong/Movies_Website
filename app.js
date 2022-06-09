@@ -7,7 +7,7 @@ const flash = require( 'connect-flash' );
 const cookieParser = require( 'cookie-parser' );
 const multer = require( 'multer' );
 const csrf = require( 'csurf' );
-const dotenv = require( 'dotenv' );
+const dotenv = require("dotenv");
 const route = require( './routes/index' );
 const bodyParser = require( 'body-parser' );
 const methodOverride = require( 'method-override' )
@@ -16,8 +16,9 @@ const User = require( './models/user' );
 const Movie = require('./models/movie');
 const is_auth =require('./middleware/is-auth');
 
+dotenv.config();
 const PORT = 8000
-const MONGOGDB_URL = 'mongodb://localhost:27017/Movies_Website';
+const MONGOGDB_URL = 'mongodb+srv://lifegoeson:8OtbiUtOixeFOXbh@@cluster0.tvipf.mongodb.net/Movies_Website';
 
 
 const app = express();
@@ -28,7 +29,6 @@ const store = new MongoDBStore( {
 
 app.use( methodOverride( '_method' ) );
 const csrfProtection = csrf();
-dotenv.config();
 
 
 // upload file img and convert path to static in project
