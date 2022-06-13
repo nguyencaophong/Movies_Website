@@ -1,13 +1,21 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    'rules': {
+        'eqeqeq': 'off',
+        'curly': 'error',
+        'quotes': ['error', 'single'],
+        'comma-dangle': ['error', 'never'],
+        'indent': ['error', 4],
+        'no-multiple-empty-lines': 'error',
+        'semi-style': ['error', 'last'],
+        'space-in-parens': ['error', 'always'],
+        'space-before-blocks':['error', 'always']
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+    'parserOptions': {
+        'ecmaVersion': 2021
     },
-    "rules": {
+    
+    // nơi cấu hình code chúng ta sẽ chạy. môi trường khác nhau biến toàn cục khác nhau.
+    'env': {
+        'es6': true
     }
 }

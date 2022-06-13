@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema( {
     email: {
-    type: String,
+        type: String,
         required: true
     },
     password:{
@@ -22,7 +22,7 @@ const userSchema = new Schema( {
                     type:Schema.Types.ObjectId,
                     ref:'Movie',
                     required: true
-                },
+                }
             }
         ]
     }
@@ -31,14 +31,14 @@ const userSchema = new Schema( {
 userSchema.methods.addToCart = function ( movie ) {
     const updateCartItems = [...this.cart.items]
     
-    const listIdFromCart = updateCartItems.map(value =>{
+    const listIdFromCart = updateCartItems.map( value =>{
         return value.movieId.toString()
-    })
+    } )
 
-    const checkNewMovie_inCart = listIdFromCart.includes(movie._id.toString())   
-    if(!checkNewMovie_inCart){
+    const checkNewMovie_inCart = listIdFromCart.includes( movie._id.toString() )   
+    if( !checkNewMovie_inCart ) {
         updateCartItems.push( {
-            movieId: movie._id,
+            movieId: movie._id
         } )
         const updateCart = {
             items:updateCartItems

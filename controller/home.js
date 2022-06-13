@@ -1,12 +1,12 @@
 const path = require( 'path' );
 
 const Movie = require( '../models/movie' );
-const User = require('../models/user');
-const { move } = require('../routes/home');
+const User = require( '../models/user' );
+const { move } = require( '../routes/home' );
 
 const ITEMS_PER_CONTAINER_LIST = 5;
 
-exports.getIndex = async ( req, res) => {
+exports.getIndex = async ( req, res ) => {
     const page = req.query.page || 1;
 
     try {
@@ -37,7 +37,7 @@ exports.getIndex = async ( req, res) => {
     }
 }
 
-exports.getMovieDetail = async( req,res) =>{
+exports.getMovieDetail = async( req,res ) =>{
     try {
 
         const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
@@ -50,28 +50,28 @@ exports.getMovieDetail = async( req,res) =>{
         const listComment = movieDetail.listComment.sort( ( a,b ) =>{
             return b.location - a.location;
         } )
-        const listEpisode = movieDetail.listEpisode.sort((a,b) =>{
+        const listEpisode = movieDetail.listEpisode.sort( ( a,b ) =>{
             return a.episode - b.episode;
-        })
+        } )
 
-        const userDetail = await User.findById(req.user._id);
+        const userDetail = await User.findById( req.user._id );
         
         if ( movieDetail === null ) {
             movieDetail = 'Undified';
         }
 
-        if(movieDetail.listEpisode.length===0){
+        if( movieDetail.listEpisode.length===0 ) {
             var modeWatching=false;
         }
 
         res.render( 'home/MovieDetail/index.ejs', {
-            listPhimChieuRap: listPhimChieuRap,
             movie: movieDetail,
             listPhimSapChieu: listPhimSapChieu,
+            modeWatching: modeWatching,
             user: userDetail,
             listcomment: listComment,
-            modeWatching: modeWatching,
-            listEpisode:listEpisode
+            listEpisode:listEpisode,
+            listPhimChieuRap: listPhimChieuRap
             
         } )
     } catch ( error ) {
@@ -79,29 +79,40 @@ exports.getMovieDetail = async( req,res) =>{
     }
 }
 
-exports.getWatchMovie = async ( req, res) => {
+exports.getWatchMovie = async ( req, res ) => {
     try {
+        const episodeFilm = req.query.episode;
+        
+        
         const movieDetail = await Movie.findOne( { name: req.params.name } );
         const listPhimChieuRap = await Movie.find( { typeFilm: 'Phim-Chiếu-Rạp' } )
             .limit( 18 )
-                   
-        const listEpisodeitem =await movieDetail.listEpisode.sort( ( a,b ) =>{
+        
+        const listEpisode =await movieDetail.listEpisode.sort( ( a,b ) =>{
             return a.episode - b.episode;
-            } )
+        } )
         const listComment =await movieDetail.listComment.sort( ( a,b ) =>{
             return b.location - a.location;
-            } )
+        } )
+        
+        const userDetail = await User.findById( req.user._id );
 
-        const movieEpisodeDetail = movieDetail.listEpisode.filter(value =>{
-                return value.episode.toString()===req.query.episode.toString()
-        });
+        // Check query (episode is Number)?
+        if( isNaN( episodeFilm ) ) {
+            return res.redirect( `${movieDetail.name}?episode=1` )
+        }
+        
+        const movieEpisodeDetail = movieDetail.listEpisode.filter( value =>{
+            return value.episode.toString()===req.query.episode.toString()
+        } );
+
         res.render( 'home/VideoMovie/index.ejs', {
             movie: movieDetail,
             movieEpisodeDetail: movieEpisodeDetail,
-            listPhimChieuRap: listPhimChieuRap,
-            user: req.user._id,
+            user: userDetail,
             listcomment: listComment,
-            listEpisode: listEpisodeitem
+            listEpisode: listEpisode,
+            listPhimChieuRap: listPhimChieuRap
         } )
 
     } catch ( error ) {
@@ -110,68 +121,25 @@ exports.getWatchMovie = async ( req, res) => {
 }
 
 
-
-exports.getCategory = async( req, res) =>{
-    try {
-        const getCategory = req.params.category
-        const listMove = await Movie.find()
-
-        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
-        .limit( 6 );
-
-        listMovieCategory = listMove.filter((movie) =>{
-            return (movie.typeFilm == getCategory || movie.national == getCategory)
-        })        
-        
-        res.render('home/HomePage/index.ejs',{
-            listCategory : listMovieCategory,
-            listPhimSapChieu:listPhimSapChieu,
-            nameCategory: getCategory,
-            modeCategory: true
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-exports.searchMovie = async(req,res)=>{
+exports.searchMovie = async( req,res )=>{
     try {
         const keywordSearch = req.body.Search
         const listMovie = await Movie.find();
-        const listMovieDetail = listMovie.filter(value =>{
-            return (value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || 
-                    value.typeFilm.replace(/-/g,'').toUpperCase().includes(keywordSearch.replace(/\s/g, '').toUpperCase()))
-        })
+        const listMovieDetail = listMovie.filter( value =>{
+            return ( value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || 
+                    value.typeFilm.replace( /-/g,'' ).toUpperCase().includes( keywordSearch.replace( /\s/g, '' ).toUpperCase() ) )
+        } )
 
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
-        .limit( 6 );
+            .limit( 6 );
 
-        res.render('home/HomePage/index.ejs',{
+        res.render( 'home/HomePage/index.ejs',{
             listCategory : listMovieDetail,
             listPhimSapChieu:listPhimSapChieu,
             nameCategory: keywordSearch,
             modeCategory: true
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-// CHAT ONLINE
-
-exports.postChatOnline = async(req,res,next) =>{
-    try {
-        const movieId = req.body.movieId;
-        const userId = req.user._id
-        const comment = req.body.comment;
-
-        const movieDetail = await Movie.findById(movieId);
-        const userDetail = await User.findById(userId);
-
-
-        await movieDetail.addComment(userDetail.email[0],comment);
-        res.redirect(`/film/${movieDetail.name}`);
-    } catch (error) {
-        console.log(error);
+        } )
+    } catch ( error ) {
+        console.log( error );
     }
 }

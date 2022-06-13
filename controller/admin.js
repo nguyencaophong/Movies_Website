@@ -9,9 +9,9 @@ const User = require( '../models/user' )
 // USER
 exports.getIndex = async( req,res ) =>{
     try {
-        const listUser = await ( await User.find() ).length;
+        const listUser = ( await User.find() ).length;
         
-        const listMovie = await ( await Movie.find() ).length;
+        const listMovie = ( await Movie.find() ).length;
         
         const listCart = await User.find();
         
@@ -291,7 +291,7 @@ exports.searchMovie = async( req,res ) =>{
         const keywordSearch = req.body.keywordSearch;
         const listMovie = await Movie.find();
         const listNameDetail = listMovie.filter( value =>{
-            return (value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || value.typeFilm.toUpperCase().includes( keywordSearch.toUpperCase() ))
+            return ( value.name.toUpperCase().includes( keywordSearch.toUpperCase() ) || value.typeFilm.toUpperCase().includes( keywordSearch.toUpperCase() ) )
         } )
         res.render( 'admin/AdminHome/index.ejs',{
             path:'/admin/search-movie',
@@ -329,6 +329,7 @@ exports.postAddMovies =async ( req,res ) =>{
 
     const name = req.body.name;
     const images = req.file;
+    console.log( images );
     const description = req.body.description;
     const character = req.body.character;
     const director = req.body.director;
@@ -337,35 +338,35 @@ exports.postAddMovies =async ( req,res ) =>{
     const typeFilm = req.body.typeFilm;
     
     const typeFilmArray = ['Phim-Bộ',
-    'Phim Thuyết Minh',
-    'Phim Sắp Chiếu',
-    'Hoạt Hình',
-    'Phim Lẻ',
-    'Cổ Trang-Thần Thoại',
-    'Khoa Học-Viễn Tưởng',
-    'Thể Thao-Âm Nhạc',
-    'Bí Ẩn-Siêu Nhân',
-    'Võ Thuật-Kiếm Kiệp',
-    'Hình Sự-Chiến Tranh',
-    'Thuyết Minh',
-    'Phiêu Lưu-Hành Động',
-    'Tài Liệu-Hành Động',
-    'Gia Đình-Học Đường',
-    'Việt Nam',
-    'Trung Quốc',
-    'Âu Mỹ',
-    'Đài Loan',
-    'Hàn Quốc',
-    'Nhật Bản',
-    'Thái Lan',
-    'Ấn Độ',
-    'Hồng Kong',
-    'Canada',
-    'Phim Mới',
-    'Phim Lẻ',
-    'Phim Bộ',
-    'TV Show',
-    'Phim Chiếu Rạp']
+        'Phim Thuyết Minh',
+        'Phim Sắp Chiếu',
+        'Hoạt Hình',
+        'Phim Lẻ',
+        'Cổ Trang-Thần Thoại',
+        'Khoa Học-Viễn Tưởng',
+        'Thể Thao-Âm Nhạc',
+        'Bí Ẩn-Siêu Nhân',
+        'Võ Thuật-Kiếm Kiệp',
+        'Hình Sự-Chiến Tranh',
+        'Thuyết Minh',
+        'Phiêu Lưu-Hành Động',
+        'Tài Liệu-Hành Động',
+        'Gia Đình-Học Đường',
+        'Việt Nam',
+        'Trung Quốc',
+        'Âu Mỹ',
+        'Đài Loan',
+        'Hàn Quốc',
+        'Nhật Bản',
+        'Thái Lan',
+        'Ấn Độ',
+        'Hồng Kong',
+        'Canada',
+        'Phim Mới',
+        'Phim Lẻ',
+        'Phim Bộ',
+        'TV Show',
+        'Phim Chiếu Rạp']
                             
     const checkTypeFilm = typeFilmArray.includes( typeFilm );
     const errors = validationResult( req )
@@ -583,7 +584,7 @@ exports.postEditMovie = async( req,res,next ) =>{
                 description: description,
                 typeFilm: typeFilm,
                 userId: req.user
-            });
+            } );
 
             res.redirect( '/admin/get-all-movie' );
             console.log( 'EDIT MOVIE SUCCESS !' );
@@ -774,55 +775,55 @@ exports.postEditEpisode = async( req,res,next ) =>{
     }
 }
 
-exports.postDeleteEpisode = async(req,res,next) =>{
+exports.postDeleteEpisode = async( req,res,next ) =>{
     try {
         const paramEpisode = req.query.episode;
         const movieId = req.params.id;
         
-        const movieDetail = await Movie.findById(movieId);
-        await movieDetail.deleteEpisode(paramEpisode);
-        res.redirect(`/admin/${movieId}/get-all-episode?edit=true`)
-        console.log(`DELETE EPISODE OF ${movieDetail.name} SUCCESS !!!`);
-    } catch (error) {
-        console.log(error);
+        const movieDetail = await Movie.findById( movieId );
+        await movieDetail.deleteEpisode( paramEpisode );
+        res.redirect( `/admin/${movieId}/get-all-episode?edit=true` )
+        console.log( `DELETE EPISODE OF ${movieDetail.name} SUCCESS !!!` );
+    } catch ( error ) {
+        console.log( error );
     }
 }
 
 
 // CRUD COMMENT OF MOVIE
-exports.getAllComment = async(req,res,next) =>{
+exports.getAllComment = async( req,res,next ) =>{
     try {
         const movieId = req.params.id;
-        const movieDetail = await Movie.findById(movieId);
-        const listComment = movieDetail.listComment.sort((a,b)=>{
+        const movieDetail = await Movie.findById( movieId );
+        const listComment = movieDetail.listComment.sort( ( a,b )=>{
             a.location - b.location
-        })
-        res.render('admin/EditMovieHome/ChatOnlineHome/index.ejs',{
+        } )
+        res.render( 'admin/EditMovieHome/ChatOnlineHome/index.ejs',{
             pageTitle:`EDIT COMMENT OF ${movieDetail.name}`,
             listComment : movieDetail.listComment,
             movie: movieDetail
-        })
-    } catch (error) {
-        console.log(error);
+        } )
+    } catch ( error ) {
+        console.log( error );
     }
 }
 
-exports.postDeleteComment = async(req,res,next) =>{
+exports.postDeleteComment = async( req,res,next ) =>{
     try {
         const locationComment = req.query.comment;
         const movieId = req.params.id;
-        const movieDetail = await Movie.findById(movieId);
+        const movieDetail = await Movie.findById( movieId );
 
-        if(!movieDetail){
-            res.send('Can not found');
+        if( !movieDetail ) {
+            res.send( 'Can not found' );
 
         }
         else{
-            await movieDetail.deleteComment(locationComment);
-            console.log(`DELETE COMMENT OF LOCATION ${locationComment} SUCCESS!!!`);
+            await movieDetail.deleteComment( locationComment );
+            console.log( `DELETE COMMENT OF LOCATION ${locationComment} SUCCESS!!!` );
         }
-        res.redirect(`/admin/${movieId}/get-all-comment?edit=true`);
-    } catch (error) {
-        console.log(error);
+        res.redirect( `/admin/${movieId}/get-all-comment?edit=true` );
+    } catch ( error ) {
+        console.log( error );
     }
 }

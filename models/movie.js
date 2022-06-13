@@ -114,7 +114,7 @@ movieSchema.methods.editEpisode = function ( episode, movieUrl,episodeId ) {
     return this.save()
 }
 
-movieSchema.methods.addComment = function(name,comment){
+movieSchema.methods.addComment = function( name,comment ) {
     const updateComment = [...this.listComment];
     let locationComment = -Infinity;
     if( updateComment.length === 0 ) {
@@ -128,31 +128,31 @@ movieSchema.methods.addComment = function(name,comment){
         } 
     }
 
-    updateComment.push({
+    updateComment.push( {
         name: name,
         content: comment,
         location: locationComment +1
-    })
+    } )
     this.listComment = updateComment;
     this.save();
 }
 
-movieSchema.methods.deleteEpisode = function(episode){
+movieSchema.methods.deleteEpisode = function( episode ) {
     const updateEpisode = [...this.listEpisode];
-    const hasRemoveEpisode = updateEpisode.filter(value =>{
+    const hasRemoveEpisode = updateEpisode.filter( value =>{
         return value.episode.toString()!==episode.toString();
-    })
+    } )
 
     this.listEpisode= hasRemoveEpisode;
     this.save();
     
 }
 
-movieSchema.methods.deleteComment = function(locationComment){
+movieSchema.methods.deleteComment = function( locationComment ) {
     const updateComment = [...this.listComment];
-    const hasRemoveComment = updateComment.filter(value =>{
+    const hasRemoveComment = updateComment.filter( value =>{
         return value.location.toString()!==locationComment.toString();
-    })
+    } )
 
     this.listComment= hasRemoveComment;
     this.save();

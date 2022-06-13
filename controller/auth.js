@@ -7,7 +7,7 @@ const sendgridTransport = require( 'nodemailer-sendgrid-transport' )
 const { validationResult } = require( 'express-validator' );
 const flash = require( 'express-flash' );
 const Movie = require( '../models/movie' );
-const sgMail = require('@sendgrid/mail');
+const sgMail = require( '@sendgrid/mail' );
 
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const transporter = nodemailer.createTransport(
@@ -176,38 +176,38 @@ exports.getReset = async( req,res ) =>{
 exports.postReset = async( req,res ) =>{
     const email = req.body.email;
     const error = validationResult( req );
-    if(!error.isEmpty()){
-        return res.status(422).render('auth/reset',{
+    if( !error.isEmpty() ) {
+        return res.status( 422 ).render( 'auth/reset',{
             errorMeassage: error.array()[0].msg,
             type:'error',
             oldInput:{
                 email: email
             }
-        })
+        } )
     }
 
-    crypto.randomBytes(32, (err, buffer) => {
-        if (err) {
-            console.log(err);
-            return res.redirect('/reset');
+    crypto.randomBytes( 32, ( err, buffer ) => {
+        if ( err ) {
+            console.log( err );
+            return res.redirect( '/reset' );
         }
-        const token = buffer.toString('hex');
-        User.findOne({ email: req.body.email })
-            .then((user) => {
-                if (!user) {
-                    return res.status(422).render('auth/reset',{
-                        errorMeassage: `Can't find email detail !!!`,
+        const token = buffer.toString( 'hex' );
+        User.findOne( { email: req.body.email } )
+            .then( ( user ) => {
+                if ( !user ) {
+                    return res.status( 422 ).render( 'auth/reset',{
+                        errorMeassage: 'Can\'t find email detail !!!',
                         type:'error',
                         oldInput:{
                             email: email
                         }
-                    })
+                    } )
                 }
                 user.resetToken = token;
                 user.resetTokenExpiration = Date.now() + 3600000;
                 return user.save();
-            })
-            .then((result) => {
+            } )
+            .then( ( result ) => {
                 const msg = {
                     to: email, 
                     subject: 'Password reset',
@@ -215,53 +215,53 @@ exports.postReset = async( req,res ) =>{
                     html: `
                     <p>You requested a password reset</p>
                     <p>Click this <a href="http://localhost:8000/auth/new-password/${result.resetToken}">link</a> to set a new password.</p>
-                    `,
+                    `
                 }
-                let sentEmail = nodemailer.createTransport({
+                let sentEmail = nodemailer.createTransport( {
                     service: 'gmail',
                     auth: {
                         user: process.env.EMAIL_SEND,
                         pass: process.env.PASS_EMAIL_SEND
                     }
-                });
+                } );
         
-                sentEmail.sendMail(msg,
-                    (err, data) => {
-                        if (err) {
-                            console.log('error');
+                sentEmail.sendMail( msg,
+                    ( err, data ) => {
+                        if ( err ) {
+                            console.log( 'error' );
                         }
                         else {
-                            console.log('Send email success!!!');
-                            res.status(422).render('auth/reset',{
+                            console.log( 'Send email success!!!' );
+                            res.status( 422 ).render( 'auth/reset',{
                                 email: email,
-                                errorMeassage: `Send Email success. Please check email to change password...`,
+                                errorMeassage: 'Send Email success. Please check email to change password...',
                                 type:'success',
                                 oldInput:{
                                     email: email
                                 }
-                            })
+                            } )
                         }
-                    })
-            })
-            .catch((err) => {
-                const error = new Error(err);
+                    } )
+            } )
+            .catch( ( err ) => {
+                const error = new Error( err );
                 error.httpStatusCode = 500;
-                return next(error);
-            });
-    });
+                return next( error );
+            } );
+    } );
 
 }
 
 exports.getNewPassword = async ( req, res, next ) => {
     const token = req.params.token
-    console.log(token);
+    console.log( token );
     try {
         const userDetail = await User.findOne( {
             resetToken: token,
             resetTokenExpiration: { $gt: Date.now() }
         } )
-        if(!userDetail){
-            return res.send('Permission denied!!!')
+        if( !userDetail ) {
+            return res.send( 'Permission denied!!!' )
         }
         res.render( 'auth/newpassword', {
             path: '/new-password',
@@ -285,9 +285,9 @@ exports.postNewPassword = async ( req, res, next ) => {
     const userId = req.body.userId;
     const passwordToken = req.body.passwordToken;
 
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(422).render(`auth/newpassword`,{
+    const errors = validationResult( req );
+    if( !errors.isEmpty() ) {
+        return res.status( 422 ).render( 'auth/newpassword',{
             oldInput:{
                 password: newPassword,
                 confirmPassword: confirmPassword
@@ -295,7 +295,7 @@ exports.postNewPassword = async ( req, res, next ) => {
             errorMeassage: errors.array()[0].msg,
             userId: userId,
             passwordToken: passwordToken
-        })
+        } )
     }
 
     try {
@@ -375,30 +375,30 @@ exports.postDeleteMovieCart = async( req,res,next ) =>{
 }
 
 // INFRO ACCOUNT USER
-exports.getInforUser = async(req,res,next) =>{
+exports.getInforUser = async( req,res,next ) =>{
     try {
         const emailUser = req.user.email
-        const userDetail = await User.findOne({email: emailUser});
+        const userDetail = await User.findOne( {email: emailUser} );
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
-        .limit( 6 );
+            .limit( 6 );
 
-        res.render('home/CartUser/index.ejs',{
+        res.render( 'home/CartUser/index.ejs',{
             pageTitle:'My ACCOUNT',
             user: userDetail,
             listPhimSapChieu: listPhimSapChieu,
-            modeEditUser: 1,
-        })
-    } catch (error) {
-        console.log(error);
+            modeEditUser: 1
+        } )
+    } catch ( error ) {
+        console.log( error );
     }
 }
 
-exports.getChangeMyAccount = async(req,res,next) =>{
+exports.getChangeMyAccount = async( req,res,next ) =>{
     try {
         const userId = req.user._id
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
-        .limit( 6 );
-        const userDetail = await User.findById(userId)
+            .limit( 6 );
+        const userDetail = await User.findById( userId )
         
         let message = flash( 'error' );
         if( message.length >0 ) {
@@ -408,7 +408,7 @@ exports.getChangeMyAccount = async(req,res,next) =>{
             message = null
         }
 
-        res.render('home/CartUser/index.ejs',{
+        res.render( 'home/CartUser/index.ejs',{
             pageTitle:'CHANGE MY ACCOUNT',
             user: userDetail,
             oldInput:{
@@ -419,43 +419,43 @@ exports.getChangeMyAccount = async(req,res,next) =>{
             listPhimSapChieu: listPhimSapChieu,
             modeEditUser: 2,
             errorMeassage:message,
-            validationErrors:[],
-        })
-    } catch (error) {
-        console.log(error);
+            validationErrors:[]
+        } )
+    } catch ( error ) {
+        console.log( error );
     }
 }
 
-exports.putChangeMyAccount = async(req,res,next) =>{
+exports.putChangeMyAccount = async( req,res,next ) =>{
     try {
         const currentPassword = req.body.currentpassword;
         const newPassword = req.body.newpassword;
         const userId = req.user._id;
         const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
-        .limit( 6 );
-        const userDetail = await User.findById(userId);
-        const checkCurrentPassword =await bcrypt.compare(currentPassword,req.user.password)
+            .limit( 6 );
+        const userDetail = await User.findById( userId );
+        const checkCurrentPassword =await bcrypt.compare( currentPassword,req.user.password )
 
-        const errors = validationResult(req);
+        const errors = validationResult( req );
 
-        if(!errors.isEmpty()){
-            res.status(422).render('home/CartUser/index.ejs',{
-                    pageTitle:'CHANGE MY ACCOUNT',
-                    oldInput:{
-                        currentpassword:req.body.currentpassword,
-                        newpassword:req.body.newpassword
-                    },
-                    user: userDetail,
-                    listPhimSapChieu: listPhimSapChieu,
-                    modeEditUser: 2,
-                    errorMeassage: errors.array()[0].msg,
-                    type: 'error',
-                    validationErrors: errors.array()
-                })
+        if( !errors.isEmpty() ) {
+            res.status( 422 ).render( 'home/CartUser/index.ejs',{
+                pageTitle:'CHANGE MY ACCOUNT',
+                oldInput:{
+                    currentpassword:req.body.currentpassword,
+                    newpassword:req.body.newpassword
+                },
+                user: userDetail,
+                listPhimSapChieu: listPhimSapChieu,
+                modeEditUser: 2,
+                errorMeassage: errors.array()[0].msg,
+                type: 'error',
+                validationErrors: errors.array()
+            } )
         }
 
-        else if(!checkCurrentPassword){
-            res.status(422).render('home/CartUser/index.ejs',{
+        else if( !checkCurrentPassword ) {
+            res.status( 422 ).render( 'home/CartUser/index.ejs',{
                 pageTitle:'CHANGE MY ACCOUNT',
                 oldInput:{
                     currentpassword:req.body.currentpassword,
@@ -467,33 +467,33 @@ exports.putChangeMyAccount = async(req,res,next) =>{
                 errorMeassage: 'Mật khẩu hiện tại không khớp !!!',
                 type: 'error',
                 validationErrors: []
-            })
+            } )
         }
         else{
             try {
-            const bcryptPassword =await bcrypt.hash(newPassword,12)
-            await User.updateOne({_id:userId},{email:userDetail.email,password: bcryptPassword})
+                const bcryptPassword =await bcrypt.hash( newPassword,12 )
+                await User.updateOne( {_id:userId},{email:userDetail.email,password: bcryptPassword} )
 
-            console.log(`Update infor of User ${userDetail.email} success!!!`);
-            res.status(200).render('home/CartUser/index.ejs',{
-                pageTitle:'CHANGE MY ACCOUNT',
-                oldInput:{
-                    currentpassword:'',
-                    newpassword:''
-                },
-                user: userDetail,
-                listPhimSapChieu: listPhimSapChieu,
-                modeEditUser: 2,
-                errorMeassage: 'Thay đổi thông tin thành công !!!',
-                type: 'success',
-                validationErrors: []
-            })
-        } catch (error) {
-            console.log(error);
+                console.log( `Update infor of User ${userDetail.email} success!!!` );
+                res.status( 200 ).render( 'home/CartUser/index.ejs',{
+                    pageTitle:'CHANGE MY ACCOUNT',
+                    oldInput:{
+                        currentpassword:'',
+                        newpassword:''
+                    },
+                    user: userDetail,
+                    listPhimSapChieu: listPhimSapChieu,
+                    modeEditUser: 2,
+                    errorMeassage: 'Thay đổi thông tin thành công !!!',
+                    type: 'success',
+                    validationErrors: []
+                } )
+            } catch ( error ) {
+                console.log( error );
+            }
         }
-    }
-    } catch (error) {
-        console.log(error);
+    } catch ( error ) {
+        console.log( error );
     }
 }
 
