@@ -13,6 +13,7 @@
     .box input[type = "email"],
     .box input[type = "password"],
     .box input[type = "confirmpassword"]
+
     {
         border:0;
         background: none;

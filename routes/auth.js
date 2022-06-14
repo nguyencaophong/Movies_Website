@@ -61,7 +61,19 @@ route.post( '/register',
                     throw new Error( 'Passwords have to match!' );
                 }
                 return true;
-            } )
+            } ),
+        check(
+            'role',
+            'Please enter a role with (admin or user)' )
+            .isAlphanumeric()
+            // .custom( ( value ) => {
+            //     if ( value.toString() !== 'admin' ||value.toString() !=='user' ) {
+            //         throw new Error( 'Please enter a role with (admin or user)' );
+            //     }
+            //     return true;
+            // } )
+            .trim()
+        
     ]
     ,authController.postRegister );
 

@@ -121,7 +121,8 @@ exports.getRegister = async( req,res ) =>{
 exports.postRegister = async ( req,res ) =>{
     const email = req.body.email
     const password = req.body.password
-
+    const roleArray = ['admin','user'];
+    const role = req.body.role;
     const errors = validationResult( req )
     if ( !errors.isEmpty() ) {
         return res.status( 422 ).render( 'auth/register', {
@@ -138,12 +139,27 @@ exports.postRegister = async ( req,res ) =>{
         } )
     }
 
+    if ( !( roleArray.includes( role ) ) ) {
+        return res.status( 422 ).render( 'auth/register', {
+            path: '/auth/register',
+            pageTitle: 'Signup',
+            errorMeassage: 'Please enter a role with (admin or user)',
+            oldInput: {
+                email: email,
+                password: password,
+                confirmPassword: req.body.confirmPassword,
+                roleUser: req.body.roleUser
+            },
+            validationErrors: errors.array()
+        } )
+    }
+
     try {
         const bcryptPassword = await bcrypt.hash( password, 12 )
         const user = new User( {
             email: email,
             password: bcryptPassword,
-            role: 'user',
+            role: role,
             cart: { items: [] }
         } )
 

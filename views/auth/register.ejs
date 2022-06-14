@@ -54,7 +54,16 @@
                       class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %> form-control form-control-lg" 
                       placeholder="Enter your confirmPassword" />
                     </div>
-      
+                    
+                    <div class="form-outline form-white mb-4">
+                      <label class="form-label" for="roleUser">Role</label>
+                      <input 
+                      type="role" 
+                      id="role" 
+                      name="role"
+                      placeholder="Role of (admin or user)" />
+                    </div>
+                    
                     <p class="small mb-5 pb-lg-2"><a class="text-white-50 font-size-12" href="/auth/reset">Forgot password?</a></p>
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button class="btn btn-primary with-120" type="submit">Register</button>
