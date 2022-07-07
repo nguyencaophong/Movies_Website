@@ -143,3 +143,26 @@ exports.searchMovie = async( req,res )=>{
         console.log( error );
     }
 }
+
+
+exports.getCategory = async( req,res )=>{
+    try {
+        const getCategory = req.params.category;
+        const listMovie =await Movie.find();
+        const listMovieDetail = await listMovie.filter( value =>{
+            return ( value.typeFilm === getCategory )||( value.national.replace( ' ','-' )===getCategory );
+            
+        } )
+        const listPhimSapChieu = await Movie.find( { typeFilm: 'Phim-Sắp-Chiếu' } )
+            .limit( 6 );
+        
+        res.render( 'home/HomePage/index.ejs',{
+            listCategory : listMovieDetail,
+            listPhimSapChieu:listPhimSapChieu,
+            nameCategory: getCategory,
+            modeCategory: true
+        } )
+    } catch ( error ) {
+        console.log( error );
+    }
+}

@@ -5,6 +5,8 @@ const is_auth = require( '../middleware/is-auth' );
 
 const router = express.Router();
 
+router.get( '/category/:category',homeController.getCategory );
+
 router.get( '/watching/:name',is_auth,homeController.getWatchMovie )
 
 router.get( '/film/:name',is_auth,homeController.getMovieDetail )
